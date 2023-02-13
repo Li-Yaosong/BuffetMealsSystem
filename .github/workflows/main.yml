@@ -1,0 +1,51 @@
+name: CICD
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+        
+  Install-QT:
+  
+    name: Build by windows Qt5.15.2
+    runs-on: windows-latest
+   
+    steps:
+      - name: Clone Code
+        uses: actions/checkout@v3
+      - run: mkdir build
+        
+      - name: install Qt5.15.2
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '5.15.2'
+          host: 'windows'
+          target: 'desktop'
+          arch: 'win64_msvc2019_64'
+          dir: '${{ github.workspace }}/example/'
+          install-deps: 'true'
+          modules: 'qtcharts qtwebengine'
+          archives: 'qtbase qtsvg'
+          cache: 'false'
+          cache-key-prefix: 'install-qt-action'
+          setup-python: 'true'
+          tools: 'tools_ifw tools_qtcreator,qt.tools.qtcreator'
+          set-env: 'true'
+          tools-only: 'false'
+          aqtversion: '==2.1.*'
+          py7zrversion: '==0.19.*'
+          extra: '--external 7z'
+
+      - name: Install Visual Studio 
+        uses: seanmiddleditch/gha-setup-vsdevenv@v4
+        
+      - name: qmake project
+        run: |
+          cd build
+          ${{ github.workspace }}\example\Qt\5.15.2\msvc2019_64\bin\qmake.exe ${{ github.workspace }}\TCPC.pro -spec win32-msvc "CONFIG+=release" "CONFIG+=qtquickcompiler" && ${{ github.workspace }}\example\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
+      - name: make project
+        run: |
+          cd build
+          ${{ github.workspace }}\example\Qt\Tools\QtCreator\bin\jom\jom.exe -f Makefile
