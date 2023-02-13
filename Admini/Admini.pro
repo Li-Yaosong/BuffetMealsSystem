@@ -9,31 +9,36 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    clientapp.cpp \
-    clientinterface.cpp \
+    adddishesdialog.cpp \
+    administratorinterface.cpp \
     connectservice.cpp \
-    login.cpp \
+    dishwidget.cpp \
+    imagedialog.cpp \
+    imagewidget.cpp \
     main.cpp \
-    client.cpp \
+    admini.cpp \
     orderlist.cpp
 
 HEADERS += \
-    client.h \
-    clientapp.h \
-    clientinterface.h \
+    adddishesdialog.h \
+    admini.h \
+    administratorinterface.h \
     connectservice.h \
-    login.h \
+    dishwidget.h \
+    imagedialog.h \
+    imagewidget.h \
     orderlist.h
 
 FORMS += \
-    client.ui \
-    clientapp.ui \
-    clientinterface.ui \
-    login.ui \
+    adddishesdialog.ui \
+    admini.ui \
+    administratorinterface.ui \
+    dishwidget.ui \
+    imagedialog.ui \
+    imagewidget.ui \
     orderlist.ui
 
 REPC_REPLICA = $$PWD/../service.rep
-
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

@@ -1,16 +1,13 @@
 #include "service.h"
-#include "ui_service.h"
 #include "QSqlDatabase"
 #include "QDebug"
 #include <QFileDialog>
 #include <QSqlQuery>
 #include <QString>
 #include <QSqlError>
-Widget::Widget(QWidget *parent)
-    : QWidget(parent)
-    , ui(new Ui::Widget)
+Service::Service(QObject *parent)
+    : ServiceSimpleSource(parent)
 {
-    ui->setupUi(this);
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("127.0.0.1");  //连接本地主机
     db.setPort(3306);
@@ -22,28 +19,40 @@ Widget::Widget(QWidget *parent)
     showImage();
 }
 
-Widget::~Widget()
+Service::~Service()
 {
-    delete ui;
+
 }
 
-void Widget::addDishes()
+void Service::addDishes(const QMap<QString, QByteArray> &map)
 {
     QSqlQuery query;
-    QString imagePath = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Images (*.jpg)"));
-    QByteArray data;
-    QFile* file=new QFile(imagePath); //file为二进制数据文件名
-    file->open(QIODevice::ReadOnly);
-    data = file->readAll();
-    file->close();
-    qDebug()<<data;
-    QVariant var(data);
+//    QString imagePath = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Images (*.jpg)"));
+//    QByteArray data;
+//    QFile* file=new QFile(imagePath); //file为二进制数据文件名
+//    file->open(QIODevice::ReadOnly);
+//    data = file->readAll();
+//    file->close();
     query.prepare("insert into menu(name,number,price,image,storage) values(:name,:number,:price,:image,:storage)");
-    query.bindValue(":name","test");
-    query.bindValue(":number",0);
-    query.bindValue(":price",10);
-    query.bindValue(":image",data);
-    query.bindValue(":storage","yes");
+//    qDebug()<<data;
+//    QVariant var(data);
+    QStringList keyList = map.keys();
+    for(QString key : keyList)
+    {
+        if(key == "number")
+        {
+            query.bindValue(":" + key,map.value(key).toInt());
+        }
+        else if(key == "price")
+        {
+            query.bindValue(":" + key, map.value(key).toDouble());
+        }
+        else
+        {
+            query.bindValue(":" + key, QString(map.value(key)));
+        }
+    }
+
     if(!query.exec())
         {
             qDebug() << "insert error";
@@ -52,10 +61,38 @@ void Widget::addDishes()
         else
         {
             qDebug() << "insert ok";
-    }
+        }
 }
 
-void Widget::showImage()
+QByteArray Service::getAllDishes()
+{
+        QMap<int, QMap<QString, QVariant>> Allmap;
+        QSqlQuery query;
+        QString select = "select * from menu";
+        query.exec(select);
+
+        while( query.next() )
+        {
+            QMap<QString, QVariant> map;
+            map.insert("name", query.value(0));
+            map.insert("number", query.value(1));
+            map.insert("price", query.value(2).toDouble());
+            map.insert("image", query.value(3).toByteArray());
+            map.insert("storage", query.value(4).toByteArray());
+            //        qDebug()<<data;
+            //        QPixmap photo;
+            //        photo.loadFromData(data, "JPG"); //从数据库中读出图片为二进制数据，图片格式为JPG，然后显示到QLabel里
+            //        ui->label->setPixmap(photo);
+            //        ui->label->setScaledContents(true);
+            Allmap.insert(query.value(1).toInt(),map);
+        }
+        QByteArray byte;
+        QDataStream Data(&byte,QIODevice::WriteOnly);
+        Data << Allmap;
+        return byte;
+}
+
+QByteArray Service::showImage()
 {
     QSqlQuery query;
     QString select = "select * from menu";
@@ -64,10 +101,12 @@ void Widget::showImage()
     if( query.next() )
     {
         QByteArray data = query.value(3).toByteArray();
-        qDebug()<<data;
-        QPixmap photo;
-        photo.loadFromData(data, "JPG"); //从数据库中读出图片为二进制数据，图片格式为JPG，然后显示到QLabel里
-        ui->label->setPixmap(photo);
-        ui->label->setScaledContents(true);
+            return data;
+//        qDebug()<<data;
+//        QPixmap photo;
+//        photo.loadFromData(data, "JPG"); //从数据库中读出图片为二进制数据，图片格式为JPG，然后显示到QLabel里
+//        ui->label->setPixmap(photo);
+//        ui->label->setScaledContents(true);
     }
+    return QByteArray();
 }

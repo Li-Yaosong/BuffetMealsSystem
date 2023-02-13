@@ -1,0 +1,10 @@
+#include <QtCore>
+
+class Service
+{
+    SLOT(void addDishes(const QMap<QString, QByteArray> &map))
+
+    SLOT(QByteArray getAllDishes())
+
+    SLOT(QByteArray showImage())
+};

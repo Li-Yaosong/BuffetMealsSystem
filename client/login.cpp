@@ -1,6 +1,7 @@
 #include "login.h"
 #include "ui_login.h"
-
+#include <QPixmap>
+#include "connectservice.h"
 Login::Login(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Login)
@@ -9,9 +10,14 @@ Login::Login(QWidget *parent) :
     ui->setupUi(this);
     this->hide();
     m_clientApp = new ClientApp;
-    m_clientApp->show();
-    connect(m_clientApp,SIGNAL(adminiLogin_clicked()),SLOT(showAdminiLogin()));
-    connect(m_clientApp,SIGNAL(customersLogin_clicked()),SLOT(showCustomersLogin()));
+    ConnectService *service = new ConnectService;
+    QPixmap photo;
+    photo.loadFromData(service->getData(), "JPG"); //从数据库中读出图片为二进制数据，图片格式为JPG，然后显示到QLabel里
+    ui->label->setPixmap(photo);
+    ui->label->setScaledContents(true);
+//    m_clientApp->show();
+//    connect(m_clientApp,SIGNAL(adminiLogin_clicked()),SLOT(showAdminiLogin()));
+//    connect(m_clientApp,SIGNAL(customersLogin_clicked()),SLOT(showCustomersLogin()));
 //    ui->tabWidget->removeTab(1);
 }
 
