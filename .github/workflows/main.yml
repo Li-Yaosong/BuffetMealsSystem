@@ -44,7 +44,7 @@ jobs:
       - name: qmake project
         run: |
           cd build
-          ${{ github.workspace }}\example\Qt\5.15.2\msvc2019_64\bin\qmake.exe ${{ github.workspace }}\TCPC.pro -spec win32-msvc "CONFIG+=release" "CONFIG+=qtquickcompiler" && ${{ github.workspace }}\example\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
+          ${{ github.workspace }}\example\Qt\5.15.2\msvc2019_64\bin\qmake.exe ${{ github.workspace }}\BuffetMealsSystem.pro -spec win32-msvc "CONFIG+=release" "CONFIG+=qtquickcompiler" && ${{ github.workspace }}\example\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
       - name: make project
         run: |
           cd build
