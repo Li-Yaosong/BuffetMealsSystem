@@ -13,7 +13,8 @@ SOURCES += \
     service.cpp
 
 HEADERS += \
-    service.h
+    service.h \
+    ../define.h
 
 FORMS += \
     service.ui

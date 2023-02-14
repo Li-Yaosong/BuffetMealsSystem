@@ -6,13 +6,23 @@ DishWidget::DishWidget(QWidget *parent, QMap<QString, QVariant> data) :
     ui(new Ui::DishWidget)
 {
     ui->setupUi(this);
+    ui->checkBox->hide();
     m_imageW = new ImageDialog(this,data.value("image").toByteArray());
     QString name = QString(data.value("name").toByteArray());
     setNum(QString(data.value("number").toByteArray()));
     setName(name);
     setPrice(data.value("price").toDouble());
     setStorage(data.value("storage").toString());
-
+    connect(ui->checkBox, &QCheckBox::stateChanged,this, [this]{
+        if(ui->checkBox->isCheckable())
+        {
+            emit checkBoxStateChanged(ui->label_name->text(),true);
+        }
+        else
+        {
+            emit checkBoxStateChanged(ui->label_name->text(),false);
+        }
+    });
 }
 
 DishWidget::~DishWidget()
@@ -45,6 +55,16 @@ void DishWidget::setStorage(const QString &storage)
     {
         ui->label_storage->setText(QString::fromLocal8Bit("Not enough"));
     }
+}
+
+void DishWidget::showCheckBox()
+{
+    ui->checkBox->show();
+}
+
+void DishWidget::hideCheckBox()
+{
+    ui->checkBox->hide();
 }
 
 void DishWidget::on_pushButton_clicked()

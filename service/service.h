@@ -14,6 +14,7 @@ public:
     Service(QObject* parent = nullptr);
     ~Service();
     void addDishes(const QMap<QString, QByteArray> &map);
+    void delDishes(const QStringList &delList);
     QByteArray getAllDishes();
     QByteArray showImage();
 };

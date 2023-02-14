@@ -9,6 +9,7 @@ public:
     ConnectService();
     QMap<int, QMap<QString, QVariant> > getData();
     void addDishes(QMap<QString, QByteArray> map);
+    void delDishes(QStringList delList);
 private:
     ServiceReplica *m_rep;
 };

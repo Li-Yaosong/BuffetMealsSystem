@@ -19,9 +19,12 @@ public:
     void setName(const QString &name);
     void setPrice(const double &price);
     void setStorage(const QString &storage);
-
+    void showCheckBox();
+    void hideCheckBox();
 private slots:
     void on_pushButton_clicked();
+signals:
+    void checkBoxStateChanged(QString name, bool del);
 
 private:
     Ui::DishWidget *ui;

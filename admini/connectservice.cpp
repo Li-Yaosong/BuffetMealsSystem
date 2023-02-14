@@ -1,4 +1,5 @@
 #include "connectservice.h"
+#include "qurl.h"
 
 ConnectService::ConnectService()
 {
@@ -27,4 +28,9 @@ QMap<int, QMap<QString, QVariant>> ConnectService::getData()
 void ConnectService::addDishes(QMap<QString, QByteArray> map)
 {
     m_rep->addDishes(map);
+}
+
+void ConnectService::delDishes(QStringList delList)
+{
+    m_rep->delDishes(delList);
 }

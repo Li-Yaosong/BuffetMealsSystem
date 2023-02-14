@@ -27,15 +27,7 @@ Service::~Service()
 void Service::addDishes(const QMap<QString, QByteArray> &map)
 {
     QSqlQuery query;
-//    QString imagePath = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Images (*.jpg)"));
-//    QByteArray data;
-//    QFile* file=new QFile(imagePath); //file为二进制数据文件名
-//    file->open(QIODevice::ReadOnly);
-//    data = file->readAll();
-//    file->close();
     query.prepare("insert into menu(name,number,price,image,storage) values(:name,:number,:price,:image,:storage)");
-//    qDebug()<<data;
-//    QVariant var(data);
     QStringList keyList = map.keys();
     for(QString key : keyList)
     {
@@ -46,6 +38,10 @@ void Service::addDishes(const QMap<QString, QByteArray> &map)
         else if(key == "price")
         {
             query.bindValue(":" + key, map.value(key).toDouble());
+        }
+        else if(key == "image")
+        {
+            query.bindValue(":" + key, map.value(key));
         }
         else
         {
@@ -62,6 +58,25 @@ void Service::addDishes(const QMap<QString, QByteArray> &map)
         {
             qDebug() << "insert ok";
         }
+}
+
+void Service::delDishes(const QStringList &delList)
+{
+    QSqlQuery query;
+    for(const QString &name : delList)
+    {
+        query.prepare(QString("delete from menu where name='%1'").arg(name));
+        if(!query.exec())
+        {
+            qDebug() << "del error";
+            qDebug() << query.lastError().text().toLocal8Bit().data();
+        }
+        else
+        {
+            qDebug() << "del ok";
+        }
+    }
+
 }
 
 QByteArray Service::getAllDishes()
