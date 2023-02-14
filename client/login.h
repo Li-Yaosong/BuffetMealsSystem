@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include "clientapp.h"
-#include "administratorinterface.h"
 #include <QObject>
 namespace Ui {
 class Login;
@@ -29,7 +28,6 @@ private:
     Ui::Login *ui;
     bool m_identity;
     ClientApp * m_clientApp;
-    AdministratorInterface *m_AdInterface;
 };
 
 #endif // LOGIN_H

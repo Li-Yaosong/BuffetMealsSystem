@@ -56,7 +56,5 @@ void Login::showCustomersLogin()
 
 void Login::on_AdminiLogin_pushButton_clicked()
 {
-    m_AdInterface = new AdministratorInterface;
-    m_AdInterface->show();
 }
 

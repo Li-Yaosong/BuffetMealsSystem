@@ -1,0 +1,17 @@
+*.user
+*.obj
+*.debug
+*.release
+*.moc
+qrc_*.cpp
+moc_*.cpp
+ui_*.h
+Makefile
+debug/
+debug/*
+release/
+release/*
+
+.vscode/
+
+build-*
