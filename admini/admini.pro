@@ -7,13 +7,11 @@ CONFIG += c++17
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-
+include(../common/common.pri)
 SOURCES += \
     adddishesdialog.cpp \
     administratorinterface.cpp \
-    connectservice.cpp \
     dishwidget.cpp \
-    imagedialog.cpp \
     imagewidget.cpp \
     main.cpp \
     admini.cpp \
@@ -23,9 +21,7 @@ HEADERS += \
     adddishesdialog.h \
     admini.h \
     administratorinterface.h \
-    connectservice.h \
     dishwidget.h \
-    imagedialog.h \
     imagewidget.h \
     orderlist.h
 
@@ -34,7 +30,6 @@ FORMS += \
     admini.ui \
     administratorinterface.ui \
     dishwidget.ui \
-    imagedialog.ui \
     imagewidget.ui \
     orderlist.ui
 

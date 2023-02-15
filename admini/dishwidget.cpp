@@ -1,4 +1,4 @@
-#include "dishwidget.h"
+﻿#include "dishwidget.h"
 #include "ui_dishwidget.h"
 
 DishWidget::DishWidget(QWidget *parent, QMap<QString, QVariant> data) :
@@ -7,7 +7,7 @@ DishWidget::DishWidget(QWidget *parent, QMap<QString, QVariant> data) :
 {
     ui->setupUi(this);
     ui->checkBox->hide();
-    m_imageW = new ImageDialog(this,data.value("image").toByteArray());
+    m_imageW = new ImageWidget(nullptr, data.value("image").toByteArray());
     QString name = QString(data.value("name").toByteArray());
     setNum(QString(data.value("number").toByteArray()));
     setName(name);
@@ -69,6 +69,6 @@ void DishWidget::hideCheckBox()
 
 void DishWidget::on_pushButton_clicked()
 {
-    m_imageW->exec();
+    m_imageW->show();
 }
 

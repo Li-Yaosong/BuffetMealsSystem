@@ -1,8 +1,8 @@
-#ifndef DISHWIDGET_H
+﻿#ifndef DISHWIDGET_H
 #define DISHWIDGET_H
 
 #include <QWidget>
-#include "imagedialog.h"
+#include "imagewidget.h"
 #include <QVariant>
 namespace Ui {
 class DishWidget;
@@ -28,7 +28,7 @@ signals:
 
 private:
     Ui::DishWidget *ui;
-    ImageDialog *m_imageW;
+    ImageWidget *m_imageW;
 };
 
 #endif // DISHWIDGET_H
