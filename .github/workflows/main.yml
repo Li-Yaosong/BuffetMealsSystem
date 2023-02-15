@@ -26,7 +26,7 @@ jobs:
           arch: 'win64_msvc2019_64'
           dir: '${{ github.workspace }}/example/'
           install-deps: 'true'
-          modules: 'qtcharts qtwebengine'
+          modules: 'qtcharts qtwebengine qtremoteobjects'
           archives: 'qtbase qtsvg'
           cache: 'false'
           cache-key-prefix: 'install-qt-action'
