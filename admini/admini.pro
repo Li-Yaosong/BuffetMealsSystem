@@ -11,8 +11,8 @@ include(../common/common.pri)
 SOURCES += \
     adddishesdialog.cpp \
     administratorinterface.cpp \
+    dishesedict.cpp \
     dishwidget.cpp \
-    imagewidget.cpp \
     main.cpp \
     admini.cpp \
     orderlist.cpp
@@ -21,16 +21,16 @@ HEADERS += \
     adddishesdialog.h \
     admini.h \
     administratorinterface.h \
+    dishesedict.h \
     dishwidget.h \
-    imagewidget.h \
     orderlist.h
 
 FORMS += \
     adddishesdialog.ui \
     admini.ui \
     administratorinterface.ui \
+    dishesedict.ui \
     dishwidget.ui \
-    imagewidget.ui \
     orderlist.ui
 
 REPC_REPLICA = $$PWD/../service.rep

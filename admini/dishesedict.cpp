@@ -1,17 +1,17 @@
-﻿#include "imagewidget.h"
-#include "ui_imagewidget.h"
+﻿#include "dishesedict.h"
+#include "ui_dishesedict.h"
 #include <QLabel>
 #include "common.h"
-ImageWidget::ImageWidget(QWidget *parent, QByteArray data) :
+DishesEdict::DishesEdict(QWidget *parent, QByteArray data) :
     QWidget(parent),
-    ui(new Ui::ImageWidget)
+    ui(new Ui::DishesEdict)
 {
     ui->setupUi(this);
     ui->label->setPixmap(Common::creatImage(data));
     ui->label->setScaledContents(true);
 }
 
-ImageWidget::~ImageWidget()
+DishesEdict::~DishesEdict()
 {
     delete ui;
 }

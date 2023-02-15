@@ -2,12 +2,11 @@
 #define DISHWIDGET_H
 
 #include <QWidget>
-#include "imagewidget.h"
 #include <QVariant>
 namespace Ui {
 class DishWidget;
 }
-
+class DishesEdict;
 class DishWidget : public QWidget
 {
     Q_OBJECT
@@ -28,7 +27,7 @@ signals:
 
 private:
     Ui::DishWidget *ui;
-    ImageWidget *m_imageW;
+    DishesEdict *m_imageW;
 };
 
 #endif // DISHWIDGET_H
