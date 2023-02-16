@@ -1,8 +1,9 @@
-#include "administratorinterface.h"
+﻿#include "administratorinterface.h"
 #include "orderlist.h"
 #include "ui_administratorinterface.h"
 #include "adddishesdialog.h"
 #include "dishwidget.h"
+#include "getneworder.h"
 AdministratorInterface::AdministratorInterface(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AdministratorInterface)
@@ -25,6 +26,8 @@ AdministratorInterface::AdministratorInterface(QWidget *parent) :
         m_service->delDishes(m_delList);
         updateDishesList();
     });
+    GetNewOrder *newOrder = new GetNewOrder;
+    connect(newOrder, &GetNewOrder::hasNewOrder, this, &AdministratorInterface::hasNewOrder);
     updateDishesList();
 
 }
@@ -96,6 +99,11 @@ void AdministratorInterface::setDelList(QString name, bool del)
 
 }
 
+void AdministratorInterface::hasNewOrder(QByteArray order)
+{
+    ui->lineEdit->setText(order);
+}
+
 
 void AdministratorInterface::on_pushButton_4_clicked()
 {
@@ -109,4 +117,3 @@ void AdministratorInterface::on_pushButton_4_clicked()
         m_dishWidgetList.clear();
     }
 }
-

@@ -1,8 +1,8 @@
-#ifndef CLIENTINTERFACE_H
+﻿#ifndef CLIENTINTERFACE_H
 #define CLIENTINTERFACE_H
 
 #include <QWidget>
-
+#include<QTcpSocket>
 namespace Ui {
 class ClientInterface;
 }
@@ -16,14 +16,18 @@ public:
     explicit ClientInterface(QWidget *parent = nullptr);
     ~ClientInterface();
     void updateDishesList();
+signals:
+    void allclean();
 
 private slots:
-    void on_pushButton_clicked();
 
 private:
     Ui::ClientInterface *ui;
     ConnectService *m_service;
     QList<CDishWidget *> m_dishWidgetList;
+    //座位号
+    int m_seat;
+    QTcpSocket *m_tcpsocket;
 };
 
 #endif // CLIENTINTERFACE_H

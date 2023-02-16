@@ -139,9 +139,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox"/>
-      </item>
-      <item>
        <widget class="QPushButton" name="pushButton_clean">
         <property name="maximumSize">
          <size>

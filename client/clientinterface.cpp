@@ -3,6 +3,7 @@
 #include "cdishwidget.h"
 #include "connectservice.h"
 #include "common.h"
+#include "placeorder.h"
 ClientInterface::ClientInterface(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ClientInterface)
@@ -10,6 +11,10 @@ ClientInterface::ClientInterface(QWidget *parent) :
     ui->setupUi(this);
     m_service = new ConnectService();
     updateDishesList();
+    connect(ui->pushButton_allClean, &QPushButton::clicked, this, &ClientInterface::allclean);
+    PlaceOrder *placeOrder = new PlaceOrder("127.0.0.1", 8888);
+    placeOrder->orderInfo("hello");
+
 }
 
 ClientInterface::~ClientInterface()
@@ -33,21 +38,9 @@ void ClientInterface::updateDishesList()
     for(int key : keys)
     {
         CDishWidget *dish = new CDishWidget(this, Common::mapToDish(data.value(key)));
+        //连接全部清除按钮
+        connect(this, &ClientInterface::allclean, dish, &CDishWidget::reSetNumber);
         ui->gridLayout->addWidget(dish,key/3,key%3);
         m_dishWidgetList.append(dish);
     }
 }
-
-void ClientInterface::on_pushButton_clicked()
-{
-    for(int i=0;i<3;i++)
-    {
-        for(int j=0;j<3;j++)
-        {
-            CDishWidget *oder = new CDishWidget;
-            ui->gridLayout->addWidget(oder,i,j);
-        }
-    }
-
-}
-

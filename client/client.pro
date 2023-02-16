@@ -1,4 +1,4 @@
-QT       += core gui remoteobjects
+QT       += core gui remoteobjects network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,14 +14,16 @@ SOURCES += \
     clientinterface.cpp \
     login.cpp \
     main.cpp \
-    client.cpp
+    client.cpp \
+    placeorder.cpp
 
 HEADERS += \
     cdishwidget.h \
     client.h \
     clientapp.h \
     clientinterface.h \
-    login.h
+    login.h \
+    placeorder.h
 
 FORMS += \
     cdishwidget.ui \

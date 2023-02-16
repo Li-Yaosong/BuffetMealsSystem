@@ -55,7 +55,14 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="pushButton_allClean">
+        <property name="text">
+         <string>全部清空</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_placeOrder">
         <property name="text">
          <string>下单</string>
         </property>

@@ -11,8 +11,11 @@ CDishWidget::CDishWidget(QWidget *parent, Common::Dish dishIfon) :
     ui->label_name->setText(m_dishInfo.name);
     ui->label_price->setText(QStringLiteral("￥ ")+QString::number(m_dishInfo.price));
     m_image = new ImageWidget(this,m_dishInfo.image);
+    m_spinBox = new SpinBox(ui->groupBox);
     ui->verticalLayout->insertWidget(1, m_image);
     creatButton();
+    ui->horizontalLayout->insertWidget(3,m_spinBox);
+    connect(ui->pushButton_clean, &QPushButton::clicked, this, &CDishWidget::reSetNumber);
 }
 
 CDishWidget::~CDishWidget()
@@ -28,4 +31,9 @@ void CDishWidget::creatButton()
     connect(button, &QPushButton::clicked, this,[this]{
         (new ImageWidget(nullptr, m_dishInfo.image, m_dishInfo.name,600))->show();
     });
+}
+
+void CDishWidget::reSetNumber()
+{
+    m_spinBox->reSetNumber();
 }

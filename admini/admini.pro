@@ -1,4 +1,4 @@
-QT       += core gui remoteobjects
+QT       += core gui remoteobjects network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,6 +13,7 @@ SOURCES += \
     administratorinterface.cpp \
     dishesedict.cpp \
     dishwidget.cpp \
+    getneworder.cpp \
     main.cpp \
     admini.cpp \
     orderlist.cpp
@@ -23,6 +24,7 @@ HEADERS += \
     administratorinterface.h \
     dishesedict.h \
     dishwidget.h \
+    getneworder.h \
     orderlist.h
 
 FORMS += \

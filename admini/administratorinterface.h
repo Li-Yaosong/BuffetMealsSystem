@@ -1,9 +1,10 @@
-#ifndef ADMINISTRATORINTERFACE_H
+﻿#ifndef ADMINISTRATORINTERFACE_H
 #define ADMINISTRATORINTERFACE_H
 
 #include "connectservice.h"
 #include <QWidget>
-
+#include<QTcpServer>//监听套接字
+#include<QTcpSocket>//通信套接字
 namespace Ui {
 class AdministratorInterface;
 }
@@ -24,7 +25,7 @@ private slots:
 
     void setDelList(QString name, bool del);
 
-
+    void hasNewOrder(QByteArray order);
     void on_pushButton_4_clicked();
 
 private:
