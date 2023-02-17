@@ -19,6 +19,9 @@ public:
     void creatButton();
 public slots:
     void reSetNumber();
+    void valueChange(int num);
+signals:
+    void dataChange(QPair<QString, int>);
 private:
     Ui::CDishWidget *ui;
     Common::Dish m_dishInfo;

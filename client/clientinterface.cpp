@@ -10,11 +10,11 @@ ClientInterface::ClientInterface(QWidget *parent) :
 {
     ui->setupUi(this);
     m_service = new ConnectService();
-    updateDishesList();
-    connect(ui->pushButton_allClean, &QPushButton::clicked, this, &ClientInterface::allclean);
-    PlaceOrder *placeOrder = new PlaceOrder("127.0.0.1", 8888);
-    placeOrder->orderInfo("hello");
 
+    connect(ui->pushButton_allClean, &QPushButton::clicked, this, &ClientInterface::allclean);
+    m_placeOrder = new PlaceOrder("127.0.0.1", 8888);
+    updateDishesList();
+    connect(ui->pushButton_placeOrder, &QPushButton::clicked, this, &ClientInterface::placeOrder);
 }
 
 ClientInterface::~ClientInterface()
@@ -40,7 +40,32 @@ void ClientInterface::updateDishesList()
         CDishWidget *dish = new CDishWidget(this, Common::mapToDish(data.value(key)));
         //连接全部清除按钮
         connect(this, &ClientInterface::allclean, dish, &CDishWidget::reSetNumber);
+        connect(dish, &CDishWidget::dataChange, this, &ClientInterface::addDishes);
         ui->gridLayout->addWidget(dish,key/3,key%3);
         m_dishWidgetList.append(dish);
+    }
+}
+
+void ClientInterface::addDishes(QPair<QString, int> dish)
+{
+    if(dish.second == 0 && m_orderMap.contains(dish.first))
+    {
+        m_orderMap.remove(dish.first);
+    }
+    else
+    {
+        m_orderMap.insert(dish.first, dish.second);
+    }
+}
+
+void ClientInterface::placeOrder()
+{
+    QByteArray byte;
+    QDataStream input(&byte, QIODevice::OpenModeFlag::WriteOnly);
+
+    if(!m_orderMap.empty())
+    {
+        input<<m_seat<<m_orderMap;
+        m_placeOrder->orderInfo(byte);
     }
 }

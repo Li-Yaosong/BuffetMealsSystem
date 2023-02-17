@@ -10,9 +10,7 @@ CONFIG += c++17
 include(../common/common.pri)
 SOURCES += \
     cdishwidget.cpp \
-    clientapp.cpp \
     clientinterface.cpp \
-    login.cpp \
     main.cpp \
     client.cpp \
     placeorder.cpp
@@ -20,17 +18,13 @@ SOURCES += \
 HEADERS += \
     cdishwidget.h \
     client.h \
-    clientapp.h \
     clientinterface.h \
-    login.h \
     placeorder.h
 
 FORMS += \
     cdishwidget.ui \
     client.ui \
-    clientapp.ui \
-    clientinterface.ui \
-    login.ui
+    clientinterface.ui
 
 REPC_REPLICA = $$PWD/../service.rep
 

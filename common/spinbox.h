@@ -5,6 +5,7 @@
 
 class SpinBox : public QSpinBox
 {
+    Q_OBJECT
 public:
     SpinBox(QWidget *parent = nullptr);
     void reSetNumber();

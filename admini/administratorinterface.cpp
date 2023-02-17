@@ -101,7 +101,20 @@ void AdministratorInterface::setDelList(QString name, bool del)
 
 void AdministratorInterface::hasNewOrder(QByteArray order)
 {
-    ui->lineEdit->setText(order);
+    int seat;
+    QMap<QString, int> dishesMap;
+
+    QDataStream data(&order, QIODevice::OpenModeFlag::ReadOnly);
+    data>>seat>>dishesMap;
+    QStringList list = dishesMap.keys();
+    QDateTime dateTime(QDateTime::currentDateTime());
+    ui->textEdit->append(QString::fromLocal8Bit("座位号: ") + QString::number(seat));
+    ui->textEdit->append(QString::fromLocal8Bit("时间: ") +dateTime.toString("yyyy-MM-dd hh:mm:ss"));
+    ui->textEdit->append(QString::fromLocal8Bit("所点菜单如下: "));
+    for(const QString &dish : list)
+    {
+        ui->textEdit->append(dish+"  "+QString::number(dishesMap.value(dish))+QString::fromLocal8Bit("份"));
+    }
 }
 
 
@@ -109,7 +122,7 @@ void AdministratorInterface::on_pushButton_4_clicked()
 {
     if(!m_dishWidgetList.empty())
     {
-        for(DishWidget *dish : m_dishWidgetList)
+        for(DishWidget *dish : qAsConst(m_dishWidgetList))
         {
             ui->verticalLayout_5->removeWidget(dish);
             dish->deleteLater();

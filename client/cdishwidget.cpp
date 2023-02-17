@@ -16,6 +16,8 @@ CDishWidget::CDishWidget(QWidget *parent, Common::Dish dishIfon) :
     creatButton();
     ui->horizontalLayout->insertWidget(3,m_spinBox);
     connect(ui->pushButton_clean, &QPushButton::clicked, this, &CDishWidget::reSetNumber);
+    connect(m_spinBox,static_cast<void (QSpinBox::*)(int num)>(&QSpinBox::valueChanged),
+            this, &CDishWidget::valueChange);
 }
 
 CDishWidget::~CDishWidget()
@@ -36,4 +38,9 @@ void CDishWidget::creatButton()
 void CDishWidget::reSetNumber()
 {
     m_spinBox->reSetNumber();
+}
+
+void CDishWidget::valueChange(int num)
+{
+    emit dataChange(QPair<QString, int>(ui->label_name->text(), num));
 }

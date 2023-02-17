@@ -2,7 +2,6 @@
 
 SpinBox::SpinBox(QWidget *parent)
 {
-
 }
 
 void SpinBox::reSetNumber()
