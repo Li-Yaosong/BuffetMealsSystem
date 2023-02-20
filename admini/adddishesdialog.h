@@ -2,7 +2,8 @@
 #define ADDDISHESDIALOG_H
 
 #include <QDialog>
-
+#include "dishinfowidget.h"
+#include <QMap>
 namespace Ui {
 class AddDishesDialog;
 }
@@ -14,20 +15,16 @@ class AddDishesDialog : public QDialog
 public:
     explicit AddDishesDialog(QWidget *parent = nullptr);
     ~AddDishesDialog();
-    QMap <QString, QByteArray> getInfo();
+    QMap<QString, QByteArray> getInfo();
 
 private slots:
-    void on_pushButton_browse_clicked();
-    void pathChanged_slot();
-    void nameChanged_slot();
+    void dishInfo();
 
 private:
     Ui::AddDishesDialog *ui;
+    DishInfoWidget *m_infoWidget;
+    QMap<QString, QByteArray> m_dishInfo;
     QPushButton * m_okButton;
-    QByteArray m_imageData;
-    QString m_imagePath;
-    bool m_haveName;
-    bool m_havePath;
 };
 
 #endif // ADDDISHESDIALOG_H

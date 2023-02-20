@@ -1,14 +1,16 @@
 #include "adddishesdialog.h"
 #include "ui_adddishesdialog.h"
 #include <QFileDialog>
+#include <QPushButton>
 AddDishesDialog::AddDishesDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddDishesDialog)
 {
     ui->setupUi(this);
+    m_infoWidget = new DishInfoWidget;
     m_okButton = ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok);
-    connect(ui->lineEdit_path,&QLineEdit::textChanged,this,&AddDishesDialog::pathChanged_slot);
-    connect(ui->lineEdit_name,&QLineEdit::textChanged,this,&AddDishesDialog::nameChanged_slot);
+    connect(m_infoWidget, &DishInfoWidget::infoChanged, this, &AddDishesDialog::dishInfo);
+    ui->verticalLayout->insertWidget(0, m_infoWidget);
     m_okButton->setEnabled(false);
 }
 
@@ -19,45 +21,24 @@ AddDishesDialog::~AddDishesDialog()
 
 QMap<QString, QByteArray> AddDishesDialog::getInfo()
 {
-    QMap<QString, QByteArray> map;
-    map.insert("name",ui->lineEdit_name->text().toUtf8());
-    map.insert("price",ui->doubleSpinBox_price->text().toUtf8());
-    map.insert("image",m_imageData);
-    map.insert("storage","yes");
-    return map;
+    return m_dishInfo;
 }
 
-void AddDishesDialog::on_pushButton_browse_clicked()
+void AddDishesDialog::dishInfo()
 {
-    QString m_imagePath = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Images (*.jpg)"));
-    ui->lineEdit_path->setText(m_imagePath);
-}
-
-void AddDishesDialog::pathChanged_slot()
-{
-    QFile* file=new QFile(ui->lineEdit_path->text()); //file为二进制数据文件名
-    if(file->open(QIODevice::ReadOnly))
-    {
-        m_imageData = file->readAll();
-        m_havePath = true;
-        file->close();
-    }
-    if(m_haveName && m_havePath)
-    {
+   DishInfoWidget::DishInfo info = m_infoWidget->info();
+   QFile* file=new QFile(info.imagePath); //file为二进制数据文件名
+   if(!info.name.isEmpty() && file->open(QIODevice::ReadOnly))
+   {
+        m_dishInfo.insert("name",info.name.toUtf8());
+        m_dishInfo.insert("price",QString::number(info.price).toUtf8());
+        m_dishInfo.insert("image",file->readAll());
+        m_dishInfo.insert("storage",info.storage.toUtf8());
         m_okButton->setEnabled(true);
-    }
+   }
+   else
+   {
+       m_okButton->setEnabled(false);
+   }
+   file->close();
 }
-
-void AddDishesDialog::nameChanged_slot()
-{
-    if(!ui->lineEdit_name->text().isEmpty())
-    {
-        m_haveName = true;
-    }
-    if(m_haveName && m_havePath)
-    {
-        m_okButton->setEnabled(true);
-    }
-
-}
-

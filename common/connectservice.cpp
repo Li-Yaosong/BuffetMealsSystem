@@ -4,7 +4,7 @@
 ConnectService::ConnectService()
 {
     QRemoteObjectNode *repNode=new QRemoteObjectNode();
-    repNode->connectToNode(QUrl("tcp://192.168.52.128:9000"));
+    repNode->connectToNode(QUrl("local:9000"));
     m_rep = repNode->acquire<ServiceReplica>();
     m_rep->waitForSource(500);
 }
