@@ -1,0 +1,16 @@
+﻿QPushButton{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(255,255,255);
+    background-color: rgb(16,181,255);
+    border: none;border-radius:8px;
+    }
+QPushButton:disabled {
+  background-color: rgb(170,170,170);
+}
+QPushButton:hover{
+    background-color: rgb(125,215,255);
+    }//hover
+
+QPushButton:pressed{
+    background-color: rgb(16,181,255);
+    }//pressedb

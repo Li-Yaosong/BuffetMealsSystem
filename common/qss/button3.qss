@@ -1,0 +1,10 @@
+﻿QPushButton{
+    border: none;
+    min-width: 20px;
+    min-height: 20px;
+    image: url(:/image/max.png);
+    }
+QPushButton:hover{
+    image: url(:/image/max_in.png);
+    background-color: rgb(222,222,222);
+    }//hover

@@ -2,6 +2,7 @@
 #define COMMON_H
 #include <QString>
 #include <QVariant>
+#include "stylesheet.h"
 class Common
 {
 public:

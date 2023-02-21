@@ -1,0 +1,54 @@
+﻿QPushButton {
+    border: 1px solid #555;
+    padding: 4px;
+}
+
+QPushButton:hover {
+    background-color: #999;
+}
+
+QPushButton:pressed {
+    background-color: #333;
+    border-color: #555;
+    color: #AAA;
+}
+
+QPushButton:disabled {
+    color: #333333;
+}
+QDoubleSpinBox{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(31,31,31);
+    padding-left:20px;
+    background-color: rgb(255, 255, 255);
+    border:2px solid rgb(20,196,188);
+    border-radius:8px;
+}
+
+/*spinbox 抬起样式*/
+QTimeEdit::up-button,QDoubleSpinBox::up-button,QSpinBox::up-button {subcontrol-origin:border;
+    subcontrol-position:right;
+    image: url(:/image/right.png);
+    width: 20px;
+    height: 45px;
+}
+QTimeEdit::down-button,QDoubleSpinBox::down-button,QSpinBox::down-button {subcontrol-origin:border;
+        subcontrol-position:left;
+        image: url(:/image/left.png);
+        width: 20px;
+        height: 45px;
+}
+/*按钮按下样式*/
+QTimeEdit::up-button:pressed,QDoubleSpinBox::up-button:pressed,QSpinBox::up-button:pressed{subcontrol-origin:border;
+        subcontrol-position:right;
+        image: url(:/image/right_in.png);
+        width: 20px;
+        height: 45px;
+}
+
+QTimeEdit::down-button:pressed,QDoubleSpinBox::down-button:pressed,QSpinBox::down-button:pressed,QSpinBox::down-button:pressed{
+        subcontrol-position:left;
+        image: url(:/image/left_in.png);
+        width: 20px;
+        height: 45px;
+}

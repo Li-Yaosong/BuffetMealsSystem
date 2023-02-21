@@ -18,6 +18,11 @@ public:
 
 private:
     Ui::ImageWidget *ui;
+    QPixmap m_image;
+
+    // QWidget interface
+protected:
+    void paintEvent(QPaintEvent *event);
 };
 
 #endif // IMAGEWIDGET_H

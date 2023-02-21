@@ -1,17 +1,30 @@
 ﻿#ifndef SPINBOX_H
 #define SPINBOX_H
 
+#include <QWidget>
 #include <QSpinBox>
-
-class SpinBox : public QSpinBox
+namespace Ui {
+class SpinBox;
+}
+class SpinBoxP;
+class SpinBox : public QWidget
 {
     Q_OBJECT
+
 public:
-    SpinBox(QWidget *parent = nullptr);
-    void reSetNumber();
-    // QWidget interface
-protected:
-    void wheelEvent(QWheelEvent *event);
+    explicit SpinBox(QWidget *parent = nullptr, bool doubleSpin = false);
+    ~SpinBox();
+
+    void reSetValue();
+    double value();
+signals:
+    void valueChange(double);
+    void valueChange(int);
+
+
+private:
+    Ui::SpinBox *ui;
+    SpinBoxP * const p;
 };
 
 #endif // SPINBOX_H

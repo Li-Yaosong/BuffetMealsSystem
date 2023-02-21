@@ -16,7 +16,6 @@ class CDishWidget : public QWidget
 public:
     explicit CDishWidget(QWidget *parent = nullptr, Common::Dish dishIfon ={});
     ~CDishWidget();
-    void creatButton();
 public slots:
     void reSetNumber();
     void valueChange(int num);

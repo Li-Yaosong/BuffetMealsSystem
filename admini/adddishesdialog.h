@@ -1,4 +1,4 @@
-#ifndef ADDDISHESDIALOG_H
+﻿#ifndef ADDDISHESDIALOG_H
 #define ADDDISHESDIALOG_H
 
 #include <QDialog>
@@ -25,6 +25,7 @@ private:
     DishInfoWidget *m_infoWidget;
     QMap<QString, QByteArray> m_dishInfo;
     QPushButton * m_okButton;
+    QPushButton * m_cancelButton;
 };
 
 #endif // ADDDISHESDIALOG_H

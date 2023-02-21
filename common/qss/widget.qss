@@ -1,0 +1,8 @@
+﻿Qwidget{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(31,31,31);
+    padding-left:20px;
+    background-color: rgb(255, 255, 255);
+    border:20px solid rgb(20,196,188);
+    border-radius:15px;
+}

@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>StyleSheet.qss</file>
+        <file>button.qss</file>
+        <file>lineedit.qss</file>
+        <file>lable.qss</file>
+        <file>label1.qss</file>
+        <file>button1.qss</file>
+        <file>button2.qss</file>
+        <file>qss/button3.qss</file>
+        <file>qss/button4.qss</file>
+        <file>qss/label2.qss</file>
+        <file>qss/label3.qss</file>
+        <file>qss/widget.qss</file>
+    </qresource>
+</RCC>

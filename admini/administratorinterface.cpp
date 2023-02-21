@@ -4,6 +4,8 @@
 #include "adddishesdialog.h"
 #include "dishwidget.h"
 #include "getneworder.h"
+#include "titalwidget.h"
+#include "stylesheet.h"
 AdministratorInterface::AdministratorInterface(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AdministratorInterface)
@@ -11,11 +13,13 @@ AdministratorInterface::AdministratorInterface(QWidget *parent) :
 
     ui->setupUi(this);
     ui->checkBox->hide();
+    initStyle();
+    TitalWidget *tital = new TitalWidget(this, QString::fromLocal8Bit("餐厅点餐系统服务端"));
+    ui->verticalLayout->insertWidget(0,tital);
     m_service = new ConnectService;
-
+    ui->tabWidget->tabBar()->hide();
     connect(ui->pushButton_batchDel,&QPushButton::clicked,this,[this]{
         ui->checkBox->show();
-//        m_service->delDishes();
         ui->pushButton_batchDel->setEnabled(false);
         ui->pushButton_finish->setEnabled(true);
     });
@@ -76,8 +80,8 @@ void AdministratorInterface::on_pushButton_addDishes_clicked()
         QMap<QString, QByteArray> map = dialog.getInfo();
         map.insert("number",QString::number(m_dishWidgetList.count()).toUtf8());
         m_service->addDishes(map);
+        updateDishesList();
     }
-    updateDishesList();
 }
 
 void AdministratorInterface::setDelList(QString name, bool del)
@@ -130,3 +134,42 @@ void AdministratorInterface::on_pushButton_4_clicked()
         m_dishWidgetList.clear();
     }
 }
+
+void AdministratorInterface::on_pushButton_orderManage_clicked()
+{
+    ui->tabWidget->setCurrentIndex(0);
+}
+
+
+void AdministratorInterface::on_pushButton_dishManage_clicked()
+{
+    ui->tabWidget->setCurrentIndex(1);
+}
+
+
+void AdministratorInterface::on_pushButton_history_clicked()
+{
+    ui->tabWidget->setCurrentIndex(2);
+}
+
+
+void AdministratorInterface::on_pushButton_test_clicked()
+{
+    ui->tabWidget->setCurrentIndex(3);
+}
+
+void AdministratorInterface::initStyle()
+{
+    ui->pushButton_orderManage->setStyleSheet(StyleSheet::buttonStyle());
+    ui->pushButton_dishManage->setStyleSheet(StyleSheet::buttonStyle());
+    ui->pushButton_history->setStyleSheet(StyleSheet::buttonStyle());
+    ui->pushButton_test->setStyleSheet(StyleSheet::buttonStyle());
+    ui->pushButton_4->setStyleSheet(StyleSheet::buttonStyle());
+    ui->pushButton_addDishes->setStyleSheet(StyleSheet::buttonStyle());
+    ui->pushButton_batchDel->setStyleSheet(StyleSheet::buttonStyle());
+    ui->pushButton_finish->setStyleSheet(StyleSheet::buttonStyle());
+    ui->lineEdit->setStyleSheet(StyleSheet::lineEditStyle());
+    ui->pushButton_query->setStyleSheet(StyleSheet::buttonStyle());
+    ui->widget_head2->setStyleSheet(StyleSheet::labelStyle());
+}
+

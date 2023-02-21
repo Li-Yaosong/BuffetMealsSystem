@@ -7,7 +7,9 @@ SOURCES += \
     $$PWD/dishinfowidget.cpp \
     $$PWD/imagewidget.cpp \
     $$PWD/spinbox.cpp \
-    $$PWD/tipsdialog.cpp
+    $$PWD/stylesheet.cpp \
+    $$PWD/tipsdialog.cpp \
+    $$PWD/titalwidget.cpp
 
 HEADERS += \
     $$PWD/common.h \
@@ -15,9 +17,17 @@ HEADERS += \
     $$PWD/dishinfowidget.h \
     $$PWD/imagewidget.h \
     $$PWD/spinbox.h \
-    $$PWD/tipsdialog.h
+    $$PWD/stylesheet.h \
+    $$PWD/tipsdialog.h \
+    $$PWD/titalwidget.h
 
 FORMS += \
     $$PWD/dishinfowidget.ui \
     $$PWD/imagewidget.ui \
-    $$PWD/tipsdialog.ui
+    $$PWD/spinbox.ui \
+    $$PWD/tipsdialog.ui \
+    $$PWD/titalwidget.ui
+
+RESOURCES += \
+    $$PWD/image.qrc \
+    $$PWD/qss.qrc

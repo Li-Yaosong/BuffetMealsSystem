@@ -28,7 +28,16 @@ private slots:
     void hasNewOrder(QByteArray order);
     void on_pushButton_4_clicked();
 
+    void on_pushButton_orderManage_clicked();
+
+    void on_pushButton_dishManage_clicked();
+
+    void on_pushButton_history_clicked();
+
+    void on_pushButton_test_clicked();
+
 private:
+    void initStyle();
     Ui::AdministratorInterface *ui;
     ConnectService *m_service;
     QList<DishWidget *> m_dishWidgetList;

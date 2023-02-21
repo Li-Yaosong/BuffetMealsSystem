@@ -1,4 +1,4 @@
-#ifndef DISHINFOWIDGET_H
+﻿#ifndef DISHINFOWIDGET_H
 #define DISHINFOWIDGET_H
 
 #include <QWidget>
@@ -18,7 +18,7 @@ public:
         QString name;
         double price;
         QString imagePath;
-        QString storage = "yes";
+        QString storage = "no";
     };
     explicit DishInfoWidget(QWidget *parent = nullptr);
     ~DishInfoWidget();
@@ -30,6 +30,7 @@ private slots:
     void on_pushButton_browse_clicked();
 
 private:
+    void initStyle();
     Ui::DishInfoWidget *ui;
 };
 

@@ -1,7 +1,9 @@
-#include "adddishesdialog.h"
+﻿#include "adddishesdialog.h"
 #include "ui_adddishesdialog.h"
 #include <QFileDialog>
 #include <QPushButton>
+#include "titalwidget.h"
+#include "stylesheet.h"
 AddDishesDialog::AddDishesDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddDishesDialog)
@@ -9,8 +11,15 @@ AddDishesDialog::AddDishesDialog(QWidget *parent) :
     ui->setupUi(this);
     m_infoWidget = new DishInfoWidget;
     m_okButton = ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok);
+    m_okButton->setText(QString::fromLocal8Bit("确定"));
+    m_cancelButton = ui->buttonBox->button(QDialogButtonBox::StandardButton::Cancel);
+    m_cancelButton->setText(QString::fromLocal8Bit("取消"));
     connect(m_infoWidget, &DishInfoWidget::infoChanged, this, &AddDishesDialog::dishInfo);
     ui->verticalLayout->insertWidget(0, m_infoWidget);
+    TitalWidget *tital = new TitalWidget(this, QString::fromLocal8Bit("添加菜单"),0);
+    m_okButton->setStyleSheet(StyleSheet::buttonStyle());
+    m_cancelButton->setStyleSheet(StyleSheet::buttonStyle());
+    ui->verticalLayout->insertWidget(0,tital);
     m_okButton->setEnabled(false);
 }
 

@@ -4,13 +4,15 @@
 #include "connectservice.h"
 #include "common.h"
 #include "placeorder.h"
+#include "titalwidget.h"
 ClientInterface::ClientInterface(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ClientInterface)
 {
     ui->setupUi(this);
     m_service = new ConnectService();
-
+    TitalWidget *tital = new TitalWidget(this, QString::fromLocal8Bit("餐厅点餐系统客户端"));
+    ui->verticalLayout->insertWidget(0, tital);
     connect(ui->pushButton_allClean, &QPushButton::clicked, this, &ClientInterface::allclean);
     m_placeOrder = new PlaceOrder("127.0.0.1", 8888);
     updateDishesList();
@@ -41,7 +43,7 @@ void ClientInterface::updateDishesList()
         //连接全部清除按钮
         connect(this, &ClientInterface::allclean, dish, &CDishWidget::reSetNumber);
         connect(dish, &CDishWidget::dataChange, this, &ClientInterface::addDishes);
-        ui->gridLayout->addWidget(dish,key/3,key%3);
+        ui->gridLayout->addWidget(dish,key/4,key%4);
         m_dishWidgetList.append(dish);
     }
 }

@@ -1,0 +1,14 @@
+﻿QPushButton{
+    border: none;
+    min-width: 20px;
+    min-height: 20px;
+    image: url(:/image/exit.png);
+    }
+QPushButton:hover{
+    image: url(:/image/exit_in.png);
+    background-color: rgb(236,28,36);
+    }//hover
+
+QPushButton:pressed{
+    image: url(:/image/exit_p.png);
+    }//pressedb
