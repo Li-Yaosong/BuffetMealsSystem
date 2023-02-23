@@ -9,7 +9,7 @@ public:
     struct Dish
     {
         QString name;
-        int number;
+        QString className;
         double price;
         QByteArray image;
         QString storage;

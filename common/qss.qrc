@@ -12,5 +12,6 @@
         <file>qss/label2.qss</file>
         <file>qss/label3.qss</file>
         <file>qss/widget.qss</file>
+        <file>qss/combobox.qss</file>
     </qresource>
 </RCC>

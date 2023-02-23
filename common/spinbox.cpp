@@ -25,15 +25,26 @@ public:
     {
         return m_dSpinBox;
     }
-    void reSetValue()
+    void reSetValue(double value)
     {
         if(m_doubleSpin)
         {
-            m_dSpinBox->setValue(0);
+            m_dSpinBox->setValue(value);
         }
         else
         {
-            m_spinBox->setValue(0);
+            m_spinBox->setValue(int(value));
+        }
+    }
+    double value()
+    {
+        if(m_doubleSpin)
+        {
+            return m_dSpinBox->value();
+        }
+        else
+        {
+            return m_spinBox->value();
         }
     }
     bool isDoubleSpin()
@@ -83,7 +94,12 @@ SpinBox::~SpinBox()
     delete ui;
 }
 
-void SpinBox::reSetValue()
+void SpinBox::reSetValue(double value)
 {
-    p->reSetValue();
+    p->reSetValue(value);
+}
+
+double SpinBox::value()
+{
+    return p->value();
 }

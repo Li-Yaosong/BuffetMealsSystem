@@ -25,6 +25,26 @@ CDishWidget::~CDishWidget()
     delete ui;
 }
 
+void CDishWidget::createBind(CDishWidget *widget)
+{
+    connect(widget, &CDishWidget::dataChange, [this](QPair<QString, int> pair)
+    {
+        if(int(m_spinBox->value()) != pair.second)
+        {
+            m_spinBox->reSetValue(pair.second);
+        }
+    });
+    connect(this, &CDishWidget::dataChange, [&widget](QPair<QString, int> pair)
+    {
+        widget->reSetValue(pair.second);
+    });
+}
+
+void CDishWidget::reSetValue(int num)
+{
+    m_spinBox->reSetValue(double(num));
+}
+
 void CDishWidget::reSetNumber()
 {
     m_spinBox->reSetValue();

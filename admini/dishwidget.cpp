@@ -12,7 +12,7 @@ DishWidget::DishWidget(QWidget *parent, QMap<QString, QVariant> data) :
     ui->pushButton->setStyleSheet(StyleSheet::buttonStyle(1));
     m_imageW = new DishesEdict(nullptr, data.value("image").toByteArray());
     QString name = QString(data.value("name").toByteArray());
-    setNum(QString(data.value("number").toByteArray()));
+    setClass(QString(data.value("class").toByteArray()));
     setName(name);
     setPrice(data.value("price").toDouble());
     setStorage(data.value("storage").toString());
@@ -33,7 +33,7 @@ DishWidget::~DishWidget()
     delete ui;
 }
 
-void DishWidget::setNum(const QString &num)
+void DishWidget::setClass(const QString &num)
 {
     ui->label_num->setText(num);
 }

@@ -1,19 +1,19 @@
-﻿#ifndef DISHINFOWIDGET_H
-#define DISHINFOWIDGET_H
+#ifndef CLASSINFOWIDGET_H
+#define CLASSINFOWIDGET_H
 
 #include <QWidget>
 #include <QMap>
 namespace Ui {
-class DishInfoWidget;
+class ClassInfoWidget;
 }
 
-class DishInfoWidget : public QWidget
+class ClassInfoWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit DishInfoWidget(QStringList list = {}, QWidget *parent = nullptr);
-    ~DishInfoWidget();
+    explicit ClassInfoWidget(QWidget *parent = nullptr);
+    ~ClassInfoWidget();
     QMap<QString, QByteArray> info();
 signals:
     void infoChanged(QMap<QString, QByteArray>);
@@ -21,10 +21,11 @@ signals:
 private slots:
     void on_pushButton_browse_clicked();
     void textChanged();
+
 private:
     void initStyle();
-    Ui::DishInfoWidget *ui;
+    Ui::ClassInfoWidget *ui;
     QMap<QString, QByteArray> m_info;
 };
 
-#endif // DISHINFOWIDGET_H
+#endif // CLASSINFOWIDGET_H

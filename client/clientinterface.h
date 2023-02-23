@@ -2,13 +2,16 @@
 #define CLIENTINTERFACE_H
 
 #include <QWidget>
-#include<QTcpSocket>
+#include <QTcpSocket>
+#include <QPushButton>
 namespace Ui {
 class ClientInterface;
 }
 class ConnectService;
 class CDishWidget;
 class PlaceOrder;
+class DishListWidget;
+class ClassTabWidget;
 class ClientInterface : public QWidget
 {
     Q_OBJECT
@@ -24,6 +27,7 @@ private slots:
     void addDishes(QPair<QString, int> dish);
     void placeOrder();
 private:
+    void updateClassList();
     Ui::ClientInterface *ui;
     ConnectService *m_service;
     QList<CDishWidget *> m_dishWidgetList;
@@ -32,6 +36,11 @@ private:
     QTcpSocket *m_tcpsocket;
     PlaceOrder *m_placeOrder;
     QMap<QString, int> m_orderMap;
+    DishListWidget *m_allDishList;
+    ClassTabWidget *m_classTab;
+    QStringList m_classList;
+    QList<QPushButton *> m_classButtonList;
+    QMap<QString, CDishWidget *> m_dishWidgetMap;
 };
 
 #endif // CLIENTINTERFACE_H

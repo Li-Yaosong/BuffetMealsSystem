@@ -1,0 +1,27 @@
+create table `menu`(
+`name` VARCHAR(255) NOT NULL,
+`class` VARCHAR(255) NOT NULL,
+`price` DOUBLE NOT NULL,
+`image` longblob,
+`storage` VARCHAR(10) NOT NULL,
+primary key(`name`)
+key `c_name` (`class`),
+  CONSTRAINT `c_name` FOREIGN KEY (`class`) REFERENCES `menu_classification` (`class_name`)
+)ENGINE=innodb default charset=gb2312;
+
+create table `menu_classification`(
+`class_name` VARCHAR(255) NOT NULL,
+`image` longblob,
+primary key(`class_name`)
+)ENGINE=innodb default charset=gb2312;
+
+create table `order`(
+`num` VARCHAR(255) NOT NULL,
+`seat` INT NOT NULL,
+`time` DATETIME ,
+`total` DOUBLE NOT NULL,
+`dishes` longblob,
+`state` INT NOT NULL,
+primary key(`num`)
+)ENGINE=innodb default charset=gb2312;
+

@@ -61,3 +61,8 @@ QByteArray StyleSheet::widgetStyle(int style)
         return  readQss(":/qss/widget.qss");
     }
 }
+
+QByteArray StyleSheet::comboBoxStyle()
+{
+    return  readQss(":/qss/combobox.qss");
+}

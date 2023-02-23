@@ -7,8 +7,10 @@ class ConnectService
 {
 public:
     ConnectService();
-    QMap<int, QMap<QString, QVariant> > getData();
+    QMap<QString, QList<QMap<QString, QVariant> > > getData();
+    QMap<QString, QVariant> getClass();
     void addDishes(QMap<QString, QByteArray> map);
+    void addClass(QMap<QString, QByteArray> map);
     void delDishes(QStringList delList);
 private:
     ServiceReplica *m_rep;

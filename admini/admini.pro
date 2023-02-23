@@ -9,7 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 include(../common/common.pri)
 SOURCES += \
-    adddishesdialog.cpp \
+    adddialog.cpp \
     administratorinterface.cpp \
     dishesedict.cpp \
     dishwidget.cpp \
@@ -19,7 +19,7 @@ SOURCES += \
     orderlist.cpp
 
 HEADERS += \
-    adddishesdialog.h \
+    adddialog.h \
     admini.h \
     administratorinterface.h \
     dishesedict.h \
@@ -28,7 +28,7 @@ HEADERS += \
     orderlist.h
 
 FORMS += \
-    adddishesdialog.ui \
+    adddialog.ui \
     admini.ui \
     administratorinterface.ui \
     dishesedict.ui \

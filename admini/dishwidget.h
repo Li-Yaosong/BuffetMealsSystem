@@ -14,7 +14,7 @@ class DishWidget : public QWidget
 public:
     explicit DishWidget(QWidget *parent = nullptr, QMap<QString, QVariant> data ={});
     ~DishWidget();
-    void setNum(const QString &num);
+    void setClass(const QString &num);
     void setName(const QString &name);
     void setPrice(const double &price);
     void setStorage(const QString &storage);

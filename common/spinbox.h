@@ -15,7 +15,7 @@ public:
     explicit SpinBox(QWidget *parent = nullptr, bool doubleSpin = false);
     ~SpinBox();
 
-    void reSetValue();
+    void reSetValue(double value = 0);
     double value();
 signals:
     void valueChange(double);
