@@ -13,18 +13,21 @@ SOURCES += \
     clientinterface.cpp \
     main.cpp \
     client.cpp \
+    orderconfirmatdialog.cpp \
     placeorder.cpp
 
 HEADERS += \
     cdishwidget.h \
     client.h \
     clientinterface.h \
+    orderconfirmatdialog.h \
     placeorder.h
 
 FORMS += \
     cdishwidget.ui \
     client.ui \
-    clientinterface.ui
+    clientinterface.ui \
+    orderconfirmatdialog.ui
 
 REPC_REPLICA = $$PWD/../service.rep
 

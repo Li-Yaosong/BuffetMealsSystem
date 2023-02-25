@@ -38,6 +38,12 @@ public:
      */
     void delDishes(const QStringList &delList);
     /*!
+     * \brief addOrder
+     * 插入订单
+     * \param map 订单信息
+     */
+    void addOrder(const QMap<QString, QByteArray> &map);
+    /*!
      * \brief getAllClass
      * 获取全部类别
      * \return 全部类别
@@ -49,7 +55,6 @@ public:
      * \return 全部菜单
      */
     QByteArray getAllDishes();
-    QByteArray showImage();
 private:
     Console *m_console;
 };

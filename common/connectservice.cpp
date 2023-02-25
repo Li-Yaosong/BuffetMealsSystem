@@ -1,10 +1,10 @@
-#include "connectservice.h"
+﻿#include "connectservice.h"
 #include "qurl.h"
 
 ConnectService::ConnectService()
 {
     QRemoteObjectNode *repNode=new QRemoteObjectNode();
-    repNode->connectToNode(QUrl("tcp://127.0.0.1:9000"));
+    repNode->connectToNode(QUrl("tcp://192.168.1.12:9000"));
     m_rep = repNode->acquire<ServiceReplica>();
     m_rep->waitForSource(500);
 }
@@ -13,7 +13,7 @@ QMap<QString, QList<QMap<QString, QVariant>>> ConnectService::getData()
 {
     QRemoteObjectPendingReply<QByteArray> data = m_rep->getAllDishes();
 
-    data.waitForFinished(500);
+    data.waitForFinished();
     QByteArray byte = data.returnValue();
     QDataStream Data(byte);
     QMap<QString, QList<QMap<QString, QVariant>>> re;
@@ -25,7 +25,7 @@ QMap<QString, QVariant> ConnectService::getClass()
 {
     QRemoteObjectPendingReply<QByteArray> data = m_rep->getAllClass();
 
-    data.waitForFinished(500);
+    data.waitForFinished();
     QByteArray byte = data.returnValue();
     QDataStream Data(byte);
     QMap<QString, QVariant> re;
@@ -41,6 +41,11 @@ void ConnectService::addDishes(QMap<QString, QByteArray> map)
 void ConnectService::addClass(QMap<QString, QByteArray> map)
 {
     m_rep->addClass(map);
+}
+
+void ConnectService::addOrder(QMap<QString, QByteArray> map)
+{
+    m_rep->addOrder(map);
 }
 
 void ConnectService::delDishes(QStringList delList)

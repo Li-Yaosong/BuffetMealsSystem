@@ -23,3 +23,13 @@ QPixmap Common::creatImage(QByteArray data)
     photo.loadFromData(data, "JPG");
     return photo;
 }
+
+double Common::calculateTotal(QMap<QString, double> priceMap, QMap<QString, int> dishesMap)
+{
+    double total = 0;
+    for(const QString &name : dishesMap.keys())
+    {
+        total+=priceMap.value(name) * dishesMap.value(name);
+    }
+    return total;
+}

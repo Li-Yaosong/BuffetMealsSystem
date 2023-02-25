@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>734</width>
     <height>60</height>
    </rect>
   </property>
@@ -29,7 +29,20 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="time_label">
+    <widget class="QDateTimeEdit" name="dateTimeEdit">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="displayFormat">
+      <string>yyyy-M-d H:mm:ss</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_total">
      <property name="text">
       <string/>
      </property>

@@ -27,6 +27,7 @@ CDishWidget::~CDishWidget()
 
 void CDishWidget::createBind(CDishWidget *widget)
 {
+    m_widget = widget;
     connect(widget, &CDishWidget::dataChange, [this](QPair<QString, int> pair)
     {
         if(int(m_spinBox->value()) != pair.second)
@@ -34,15 +35,15 @@ void CDishWidget::createBind(CDishWidget *widget)
             m_spinBox->reSetValue(pair.second);
         }
     });
-    connect(this, &CDishWidget::dataChange, [&widget](QPair<QString, int> pair)
+    connect(this, &CDishWidget::dataChange, [this](QPair<QString, int> pair)
     {
-        widget->reSetValue(pair.second);
+        m_widget->spinBox()->reSetValue(pair.second);
     });
 }
 
-void CDishWidget::reSetValue(int num)
+SpinBox *CDishWidget::spinBox()
 {
-    m_spinBox->reSetValue(double(num));
+    return m_spinBox;
 }
 
 void CDishWidget::reSetNumber()

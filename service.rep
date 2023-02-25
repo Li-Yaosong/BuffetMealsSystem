@@ -1,5 +1,4 @@
-#include <QtCore>
-//#include "define.h"
+﻿#include <QtCore>
 class Service
 {
     SLOT(void addClass(const QMap<QString, QByteArray> &map))
@@ -10,9 +9,10 @@ class Service
 
     SLOT(void delDishes(const QStringList &delList))
 
+    SLOT(void addOrder(const QMap<QString, QByteArray> &map))
+
     SLOT(QByteArray getAllClass())
 
     SLOT(QByteArray getAllDishes())
 
-    SLOT(QByteArray showImage())
 };

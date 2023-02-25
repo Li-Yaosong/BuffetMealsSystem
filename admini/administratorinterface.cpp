@@ -1,4 +1,5 @@
 ﻿#include "administratorinterface.h"
+#include "common.h"
 #include "dishinfowidget.h"
 #include "orderlist.h"
 #include "ui_administratorinterface.h"
@@ -7,21 +8,30 @@
 #include "getneworder.h"
 #include "titalwidget.h"
 #include "stylesheet.h"
-#include "dishlistwidget.h"
-#include "classtabwidget.h"
+#include "listwidget.h"
+#include "tabwidget.h"
 #include "classinfowidget.h"
+
 AdministratorInterface::AdministratorInterface(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AdministratorInterface),
-    m_classTab(new ClassTabWidget)
+    m_classTab(new TabWidget),
+    m_orderTab(new TabWidget),
+    m_newOrderList(new ListWidget(2)),
+    m_finishOrderList(new ListWidget(2))
 {
     ui->setupUi(this);
     this->resize(QSize(1400,800));
+    m_service = new ConnectService();
+    ui->horizontalLayout_1->insertWidget(1, m_orderTab);
+    m_orderTab->addTab(ui->pushButton_noFinished, m_newOrderList, "No finished");
+    m_orderTab->addTab(ui->pushButton_finished, m_finishOrderList, "finished");
+    updateOrderList();
 //    ui->checkBox->hide();
     initStyle();
     TitalWidget *tital = new TitalWidget(this, QString::fromLocal8Bit("餐厅点餐系统服务端"));
     ui->verticalLayout->insertWidget(0,tital);
-    m_service = new ConnectService;
+
     updateClassList();
     ui->tabWidget->tabBar()->hide();
     connect(ui->pushButton_batchDel,&QPushButton::clicked,this,[this]{
@@ -57,6 +67,7 @@ void AdministratorInterface::updateDishesList()
     {
         for(const QMap<QString, QVariant> &map : list)
         {
+            m_priceMap.insert(map.value("name").toString(), map.value("price").toDouble());
             DishWidget *dish = new DishWidget(this, map);
             m_allDishList->addDishWidget(dish);
             m_dishWidgetList.append(dish);
@@ -71,7 +82,7 @@ void AdministratorInterface::updateDishesList()
 void AdministratorInterface::updateClassList()
 {
     m_classTab->clear();
-    m_allDishList = new DishListWidget;
+    m_allDishList = new ListWidget(1);
 
     for(QPushButton * classButton : qAsConst(m_classButtonList))
     {
@@ -90,7 +101,7 @@ void AdministratorInterface::updateClassList()
         QPushButton * classButton= new QPushButton(key);
         m_classButtonList.append(classButton);
         ui->verticalLayout_6->insertWidget(ui->verticalLayout_6->count()-1,classButton);
-        DishListWidget *list = new DishListWidget();
+        ListWidget *list = new ListWidget(1);
         for(const QMap<QString, QVariant> &dishMap : data.value(key))
         {
             DishWidget *dish = new DishWidget(this, dishMap);
@@ -104,12 +115,13 @@ void AdministratorInterface::updateClassList()
     updateDishesList();
 }
 
-void AdministratorInterface::on_noFinished_pushButton_clicked()
+void AdministratorInterface::updateOrderList()
 {
-    OrderList *order = new OrderList();
-    ui->verticalLayout_2->insertWidget(ui->verticalLayout_2->count() - 1,order);
-}
+    m_newOrderList->clear();
+    m_finishOrderList->clear();
 
+
+}
 
 void AdministratorInterface::on_pushButton_addDishes_clicked()
 {
@@ -166,6 +178,17 @@ void AdministratorInterface::hasNewOrder(QByteArray order)
 
     QDataStream data(&order, QIODevice::OpenModeFlag::ReadOnly);
     data>>seat>>dishesMap;
+
+    QByteArray orderByte;
+    QDataStream dishes(&orderByte, QIODevice::OpenModeFlag::WriteOnly);
+    dishes << dishesMap;
+    QMap<QString, QByteArray> orderMap;
+    orderMap.insert("seat", QString::number(seat).toUtf8());
+    orderMap.insert("total", QString::number(Common::calculateTotal(m_priceMap, dishesMap)).toUtf8());
+    orderMap.insert("dishes", orderByte);
+    orderMap.insert("state", QString::number(0).toUtf8());
+    m_service->addOrder(orderMap);
+
     QStringList list = dishesMap.keys();
     QDateTime dateTime(QDateTime::currentDateTime());
     ui->textEdit->append(QString::fromLocal8Bit("座位号: ") + QString::number(seat));

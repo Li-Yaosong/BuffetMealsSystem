@@ -10,8 +10,8 @@ class ClientInterface;
 class ConnectService;
 class CDishWidget;
 class PlaceOrder;
-class DishListWidget;
-class ClassTabWidget;
+class ListWidget;
+class TabWidget;
 class ClientInterface : public QWidget
 {
     Q_OBJECT
@@ -26,6 +26,8 @@ signals:
 private slots:
     void addDishes(QPair<QString, int> dish);
     void placeOrder();
+    void on_pushButton_placeOrder_clicked();
+
 private:
     void updateClassList();
     Ui::ClientInterface *ui;
@@ -36,8 +38,8 @@ private:
     QTcpSocket *m_tcpsocket;
     PlaceOrder *m_placeOrder;
     QMap<QString, int> m_orderMap;
-    DishListWidget *m_allDishList;
-    ClassTabWidget *m_classTab;
+    ListWidget *m_allDishList;
+    TabWidget *m_classTab;
     QStringList m_classList;
     QList<QPushButton *> m_classButtonList;
     QMap<QString, CDishWidget *> m_dishWidgetMap;

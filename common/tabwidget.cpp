@@ -1,42 +1,42 @@
-#include "classtabwidget.h"
+﻿#include "tabwidget.h"
 #include "qtabbar.h"
-#include "ui_classtabwidget.h"
-class ClassTabWidgetP
+#include "ui_tabwidget.h"
+class TabWidgetP
 {
 public:
-    ClassTabWidgetP()
+    TabWidgetP()
     {
 
     }
-    QMap<QString, QPair<int, DishListWidget *>> map;
+    QMap<QString, QPair<int, ListWidget *>> map;
 };
 
-ClassTabWidget::ClassTabWidget(QWidget *parent) :
+TabWidget::TabWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ClassTabWidget),
-    p(new ClassTabWidgetP)
+    ui(new Ui::TabWidget),
+    p(new TabWidgetP)
 {
     ui->setupUi(this);
     ui->tabWidget->tabBar()->hide();
 }
 
-ClassTabWidget::~ClassTabWidget()
+TabWidget::~TabWidget()
 {
     delete ui;
 }
 
-void ClassTabWidget::addTab(QPushButton *button, DishListWidget *widget,QString name)
+void TabWidget::addTab(QPushButton *button, ListWidget *widget,QString name)
 {
     int count = ui->tabWidget->count();
     connect(button, &QPushButton::clicked, this, [this, count]{
 //        int count = ui->tabWidget->count();
         ui->tabWidget->setCurrentIndex(count);
     });
-    p->map.insert(name,QPair<int, DishListWidget *>(count,widget));
+    p->map.insert(name,QPair<int, ListWidget *>(count,widget));
     ui->tabWidget->addTab(widget,name);
 }
 
-void ClassTabWidget::removeTab(QString name)
+void TabWidget::removeTab(QString name)
 {
     if(p->map.value(name).second != nullptr)
     {
@@ -46,10 +46,10 @@ void ClassTabWidget::removeTab(QString name)
     }
 }
 
-void ClassTabWidget::clear()
+void TabWidget::clear()
 {
     ui->tabWidget->clear();
-    for(QPair<int, DishListWidget *> pair : p->map.values())
+    for(QPair<int, ListWidget *> pair : p->map.values())
     {
         pair.second->clear();
         pair.second->deleteLater();
