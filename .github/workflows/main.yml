@@ -10,7 +10,7 @@ jobs:
   Install-QT:
   
     name: Build by windows Qt5.15.2
-    runs-on: windows-latest
+    runs-on: windows-2019
    
     steps:
       - name: Clone Code
