@@ -5,5 +5,6 @@ sast:
   script:
     - mkdir build
     - cd build
-    - qmake ../BuffetMealsSystem.pro -spec win32-msvc "CONFIG+=qtquickcompiler" && jom qmake_all
+    - qmake ../BuffetMealsSystem.pro -spec win32-msvc "CONFIG+=qtquickcompiler"
+    - jom qmake_all
     - jom
