@@ -1,0 +1,7 @@
+﻿QLabel{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(31,31,31);
+    background-color: rgb(255,78,78);
+    border:2px solid rgb(255,135,135);
+    border-radius:10px;
+}

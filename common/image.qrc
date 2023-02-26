@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/right.png</file>
+        <file>image/right_in.png</file>
+        <file>image/left.png</file>
+        <file>image/left_in.png</file>
+        <file>image/exit.png</file>
+        <file>image/exit_in.png</file>
+        <file>image/right_p.png</file>
+        <file>image/max.png</file>
+        <file>image/max_in.png</file>
+        <file>image/min.png</file>
+        <file>image/min_in.png</file>
+    </qresource>
+</RCC>
