@@ -1,7 +1,7 @@
 stages:
-- test
-sast:
-  stage: test
+- build
+Qt5.15.2-msvc2019-64bit:
+  stage: build
   script:
     - mkdir build
     - cd build
