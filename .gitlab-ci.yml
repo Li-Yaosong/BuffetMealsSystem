@@ -9,7 +9,7 @@ Qt5.15.2-msvc2019-64bit:
     - jom qmake_all
     - jom
     
-Qt-5.15.5-linux-gcc9.3.0-arm-64bit:
+Qt5.15.5-linux-gcc9.3.0-arm-64bit:
   tags:
     - linux_arm64
   stage: build
