@@ -16,6 +16,7 @@ Qt-5.15.5-linux-gcc9.3.0-arm-64bit:
   script:
     - mkdir 5.15.5_build
     - cd 5.15.5_build
+    - chmod +x /home/lys/Qt/5.15.5/qmake
     - /home/lys/Qt/5.15.5/qmake ../BuffetMealsSystem.pro
     - make qmake_all
     - make -j4
