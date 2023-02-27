@@ -8,3 +8,15 @@ Qt5.15.2-msvc2019-64bit:
     - qmake ../BuffetMealsSystem.pro -spec win32-msvc "CONFIG+=qtquickcompiler"
     - jom qmake_all
     - jom
+    
+Qt-5.15.5-linux-gcc9.3.0-arm-64bit:
+  tags:
+    - linux_arm64
+  stage: build
+  script:
+    - mkdir 5.15.5_build
+    - cd 5.15.5_build
+    - /home/lys/qmake ../BuffetMealsSystem.pro
+    - make qmake_all
+    - make -j4
+
