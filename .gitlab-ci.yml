@@ -37,6 +37,8 @@ Qt5.15.5-linux-gcc9.3.0-arm-64bit-build:
     - make -j4
 
 Qt5.15.5-linux-gcc9.3.0-arm-64bit-publish:
+  tags:
+    - linux_arm64
   stage: publish
   needs:
     - Qt5.15.5-linux-gcc9.3.0-arm-64bit-build
