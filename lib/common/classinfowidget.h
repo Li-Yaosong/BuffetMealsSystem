@@ -1,13 +1,13 @@
-#ifndef CLASSINFOWIDGET_H
+﻿#ifndef CLASSINFOWIDGET_H
 #define CLASSINFOWIDGET_H
-
+#include "libbms_global.h"
 #include <QWidget>
 #include <QMap>
 namespace Ui {
 class ClassInfoWidget;
 }
 
-class ClassInfoWidget : public QWidget
+class LIBBMS_EXPORT ClassInfoWidget : public QWidget
 {
     Q_OBJECT
 

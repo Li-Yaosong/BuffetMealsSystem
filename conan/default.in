@@ -1,0 +1,10 @@
+[settings]
+os=$$BUILD_OS
+arch=$$BUILD_ARCH
+arch_build=$$BUILD_ARCH
+compiler=$$COMPILER
+compiler.version=$$COMPILER_VERSION
+build_type=$$BUILD_TYPE
+[options]
+[build_requires]
+[env]

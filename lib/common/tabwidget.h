@@ -4,12 +4,13 @@
 #include "listwidget.h"
 #include "qpushbutton.h"
 #include <QWidget>
+#include "libbms_global.h"
 
 namespace Ui {
 class TabWidget;
 }
 class TabWidgetP;
-class TabWidget : public QWidget
+class LIBBMS_EXPORT TabWidget : public QWidget
 {
     Q_OBJECT
 

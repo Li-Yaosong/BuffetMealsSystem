@@ -1,0 +1,13 @@
+from conans import ConanFile
+
+
+class Conan(ConanFile):
+    settings = \"os\", \"compiler\", \"build_type\", \"arch\"
+    requires = $$REQUIRES_TARGET_LIST
+    generators = \"qmake\"
+
+    def config_options(self):
+        if self.settings.os == \"Windows\":
+            del self.options.fPIC
+        if self.settings.compiler == \"gcc\":
+            self.settings.compiler.libcxx = \"libstdc++11\"

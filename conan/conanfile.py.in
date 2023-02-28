@@ -1,0 +1,34 @@
+﻿from conans import ConanFile
+
+
+class Conan(ConanFile):
+    name = \"$${LIB_NAME}\"
+    version = \"$${LIB_VERSION}\"
+    license = \"<Put the package license here>\"
+    user = \"lys\"
+    channel = \"$$CHANNEL\"
+    author = \"Lys\"
+    url = \"https://www.lys-kd.com/\"
+    description = \"\"
+    topics = (\"<Put some tag here>\", \"<here>\", \"<and here>\")
+    settings = \"os\", \"compiler\", \"build_type\", \"arch\"
+    options = {\"shared\": [True, False], \"fPIC\": [True, False]}
+    default_options = {\"shared\": $$SHARED_OR_STATIC, \"fPIC\": True}
+    generators = \"qmake\"
+
+    def config_options(self):
+        if self.settings.os == \"Windows\":
+            del self.options.fPIC
+        if self.settings.compiler == \"gcc\":
+            self.settings.compiler.libcxx = \"libstdc++11\"
+
+    def package(self):
+        self.copy(\"*\")
+
+    def package_info(self):
+        self.cpp_info.includedirs = [\"include\"]
+        self.cpp_info.libdirs = [\"lib/\"]
+        if self.settings.build_type == \"Debug\":
+            self.cpp_info.libs = [\"$${LIB_NAME}d\"]
+        else:
+            self.cpp_info.libs = [\"$$LIB_NAME\"]

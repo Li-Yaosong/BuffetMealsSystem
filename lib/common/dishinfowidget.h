@@ -3,11 +3,12 @@
 
 #include <QWidget>
 #include <QMap>
+#include "libbms_global.h"
 namespace Ui {
 class DishInfoWidget;
 }
 
-class DishInfoWidget : public QWidget
+class LIBBMS_EXPORT DishInfoWidget : public QWidget
 {
     Q_OBJECT
 

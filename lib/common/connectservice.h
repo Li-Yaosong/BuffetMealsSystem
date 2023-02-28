@@ -2,8 +2,8 @@
 #define CONNECTSERVICE_H
 #include "rep_service_replica.h"
 #include <QObject>
-
-class ConnectService
+#include "libbms_global.h"
+class LIBBMS_EXPORT ConnectService
 {
 public:
     ConnectService();

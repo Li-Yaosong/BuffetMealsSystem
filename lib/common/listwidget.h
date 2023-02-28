@@ -2,6 +2,7 @@
 #define LISTWIDGET_H
 
 #include <QWidget>
+#include "libbms_global.h"
 
 namespace Ui {
 class ListWidget;
@@ -9,7 +10,7 @@ class ListWidget;
 
 class DishWidget;
 class ListWidgetP;
-class ListWidget : public QWidget
+class LIBBMS_EXPORT ListWidget : public QWidget
 {
     Q_OBJECT
 

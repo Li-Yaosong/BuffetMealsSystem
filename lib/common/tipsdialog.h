@@ -1,13 +1,14 @@
-#ifndef TIPSDIALOG_H
+﻿#ifndef TIPSDIALOG_H
 #define TIPSDIALOG_H
 
 #include <QDialog>
+#include "libbms_global.h"
 
 namespace Ui {
 class TipsDialog;
 }
 
-class TipsDialog : public QDialog
+class LIBBMS_EXPORT TipsDialog : public QDialog
 {
     Q_OBJECT
 

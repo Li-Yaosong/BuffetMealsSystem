@@ -2,12 +2,13 @@
 #define IMAGEWIDGET_H
 
 #include <QWidget>
+#include "libbms_global.h"
 
 namespace Ui {
 class ImageWidget;
 }
 
-class ImageWidget : public QWidget
+class LIBBMS_EXPORT ImageWidget : public QWidget
 {
     Q_OBJECT
 

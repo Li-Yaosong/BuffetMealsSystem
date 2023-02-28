@@ -7,7 +7,20 @@ CONFIG += c++17
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-include(../common/common.pri)
+#include(../common/common.pri)
+#INCLUDEPATH += $$PWD/../c
+CONAN_INSTALL += bms/0.0.1
+
+conanupload.CONFIG += recursive
+QMAKE_EXTRA_TARGETS += conanupload
+
+
+include(../conan/conan.pri)
+
+
+
+#QMAKE_SUBSTITUTES += dllfile
+
 SOURCES += \
     adddialog.cpp \
     administratorinterface.cpp \
@@ -40,3 +53,4 @@ REPC_REPLICA = $$PWD/../service.rep
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+

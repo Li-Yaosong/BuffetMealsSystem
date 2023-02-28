@@ -2,8 +2,8 @@
 #define COMMON_H
 #include <QString>
 #include <QVariant>
-#include "stylesheet.h"
-class Common
+#include "libbms_global.h"
+class LIBBMS_EXPORT Common
 {
 public:
     struct Dish

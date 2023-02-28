@@ -1,6 +1,6 @@
 ﻿#include "dishwidget.h"
 #include "ui_dishwidget.h"
-#include "dishesedict.h"
+//#include "dishesedict.h"
 #include "stylesheet.h"
 DishWidget::DishWidget(QWidget *parent, QMap<QString, QVariant> data) :
     QWidget(parent),
@@ -10,7 +10,7 @@ DishWidget::DishWidget(QWidget *parent, QMap<QString, QVariant> data) :
     ui->checkBox->hide();
     this->setStyleSheet(StyleSheet::labelStyle(1));
     ui->pushButton->setStyleSheet(StyleSheet::buttonStyle(1));
-    m_imageW = new DishesEdict(nullptr, data.value("image").toByteArray());
+//    m_imageW = new DishesEdict(nullptr, data.value("image").toByteArray());
     QString name = QString(data.value("name").toByteArray());
     setClass(QString(data.value("class").toByteArray()));
     setName(name);
@@ -74,6 +74,6 @@ void DishWidget::hideCheckBox()
 
 void DishWidget::on_pushButton_clicked()
 {
-    m_imageW->show();
+//    m_imageW->show();
 }
 

@@ -2,6 +2,7 @@
 #include "ui_cdishwidget.h"
 #include "common.h"
 #include "imagewidget.h"
+#include "stylesheet.h"
 CDishWidget::CDishWidget(QWidget *parent, Common::Dish dishIfon) :
     QWidget(parent),
     ui(new Ui::CDishWidget),
