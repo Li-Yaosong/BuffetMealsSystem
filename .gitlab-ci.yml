@@ -9,7 +9,7 @@ Qt5.15.2-msvc2019-64bit:
     - jom qmake_all
     - cd lib
     - jom install
-    - jom conanupload
+    - jom conanupload 
     
 # Qt5.15.5-linux-gcc9.3.0-arm-64bit:
 #   tags:
