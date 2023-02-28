@@ -1,6 +1,7 @@
 stages:
 - build
-Qt5.15.2-msvc2019-64bit:
+- publish
+Qt5.15.2-msvc2019-64bit-build:
   stage: build
   script:
     - mkdir build
@@ -9,9 +10,18 @@ Qt5.15.2-msvc2019-64bit:
     - jom qmake_all
     - cd lib
     - jom install
-    - jom conanupload 
     
-Qt5.15.5-linux-gcc9.3.0-arm-64bit:
+Qt5.15.2-msvc2019-64bit-publish:
+  stage: publish
+  needs:
+    - Qt5.15.2-msvc2019-64bit-build
+  script:
+    - mkdir build
+    - cd build
+    - cd lib
+    - jom conanupload 
+  
+Qt5.15.5-linux-gcc9.3.0-arm-64bit-build:
   tags:
     - linux_arm64
   stage: build
@@ -22,5 +32,14 @@ Qt5.15.5-linux-gcc9.3.0-arm-64bit:
     - make qmake_all
     - cd lib
     - make install -j4
+
+Qt5.15.5-linux-gcc9.3.0-arm-64bit-publish:
+  stage: publish
+  needs:
+    - Qt5.15.5-linux-gcc9.3.0-arm-64bit-build
+  script:
+    - mkdir build
+    - cd build
+    - cd lib
     - make conanupload 
 
