@@ -3,7 +3,6 @@ stages:
 Qt5.15.2-msvc2019-64bit:
   stage: build
   script:
-    - pip install conan==1.53
     - mkdir build
     - cd build
     - qmake ../BuffetMealsSystem.pro -spec win32-msvc "CONFIG+=qtquickcompiler"
