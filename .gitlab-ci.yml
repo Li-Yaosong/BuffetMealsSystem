@@ -9,7 +9,7 @@ Qt5.15.2-msvc2019-64bit-build:
     - qmake ../BuffetMealsSystem.pro -spec win32-msvc "CONFIG+=qtquickcompiler"
     - jom qmake_all
     - cd lib
-    - jom install
+    - jom
     
 Qt5.15.2-msvc2019-64bit-publish:
   stage: publish
@@ -18,8 +18,11 @@ Qt5.15.2-msvc2019-64bit-publish:
   script:
     - mkdir build
     - cd build
+    - qmake ../BuffetMealsSystem.pro -spec win32-msvc "CONFIG+=qtquickcompiler"
+    - jom qmake_all
     - cd lib
-    - jom conanupload 
+    - jom install
+    - jom conanupload
   
 Qt5.15.5-linux-gcc9.3.0-arm-64bit-build:
   tags:
@@ -31,15 +34,18 @@ Qt5.15.5-linux-gcc9.3.0-arm-64bit-build:
     - /home/lys/Qt/5.15.5/bin/qmake ../BuffetMealsSystem.pro
     - make qmake_all
     - cd lib
-    - make install -j4
+    - make -j4
 
 Qt5.15.5-linux-gcc9.3.0-arm-64bit-publish:
   stage: publish
   needs:
     - Qt5.15.5-linux-gcc9.3.0-arm-64bit-build
   script:
-    - mkdir build
-    - cd build
+    - mkdir 5.15.5_build
+    - cd 5.15.5_build
+    - /home/lys/Qt/5.15.5/bin/qmake ../BuffetMealsSystem.pro
+    - make qmake_all
     - cd lib
-    - make conanupload 
+    - make install -j4
+    - make conanupload
 
