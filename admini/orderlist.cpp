@@ -37,7 +37,7 @@ void OrderList::on_see_pushButton_clicked()
     dialog->setButtonText(QStringLiteral("完成订单"),QStringLiteral("取消订单"));
     if(QDialog::Accepted == dialog->exec())
     {
-        ConnectService::service()->updateOrder(m_num, 1);
+        ConnectService::service()->rep()->updateOrder(m_num, 1);
         emit updateOrder();
     }
 }

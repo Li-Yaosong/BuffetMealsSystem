@@ -11,6 +11,8 @@
 #include "listwidget.h"
 #include "tabwidget.h"
 #include "classinfowidget.h"
+#include "setcostdialog.h"
+#include "reportwidget.h"
 using namespace Common;
 AdministratorInterface::AdministratorInterface(QWidget *parent) :
     QWidget(parent),
@@ -19,7 +21,8 @@ AdministratorInterface::AdministratorInterface(QWidget *parent) :
     m_orderTab(new TabWidget),
     m_newOrderList(new ListWidget(2)),
     m_finishOrderList(new ListWidget(2)),
-    m_queryOrder(new ListWidget(2))
+    m_queryOrder(new ListWidget(2)),
+    m_report(new ReportWidget)
 {
     ui->setupUi(this);
     this->resize(QSize(1400,800));
@@ -47,11 +50,12 @@ AdministratorInterface::AdministratorInterface(QWidget *parent) :
         {
             return;
         }
-        Service->delDishes(m_delList);
+        Service->rep()->delDishes(m_delList);
         updateClassList();
     });
     GetNewOrder *newOrder = new GetNewOrder;
     connect(newOrder, &GetNewOrder::hasNewOrder, this, &AdministratorInterface::hasNewOrder);
+    Service->rep()->initReport();
 }
 
 AdministratorInterface::~AdministratorInterface()
@@ -147,7 +151,7 @@ void AdministratorInterface::on_pushButton_addDishes_clicked()
     connect(infoWidget, &DishInfoWidget::infoChanged, dialog, &AddDialog::dishInfoChanged);
     if(QDialog::Accepted == dialog->exec())
     {
-        Service->addDishes(infoWidget->info());
+        Service->rep()->addDishes(infoWidget->info());
         updateClassList();
     }
 }
@@ -160,7 +164,7 @@ void AdministratorInterface::on_pushButton_addClass_clicked()
     connect(infoWidget, &ClassInfoWidget::infoChanged, dialog, &AddDialog::classInfoChanged);
     if(QDialog::Accepted == dialog->exec())
     {
-        Service->addClass(infoWidget->info());
+        Service->rep()->addClass(infoWidget->info());
         updateClassList();
     }
 }
@@ -199,7 +203,7 @@ void AdministratorInterface::hasNewOrder(QByteArray order)
     orderMap.insert("total", QString::number(Common::calculateTotal(m_priceMap, dishesMap)).toUtf8());
     orderMap.insert("dishes", orderByte);
     orderMap.insert("state", QString::number(0).toUtf8());
-    Service->addOrder(orderMap);
+    Service->rep()->addOrder(orderMap);
 
     QStringList list = dishesMap.keys();
 }
@@ -246,12 +250,16 @@ void AdministratorInterface::initStyle()
 #include "orderlist.h"
 void AdministratorInterface::on_pushButton_query_clicked()
 {
-////    ui->verticalLayout_3->addWidget()
-//    static int num = 1;
-//    OrderList *w1 = new OrderList();
-//    w1->setInfo(num,1,"1",120.5,QStringLiteral("已完成"));
-//    ui->verticalLayout_3->addWidget(w1,ui->verticalLayout_3->count());
-////    m_newOrderList->addDishWidget(w1);
-//    num++;
+
+}
+
+void AdministratorInterface::on_pushButton_clicked()
+{
+    SetCostDialog dialog;
+    if(QDialog::Accepted == dialog.exec())
+    {
+        QPair<QString, double> info = dialog.getInfo();
+        ConnectService::service()->rep()->setDailyCost(info.first, info.second);
+    }
 }
 

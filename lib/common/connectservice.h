@@ -8,18 +8,14 @@ class ConnectService
 public:
 
     static ConnectService *service();
+    ServiceReplica *rep();
     QMap<QString, QList<Dish>> getData();
     QMap<QString, QVariant> getClass();
     QList<Order> getOrder();
-    void addDishes(const Dish &dishInfo);
-    void modifiDishe(const Dish &dishInfo, const QString &old);
-    void addClass(Class map);
-    void addOrder(QMap<QString, QByteArray> map);
-    void updateOrder(int num, int state);
-    void delDishes(QStringList delList);
     QStringList classes();
 private:
     ConnectService();
+    static ConnectService *m_service;
     ServiceReplica *m_rep;
 };
 

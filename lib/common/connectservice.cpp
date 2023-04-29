@@ -8,10 +8,20 @@ ConnectService::ConnectService()
     m_rep = repNode->acquire<ServiceReplica>();
     m_rep->waitForSource(500);
 }
-
+ConnectService *ConnectService::m_service = nullptr;
 ConnectService *ConnectService::service()
 {
-    return new ConnectService();
+    if(!m_service)
+    {
+        m_service = new ConnectService();
+    }
+    return m_service;
+}
+
+ServiceReplica *ConnectService::rep()
+{
+    ServiceReplica *rep = m_rep;
+    return rep;
 }
 
 QMap<QString, QList<Dish>> ConnectService::getData()
@@ -34,36 +44,6 @@ QList<Order> ConnectService::getOrder()
     QRemoteObjectPendingReply<QList<Order>> data = m_rep->getOrder();
     data.waitForFinished();
     return data.returnValue();
-}
-
-void ConnectService::addDishes(const Dish & dishInfo)
-{
-    m_rep->addDishes(dishInfo);
-}
-
-void ConnectService::modifiDishe(const Dish &dishInfo, const QString &old)
-{
-    m_rep->modifiDishe(dishInfo,old);
-}
-
-void ConnectService::addClass(Class map)
-{
-    m_rep->addClass(map);
-}
-
-void ConnectService::addOrder(QMap<QString, QByteArray> map)
-{
-    m_rep->addOrder(map);
-}
-
-void ConnectService::updateOrder(int num, int state)
-{
-    m_rep->updateOrder(num, state);
-}
-
-void ConnectService::delDishes(QStringList delList)
-{
-    m_rep->delDishes(delList);
 }
 
 QStringList ConnectService::classes()

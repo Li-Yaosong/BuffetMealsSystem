@@ -21,7 +21,6 @@
 
 #include "rep_service_source.h"
 #include <QObject>
-#include "global.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class Service; }
 QT_END_NAMESPACE
@@ -95,6 +94,11 @@ public:
      * \param cost 成本
      */
     void setDailyCost(const QString date, const double cost);
+    /*!
+     * \brief initReport
+     * 初始化当天，当月报表
+     */
+    void initReport();
 private:
     Console *m_console;
 };

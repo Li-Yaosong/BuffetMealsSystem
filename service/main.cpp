@@ -1,7 +1,6 @@
 ﻿#include "service.h"
 #include <QApplication>
 #include <QRemoteObjectHost>
-#include "service.h"
 #include <QHostInfo>
 
 QString localip()

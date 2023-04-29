@@ -31,7 +31,9 @@ SOURCES += \
     main.cpp \
     admini.cpp \
     orderlist.cpp \
-    registwidget.cpp
+    registwidget.cpp \
+    reportwidget.cpp \
+    setcostdialog.cpp
 
 HEADERS += \
     adddialog.h \
@@ -42,7 +44,9 @@ HEADERS += \
     getneworder.h \
     loginwidget.h \
     orderlist.h \
-    registwidget.h
+    registwidget.h \
+    reportwidget.h \
+    setcostdialog.h
 
 FORMS += \
     adddialog.ui \
@@ -52,7 +56,9 @@ FORMS += \
     dishwidget.ui \
     loginwidget.ui \
     orderlist.ui \
-    registwidget.ui
+    registwidget.ui \
+    reportwidget.ui \
+    setcostdialog.ui
 
 REPC_REPLICA = $$PWD/../service.rep
 # Default rules for deployment.

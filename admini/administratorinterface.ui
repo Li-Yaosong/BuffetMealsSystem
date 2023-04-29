@@ -97,7 +97,7 @@
       <enum>QTabWidget::South</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -565,12 +565,35 @@ QPushButton:pressed{
        <item row="0" column="0">
         <widget class="QWidget" name="widget" native="true">
          <property name="styleSheet">
-          <string notr="true">
-background-color: rgb(85, 170, 255);</string>
+          <string notr="true">background-color: rgb(85, 170, 127);
+</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QPushButton" name="pushButton">
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(255,255,255);
+    background-color: rgb(20,196,188);
+    border: none;border-radius:8px;
+    }
+QPushButton:disabled {
+  background-color: rgb(170,170,170);
+}
+QPushButton:hover{
+    background-color: rgb(22,218,208);
+    }//hover
+
+QPushButton:pressed{
+    background-color: rgb(17,171,164);
+    }//pressedb
+
+QGroupBox{
+    background-color: rgb(170, 170, 255);
+}
+</string>
+            </property>
             <property name="text">
              <string>成本设置</string>
             </property>
@@ -736,6 +759,30 @@ QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
           </item>
           <item>
            <widget class="QPushButton" name="pushButton_2">
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(255,255,255);
+	
+	background-color: rgb(0, 170, 255);
+    border: none;border-radius:8px;
+    }
+QPushButton:disabled {
+  background-color: rgb(170,170,170);
+}
+QPushButton:hover{
+    background-color: rgb(22,218,208);
+    }//hover
+
+QPushButton:pressed{
+    background-color: rgb(17,171,164);
+    }//pressedb
+
+QGroupBox{
+    background-color: rgb(170, 170, 255);
+}
+</string>
+            </property>
             <property name="text">
              <string>查询</string>
             </property>
@@ -746,29 +793,68 @@ QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
        </item>
        <item row="1" column="0">
         <widget class="QTableWidget" name="tableWidget">
+         <property name="font">
+          <font>
+           <kerning>true</kerning>
+          </font>
+         </property>
+         <property name="acceptDrops">
+          <bool>false</bool>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(255, 255, 255);</string>
          </property>
-         <row>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>4</string>
-          </property>
-         </row>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="sizeAdjustPolicy">
+          <enum>QAbstractScrollArea::AdjustIgnored</enum>
+         </property>
+         <property name="dragEnabled">
+          <bool>false</bool>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="textElideMode">
+          <enum>Qt::ElideRight</enum>
+         </property>
+         <property name="verticalScrollMode">
+          <enum>QAbstractItemView::ScrollPerItem</enum>
+         </property>
+         <property name="gridStyle">
+          <enum>Qt::SolidLine</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <attribute name="horizontalHeaderCascadingSectionResizes">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderCascadingSectionResizes">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderStretchLastSection">
+          <bool>false</bool>
+         </attribute>
          <column>
           <property name="text">
            <string>日期</string>
@@ -794,106 +880,6 @@ QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
            <string>订单数量</string>
           </property>
          </column>
-         <item row="0" column="0">
-          <property name="text">
-           <string>2023-03-28</string>
-          </property>
-         </item>
-         <item row="0" column="1">
-          <property name="text">
-           <string>15350</string>
-          </property>
-         </item>
-         <item row="0" column="2">
-          <property name="text">
-           <string>10000</string>
-          </property>
-         </item>
-         <item row="0" column="3">
-          <property name="text">
-           <string>5350</string>
-          </property>
-         </item>
-         <item row="0" column="4">
-          <property name="text">
-           <string>150</string>
-          </property>
-         </item>
-         <item row="1" column="0">
-          <property name="text">
-           <string>2023-03-29</string>
-          </property>
-         </item>
-         <item row="1" column="1">
-          <property name="text">
-           <string>15350</string>
-          </property>
-         </item>
-         <item row="1" column="2">
-          <property name="text">
-           <string>10000</string>
-          </property>
-         </item>
-         <item row="1" column="3">
-          <property name="text">
-           <string>5350</string>
-          </property>
-         </item>
-         <item row="1" column="4">
-          <property name="text">
-           <string>150</string>
-          </property>
-         </item>
-         <item row="2" column="0">
-          <property name="text">
-           <string>2023-03-30</string>
-          </property>
-         </item>
-         <item row="2" column="1">
-          <property name="text">
-           <string>25456</string>
-          </property>
-         </item>
-         <item row="2" column="2">
-          <property name="text">
-           <string>18000</string>
-          </property>
-         </item>
-         <item row="2" column="3">
-          <property name="text">
-           <string>7456</string>
-          </property>
-         </item>
-         <item row="2" column="4">
-          <property name="text">
-           <string>250</string>
-          </property>
-         </item>
-         <item row="3" column="0">
-          <property name="text">
-           <string>2023-03-31</string>
-          </property>
-         </item>
-         <item row="3" column="1">
-          <property name="text">
-           <string>25456</string>
-          </property>
-         </item>
-         <item row="3" column="2">
-          <property name="text">
-           <string>18000</string>
-          </property>
-         </item>
-         <item row="3" column="3">
-          <property name="text">
-           <string>7456</string>
-          </property>
-         </item>
-         <item row="3" column="4">
-          <property name="text">
-           <string>250</string>
-          </property>
-         </item>
         </widget>
        </item>
       </layout>

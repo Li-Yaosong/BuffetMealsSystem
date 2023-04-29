@@ -1,8 +1,6 @@
 ﻿#ifndef ADMINISTRATORINTERFACE_H
 #define ADMINISTRATORINTERFACE_H
 
-#include "connectservice.h"
-
 #include <QWidget>
 
 #include<QTcpServer>//监听套接字
@@ -14,6 +12,7 @@ class DishWidget;
 class ListWidget;
 class TabWidget;
 class QPushButton;
+class ReportWidget;
 class AdministratorInterface : public QWidget
 {
     Q_OBJECT
@@ -43,6 +42,8 @@ private slots:
 
     void on_pushButton_query_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     void initStyle();
     Ui::AdministratorInterface *ui;
@@ -58,6 +59,8 @@ private:
     QList<QPushButton *> m_classButtonList;
     //价格表Map
     QMap<QString, double> m_priceMap;
+    //报表
+    ReportWidget *m_report;
 };
 
 #endif // ADMINISTRATORINTERFACE_H

@@ -52,7 +52,7 @@ void DishesEdict::dishInfoChanged(Dish dishInfo)
 
 void DishesEdict::on_pushButton_finished_clicked()
 {
-    Service->modifiDishe(m_dishInfo, old);
+    Service->rep()->modifiDishe(m_dishInfo, old);
     emit edictFinished(m_dishInfo);
 }
 

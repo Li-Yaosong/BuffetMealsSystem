@@ -24,4 +24,6 @@ class Service
 
     SLOT(void setDailyCost(const QString date, const double cost))
 
+    SLOT(void initReport())
+
 };

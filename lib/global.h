@@ -4,6 +4,8 @@
 #include <QString>
 #include <QVariant>
 #include <QMetaType>
+#include <QSqlQuery>
+#include <QDate>
 struct Dish
 {
     QString name;
@@ -17,23 +19,18 @@ struct Dish
     }
     inline friend QDataStream& operator<<(QDataStream& out, const Dish& d)
     {
-    out << d.name;
-    out << d.className;
-    out << QString::number(d.price);
-    out << d.image;
-    out << QString::number(d.storage);
+    out << d.name
+        << d.className
+        << QString::number(d.price)
+        << d.image
+        << QString::number(d.storage);
     return out;
     }
     inline friend  QDataStream& operator>>(QDataStream& in, Dish & d)
     {
-    QString price;
-    QString storage;
-    in >> d.name;
-    in >> d.className;
-    in >> price;
+    QString price, storage;
+    in >> d.name >> d.className >> price >> d.image >> storage;
     d.price = price.toDouble();
-    in >> d.image;
-    in >> storage;
     d.storage = storage.toInt();
     return in;
     }
@@ -44,8 +41,8 @@ struct Class
     QByteArray image;
     inline friend QDataStream& operator<<(QDataStream& out, const Class& c)
     {
-    out << c.name;
-    out << c.image;
+    out << c.name
+        << c.image;
     return out;
     }
     inline friend  QDataStream& operator>>(QDataStream& in, Class & c)
@@ -68,55 +65,72 @@ struct Order
     }
     inline friend QDataStream& operator<<(QDataStream& out, const Order& d)
     {
-    out << QString::number(d.num);
-    out << QString::number(d.seat);
-    out << d.time;
-    out << QString::number(d.total);
-    out << d.dishes;
-    out << QString::number(d.state);
-    return out;
+        out << QString::number(d.num)
+            << QString::number(d.seat)
+            << d.time
+            << QString::number(d.total)
+            << d.dishes
+            << QString::number(d.state);
+        return out;
     }
     inline friend  QDataStream& operator>>(QDataStream& in, Order & d)
     {
-        QString num;
-        QString seat;
-        QString total;
-        QString state;
-
-        in >> num;
-        in >> seat;
+        QString num, seat, total, state;
+        in >> num>> seat>> d.time>> total>> d.dishes>> state;
         d.num = num.toInt();
         d.seat = seat.toInt();
-        in >> d.time;
-        in >> total;
         d.total = total.toDouble();
-        in >> d.dishes;
-        in >> state;
         d.state = state.toInt();
         return in;
     }
 };
-class ClassList : public QList<Class>
+struct Report
 {
-public:
-    inline ClassList() noexcept { }
-    inline explicit ClassList(const QList<Class> &l) :QList<Class>(l){}
-    inline QStringList nameList();
+    QString date;
+    double turnover;
+    double cost;
+    double profit;
+    int orderCount;
+    operator QVariant() const
+    {
+    return QVariant::fromValue(*this);
+    }
+    inline friend QDataStream& operator<<(QDataStream& out, const Report& c)
+    {
+        out << c.date
+            << QString::number(c.turnover)
+            << QString::number(c.cost)
+            << QString::number(c.profit)
+            << QString::number(c.orderCount);
+        return out;
+    }
+    inline friend  QDataStream& operator>>(QDataStream& in, Report & c)
+    {
+        QString turnover, cost, profit, orderCount;
+        in >> c.date>> turnover >> cost>> profit>> orderCount;
+        c.turnover = turnover.toDouble();
+        c.cost = cost.toDouble();
+        c.profit = profit.toDouble();
+        c.orderCount = orderCount.toInt();
+        return in;
+    }
+};
+class Global {
 
+public:
+    static bool queryCurrentDayData(const QString table)
+    {
+        QSqlQuery query;
+        QString queryT = QString("SELECT * FROM `%1` WHERE date = :date").arg(table);
+        query.prepare(queryT);
+        query.bindValue(":date", QDate::currentDate().toString("yyyy-MM-dd"));
+        return (query.exec() && query.next());
+    }
 };
 
-inline QStringList ClassList::nameList()
-{
-    QStringList list;
-    for(const Class &classInfo : qAsConst(*this))
-    {
-        list.append(classInfo.name);
-    }
-    return list;
-}
 
 Q_DECLARE_METATYPE(Dish);
 Q_DECLARE_METATYPE(Class);
 Q_DECLARE_METATYPE(Order);
-Q_DECLARE_METATYPE(ClassList);
+Q_DECLARE_METATYPE(Report);
 #endif

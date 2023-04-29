@@ -29,3 +29,12 @@ create table `daily_cost`(
 primary key(`date`)
 )ENGINE=innodb default charset=gb2312;
 
+create table `daily_report`(
+`date` VARCHAR(255) NOT NULL,
+`turnover` DOUBLE NOT NULL,
+`cost` DOUBLE NOT NULL,
+`profit` DOUBLE NOT NULL,
+`orderCount` INT NOT NULL,
+primary key(`date`)
+)ENGINE=innodb default charset=gb2312;
+

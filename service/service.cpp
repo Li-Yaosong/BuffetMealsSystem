@@ -1,8 +1,6 @@
 ﻿#include "service.h"
 #include "QSqlDatabase"
 #include "QDebug"
-#include <QFileDialog>
-#include <QSqlQuery>
 #include <QString>
 #include <QSqlError>
 #include <QList>
@@ -291,3 +289,28 @@ void Service::setDailyCost(const QString date, const double cost)
         qDebug() << "insert daily_cost ok";
     }
 }
+
+void Service::initReport()
+{
+    if(Global::queryCurrentDayData("daily_cost"))
+    {
+        if(Global::queryCurrentDayData("daily_report"))
+        {
+            m_console->appendDebug(QStringLiteral("今日报表已初始化"));
+            qDebug() << QStringLiteral("今日报表已初始化");
+        }
+        else
+        {
+            m_console->appendDebug(QStringLiteral("今日报表已初始化成功！"));
+            qDebug() << QStringLiteral("今日报表已初始化成功！");
+        }
+    }
+    else
+    {
+        m_console->appendDebug(QStringLiteral("今日成本未设置，报表今日报表未初始化"));
+        qDebug() << QStringLiteral("今日成本未设置，报表今日报表未初始化");
+    }
+
+}
+
+
