@@ -1,21 +1,26 @@
 ﻿#include "dishesedict.h"
 #include "ui_dishesedict.h"
 #include <QLabel>
-#include "common.h"
+
 #include "imagewidget.h"
 #include "titalwidget.h"
 #include "dishinfowidget.h"
-DishesEdict::DishesEdict(QWidget *parent, QByteArray data) :
+#include "common.h"
+DishesEdict::DishesEdict(Dish dishInfo, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::DishesEdict)
+    ui(new Ui::DishesEdict),
+    m_infoWidget(new DishInfoWidget(dishInfo)),
+    m_image(new ImageWidget(this, dishInfo.image,"",300)),
+    m_dishInfo(dishInfo),
+    old(dishInfo.name)
 {
     ui->setupUi(this);
     TitalWidget *tital = new TitalWidget(this,QString::fromLocal8Bit("编辑"), false);
     ui->verticalLayout->insertWidget(0, tital);
-    ImageWidget *image = new ImageWidget(this, data,"",300);
-    ui->horizontalLayout->insertWidget(0, image);
-    DishInfoWidget *infoWidget = new DishInfoWidget();
-    ui->horizontalLayout->insertWidget(1, infoWidget);
+    ui->horizontalLayout->insertWidget(0, m_image);
+    ui->horizontalLayout->insertWidget(1, m_infoWidget);
+    connect(m_infoWidget, &DishInfoWidget::infoChanged, this, &DishesEdict::dishInfoChanged);
+    ui->pushButton_finished->setEnabled(false);
     resize(700,400);
 }
 
@@ -23,3 +28,38 @@ DishesEdict::~DishesEdict()
 {
     delete ui;
 }
+
+Dish DishesEdict::dishInfo()
+{
+    Dish dishInfo;
+    return dishInfo;
+}
+
+void DishesEdict::dishInfoChanged(Dish dishInfo)
+{
+    QByteArray image = m_dishInfo.image;
+    m_dishInfo = dishInfo;
+    if(!dishInfo.image.isEmpty())
+    {
+        m_image->updateImage(m_dishInfo.image);
+    }
+    else
+    {
+        m_dishInfo.image = image;
+    }
+    ui->pushButton_finished->setEnabled(!dishInfo.name.isEmpty());
+}
+
+void DishesEdict::on_pushButton_finished_clicked()
+{
+    Service->modifiDishe(m_dishInfo, old);
+    emit edictFinished(m_dishInfo);
+}
+
+
+void DishesEdict::on_pushButton_clicked()
+{
+    ui->pushButton_finished->setEnabled(true);
+    ui->pushButton->setEnabled(false);
+}
+

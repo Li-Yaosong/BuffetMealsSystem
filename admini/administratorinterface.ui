@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>536</width>
+    <width>479</width>
     <height>369</height>
    </rect>
   </property>
@@ -68,7 +68,7 @@
       <item>
        <widget class="QPushButton" name="pushButton_test">
         <property name="text">
-         <string>开发人员测试页面</string>
+         <string>报表</string>
         </property>
        </widget>
       </item>
@@ -97,7 +97,7 @@
       <enum>QTabWidget::South</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -115,6 +115,29 @@
          <layout class="QVBoxLayout" name="verticalLayout_8">
           <item>
            <widget class="QPushButton" name="pushButton_noFinished">
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(255,255,255);
+    background-color: rgb(20,196,188);
+    border: none;border-radius:8px;
+    }
+QPushButton:disabled {
+  background-color: rgb(170,170,170);
+}
+QPushButton:hover{
+    background-color: rgb(22,218,208);
+    }//hover
+
+QPushButton:pressed{
+    background-color: rgb(17,171,164);
+    }//pressedb
+
+QGroupBox{
+    background-color: rgb(170, 170, 255);
+}
+</string>
+            </property>
             <property name="text">
              <string>未完成订单</string>
             </property>
@@ -131,6 +154,29 @@
           </item>
           <item>
            <widget class="QPushButton" name="pushButton_finished">
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(255,255,255);
+    background-color: rgb(20,196,188);
+    border: none;border-radius:8px;
+    }
+QPushButton:disabled {
+  background-color: rgb(170,170,170);
+}
+QPushButton:hover{
+    background-color: rgb(22,218,208);
+    }//hover
+
+QPushButton:pressed{
+    background-color: rgb(17,171,164);
+    }//pressedb
+
+QGroupBox{
+    background-color: rgb(170, 170, 255);
+}
+</string>
+            </property>
             <property name="text">
              <string>已完成订单</string>
             </property>
@@ -253,7 +299,7 @@
             <x>0</x>
             <y>0</y>
             <width>148</width>
-            <height>254</height>
+            <height>291</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -288,80 +334,19 @@
        <string>订单记录</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="2" column="0">
-        <widget class="QScrollArea" name="scrollArea_2">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);</string>
-         </property>
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents_2">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>506</width>
-            <height>193</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QWidget" name="widget_2" native="true">
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <item>
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>订单编号</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>座位号</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_7">
-                <property name="text">
-                 <string>时间</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>操作</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-       </item>
        <item row="1" column="0">
         <widget class="QWidget" name="widget_3" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QLabel" name="label_9">
+            <property name="styleSheet">
+             <string notr="true">color:#1e222b;
+  padding: 1px 15px 1px 3px;
+  border:1px solid rgba(228,228,228,1);
+  border-radius:8;
+  font-family: Microsoft YaHei;
+  font-size: 20px;</string>
+            </property>
             <property name="text">
              <string>查询方式：</string>
             </property>
@@ -372,8 +357,66 @@
             <property name="minimumSize">
              <size>
               <width>100</width>
-              <height>0</height>
+              <height>50</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QComboBox{
+  color:#1e222b;
+  padding: 1px 15px 1px 3px;
+  border:1px solid rgba(228,228,228,1);
+  border-radius:8;
+  font-family: Microsoft YaHei;
+  font-size: 20px;
+}
+QComboBox::drop-down {			/*下拉按钮*/
+      subcontrol-origin: padding;
+      subcontrol-position: top right;
+      width: 20px;
+      border:none;
+}
+
+QComboBox::down-arrow {		/*下拉按钮*/
+      image: url(:/image/combox.png);
+  }
+
+QComboBox QAbstractItemView{	/*列表 */
+	margin-top: 8px;
+	margin-left: 6px;
+	margin-bottom: 6px;
+	margin-right: 6px;
+	background:rgba(255,255,255,1);
+    border:1px solid rgba(228,228,228,1);
+    border-radius:8px;
+	font-size:12px;
+    font-family: Microsoft YaHei;
+    outline: 0px;
+    color:#1e222b;
+    padding-left: 16px;
+    padding-top: 12px;
+	padding-bottom:12px;
+    
+  }
+
+QComboBox QScrollBar::vertical{ /*滑条 主体部分*/
+    width:6px;
+    background:rgb(255,255,255);
+    border:none;
+}
+QComboBox QScrollBar::handle::vertical{ /*滑块主体*/
+    border-radius:3px;
+    background-color: rgba(30, 34, 43, 0.2);
+}
+QComboBox QScrollBar::handle::vertical::hover{
+    background-color: rgba(30, 34, 43, 0.2);
+}
+QComboBox QScrollBar::add-line::vertical{/*上箭头*/
+    border:none;
+}
+QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
+    border:none;
+}
+</string>
             </property>
             <item>
              <property name="text">
@@ -388,12 +431,124 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit"/>
+           <widget class="QLineEdit" name="lineEdit">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLineEdit{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(31,31,31);
+    padding-left:20px;
+    background-color: rgb(255, 255, 255);
+    border:2px solid rgba(228,228,228,1);
+    border-radius:15px;
+}
+</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="pushButton_query">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(255,255,255);
+    background-color: rgb(16,181,255);
+    border: none;border-radius:8px;
+    }
+QPushButton:disabled {
+  background-color: rgb(170,170,170);
+}
+QPushButton:hover{
+    background-color: rgb(125,215,255);
+    }//hover
+
+QPushButton:pressed{
+    background-color: rgb(16,181,255);
+    }//pressedb
+</string>
+            </property>
             <property name="text">
              <string>查询订单</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QScrollArea" name="scrollArea_2">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>461</width>
+            <height>197</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3"/>
+         </widget>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QWidget" name="widget_2" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>订单编号</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>座位号</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>时间</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>金额</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>状态</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>操作</string>
             </property>
            </widget>
           </item>
@@ -404,14 +559,341 @@
      </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
-       <string>开发人员测试页面</string>
+       <string>报表</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QTextEdit" name="textEdit">
+        <widget class="QWidget" name="widget" native="true">
+         <property name="styleSheet">
+          <string notr="true">
+background-color: rgb(85, 170, 255);</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>成本设置</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_2">
+            <property name="styleSheet">
+             <string notr="true">QComboBox{
+  color:#1e222b;
+  padding: 1px 15px 1px 3px;
+  border:1px solid rgba(228,228,228,1);
+  border-radius:8;
+  font-family: Microsoft YaHei;
+  font-size: 20px;
+}
+QComboBox::drop-down {			/*下拉按钮*/
+      subcontrol-origin: padding;
+      subcontrol-position: top right;
+      width: 20px;
+      border:none;
+}
+
+QComboBox::down-arrow {		/*下拉按钮*/
+      image: url(:/image/combox.png);
+  }
+
+QComboBox QAbstractItemView{	/*列表 */
+	margin-top: 8px;
+	margin-left: 6px;
+	margin-bottom: 6px;
+	margin-right: 6px;
+	background:rgba(255,255,255,1);
+    border:1px solid rgba(228,228,228,1);
+    border-radius:8px;
+	font-size:12px;
+    font-family: Microsoft YaHei;
+    outline: 0px;
+    color:#1e222b;
+    padding-left: 16px;
+    padding-top: 12px;
+	padding-bottom:12px;
+    
+  }
+
+QComboBox QScrollBar::vertical{ /*滑条 主体部分*/
+    width:6px;
+    background:rgb(255,255,255);
+    border:none;
+}
+QComboBox QScrollBar::handle::vertical{ /*滑块主体*/
+    border-radius:3px;
+    background-color: rgba(30, 34, 43, 0.2);
+}
+QComboBox QScrollBar::handle::vertical::hover{
+    background-color: rgba(30, 34, 43, 0.2);
+}
+QComboBox QScrollBar::add-line::vertical{/*上箭头*/
+    border:none;
+}
+QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
+    border:none;
+}
+</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>按日查看</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDateEdit" name="dateEdit">
+            <property name="styleSheet">
+             <string notr="true">QDateEdit{
+  color:#1e222b;
+  padding: 1px 15px 1px 3px;
+  border:2px solid rgba(228,228,228,1);
+  border-radius:8;
+  font-family: Microsoft YaHei;
+  font-size: 20px;
+}
+QDateEdit::drop-down {			/*下拉按钮*/
+      subcontrol-origin: padding;
+      subcontrol-position: top right;
+      width: 20px;
+      border:none;
+}
+QCalendarWidget {
+	color:#1e222b;
+  	padding: 1px 15px 1px 3px;
+  	border:2px solid rgb(85, 170, 255);
+  	border-radius:8;
+  	font-family: Microsoft YaHei;
+  	font-size: 20px;
+	background-color: rgb(170, 170, 255);
+}
+QComboBox{
+  color:#1e222b;
+  padding: 1px 15px 1px 3px;
+  border:1px solid rgba(228,228,228,1);
+  border-radius:8;
+  font-family: Microsoft YaHei;
+  font-size: 20px;
+}
+QComboBox::drop-down {			/*下拉按钮*/
+      subcontrol-origin: padding;
+      subcontrol-position: top right;
+      width: 20px;
+      border:none;
+}
+
+QComboBox::down-arrow {		/*下拉按钮*/
+      image: url(:/image/combox.png);
+  }
+
+QComboBox QAbstractItemView{	/*列表 */
+	margin-top: 8px;
+	margin-left: 6px;
+	margin-bottom: 6px;
+	margin-right: 6px;
+	background:rgba(255,255,255,1);
+    border:1px solid rgba(228,228,228,1);
+    border-radius:8px;
+	font-size:12px;
+    font-family: Microsoft YaHei;
+    outline: 0px;
+    color:#1e222b;
+    padding-left: 16px;
+    padding-top: 12px;
+	padding-bottom:12px;
+    
+  }
+
+QComboBox QScrollBar::vertical{ /*滑条 主体部分*/
+    width:6px;
+    background:rgb(255,255,255);
+    border:none;
+}
+QComboBox QScrollBar::handle::vertical{ /*滑块主体*/
+    border-radius:3px;
+    background-color: rgba(30, 34, 43, 0.2);
+}
+QComboBox QScrollBar::handle::vertical::hover{
+    background-color: rgba(30, 34, 43, 0.2);
+}
+QComboBox QScrollBar::add-line::vertical{/*上箭头*/
+    border:none;
+}
+QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
+    border:none;
+}
+</string>
+            </property>
+            <property name="currentSection">
+             <enum>QDateTimeEdit::YearSection</enum>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>查询</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QTableWidget" name="tableWidget">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(255, 255, 255);</string>
          </property>
+         <row>
+          <property name="text">
+           <string>1</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>2</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>3</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>4</string>
+          </property>
+         </row>
+         <column>
+          <property name="text">
+           <string>日期</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>营业额</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>成本</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>利润</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>订单数量</string>
+          </property>
+         </column>
+         <item row="0" column="0">
+          <property name="text">
+           <string>2023-03-28</string>
+          </property>
+         </item>
+         <item row="0" column="1">
+          <property name="text">
+           <string>15350</string>
+          </property>
+         </item>
+         <item row="0" column="2">
+          <property name="text">
+           <string>10000</string>
+          </property>
+         </item>
+         <item row="0" column="3">
+          <property name="text">
+           <string>5350</string>
+          </property>
+         </item>
+         <item row="0" column="4">
+          <property name="text">
+           <string>150</string>
+          </property>
+         </item>
+         <item row="1" column="0">
+          <property name="text">
+           <string>2023-03-29</string>
+          </property>
+         </item>
+         <item row="1" column="1">
+          <property name="text">
+           <string>15350</string>
+          </property>
+         </item>
+         <item row="1" column="2">
+          <property name="text">
+           <string>10000</string>
+          </property>
+         </item>
+         <item row="1" column="3">
+          <property name="text">
+           <string>5350</string>
+          </property>
+         </item>
+         <item row="1" column="4">
+          <property name="text">
+           <string>150</string>
+          </property>
+         </item>
+         <item row="2" column="0">
+          <property name="text">
+           <string>2023-03-30</string>
+          </property>
+         </item>
+         <item row="2" column="1">
+          <property name="text">
+           <string>25456</string>
+          </property>
+         </item>
+         <item row="2" column="2">
+          <property name="text">
+           <string>18000</string>
+          </property>
+         </item>
+         <item row="2" column="3">
+          <property name="text">
+           <string>7456</string>
+          </property>
+         </item>
+         <item row="2" column="4">
+          <property name="text">
+           <string>250</string>
+          </property>
+         </item>
+         <item row="3" column="0">
+          <property name="text">
+           <string>2023-03-31</string>
+          </property>
+         </item>
+         <item row="3" column="1">
+          <property name="text">
+           <string>25456</string>
+          </property>
+         </item>
+         <item row="3" column="2">
+          <property name="text">
+           <string>18000</string>
+          </property>
+         </item>
+         <item row="3" column="3">
+          <property name="text">
+           <string>7456</string>
+          </property>
+         </item>
+         <item row="3" column="4">
+          <property name="text">
+           <string>250</string>
+          </property>
+         </item>
         </widget>
        </item>
       </layout>

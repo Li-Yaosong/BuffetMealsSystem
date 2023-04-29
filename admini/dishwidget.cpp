@@ -1,21 +1,21 @@
 ﻿#include "dishwidget.h"
+#include "dishesedict.h"
 #include "ui_dishwidget.h"
 //#include "dishesedict.h"
 #include "stylesheet.h"
-DishWidget::DishWidget(QWidget *parent, QMap<QString, QVariant> data) :
+DishWidget::DishWidget(QWidget *parent, Dish dishInfo) :
     QWidget(parent),
-    ui(new Ui::DishWidget)
+    ui(new Ui::DishWidget),
+    m_dishInfo(dishInfo)
 {
     ui->setupUi(this);
     ui->checkBox->hide();
     this->setStyleSheet(StyleSheet::labelStyle(1));
     ui->pushButton->setStyleSheet(StyleSheet::buttonStyle(1));
-//    m_imageW = new DishesEdict(nullptr, data.value("image").toByteArray());
-    QString name = QString(data.value("name").toByteArray());
-    setClass(QString(data.value("class").toByteArray()));
-    setName(name);
-    setPrice(data.value("price").toDouble());
-    setStorage(data.value("storage").toString());
+    setClass(m_dishInfo.className);
+    setName(m_dishInfo.name);
+    setPrice(m_dishInfo.price);
+    setStorage(m_dishInfo.storage);
     connect(ui->checkBox, &QCheckBox::stateChanged,this, [this]{
         if(ui->checkBox->isCheckable())
         {
@@ -48,9 +48,9 @@ void DishWidget::setPrice(const double &price)
     ui->label_price->setText(QString::number(price));
 }
 
-void DishWidget::setStorage(const QString &storage)
+void DishWidget::setStorage(const int &storage)
 {
-    if(storage == "yes")
+    if(storage)
     {
         ui->label_storage->setText(QString::fromLocal8Bit("充足"));
         ui->label_storage->setStyleSheet(StyleSheet::labelStyle(2));
@@ -74,6 +74,8 @@ void DishWidget::hideCheckBox()
 
 void DishWidget::on_pushButton_clicked()
 {
-//    m_imageW->show();
+
+    m_imageW = new DishesEdict(m_dishInfo);
+    m_imageW->show();
 }
 

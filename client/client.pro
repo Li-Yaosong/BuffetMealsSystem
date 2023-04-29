@@ -13,27 +13,25 @@ CONAN_INSTALL += bms/0.0.1
 conanupload.CONFIG += recursive
 QMAKE_EXTRA_TARGETS += conanupload
 
-include(../conan/conan.pri)
+#include(../conan/conan.pri)
+include(../lib/common/common.pri)
 SOURCES += \
     cdishwidget.cpp \
     clientinterface.cpp \
     main.cpp \
     client.cpp \
-    orderconfirmatdialog.cpp \
     placeorder.cpp
 
 HEADERS += \
     cdishwidget.h \
     client.h \
     clientinterface.h \
-    orderconfirmatdialog.h \
     placeorder.h
 
 FORMS += \
     cdishwidget.ui \
     client.ui \
-    clientinterface.ui \
-    orderconfirmatdialog.ui
+    clientinterface.ui
 
 REPC_REPLICA = $$PWD/../service.rep
 

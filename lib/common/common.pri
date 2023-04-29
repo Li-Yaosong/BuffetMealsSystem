@@ -1,5 +1,7 @@
 INCLUDEPATH += \
+    $$PWD/../ \
     $$PWD/
+
 
 SOURCES += \
     $$PWD/classbutton.cpp \
@@ -9,6 +11,7 @@ SOURCES += \
     $$PWD/dishinfowidget.cpp \
     $$PWD/imagewidget.cpp \
     $$PWD/listwidget.cpp \
+    $$PWD/orderconfirmatdialog.cpp \
     $$PWD/spinbox.cpp \
     $$PWD/stylesheet.cpp \
     $$PWD/tabwidget.cpp \
@@ -23,6 +26,7 @@ HEADERS += \
     $$PWD/dishinfowidget.h \
     $$PWD/imagewidget.h \
     $$PWD/listwidget.h \
+    $$PWD/orderconfirmatdialog.h \
     $$PWD/spinbox.h \
     $$PWD/stylesheet.h \
     $$PWD/tabwidget.h \
@@ -35,6 +39,7 @@ FORMS += \
     $$PWD/dishinfowidget.ui \
     $$PWD/imagewidget.ui \
     $$PWD/listwidget.ui \
+    $$PWD/orderconfirmatdialog.ui \
     $$PWD/spinbox.ui \
     $$PWD/tabwidget.ui \
     $$PWD/tipsdialog.ui \

@@ -24,7 +24,6 @@ public:
     void updateDishesList();
     void updateClassList();
     void updateOrderList();
-
 private slots:
     void on_pushButton_addDishes_clicked();
 
@@ -42,10 +41,11 @@ private slots:
 
     void on_pushButton_test_clicked();
 
+    void on_pushButton_query_clicked();
+
 private:
     void initStyle();
     Ui::AdministratorInterface *ui;
-    ConnectService *m_service;
     QList<DishWidget *> m_dishWidgetList;
     QList<QString> m_delList;
     ListWidget *m_allDishList;
@@ -53,6 +53,7 @@ private:
     TabWidget *m_orderTab;
     ListWidget *m_newOrderList;
     ListWidget *m_finishOrderList;
+    ListWidget *m_queryOrder;
     QStringList m_classList;
     QList<QPushButton *> m_classButtonList;
     //价格表Map

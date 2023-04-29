@@ -1,7 +1,7 @@
 ﻿#ifndef CDISHWIDGET_H
 #define CDISHWIDGET_H
 
-#include "common.h"
+#include "global.h"
 #include <QWidget>
 #include <QVariant>
 #include "spinbox.h"
@@ -14,7 +14,7 @@ class CDishWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit CDishWidget(QWidget *parent = nullptr, Common::Dish dishIfon ={});
+    explicit CDishWidget(QWidget *parent = nullptr, Dish dishIfon ={});
     ~CDishWidget();
     void createBind(CDishWidget *widget);
 //    void reSetValue(double num);
@@ -26,7 +26,7 @@ signals:
     void dataChange(QPair<QString, int>);
 private:
     Ui::CDishWidget *ui;
-    Common::Dish m_dishInfo;
+    Dish m_dishInfo;
     ImageWidget *m_image;
     SpinBox *m_spinBox;
     CDishWidget *m_widget;

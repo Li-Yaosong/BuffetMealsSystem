@@ -27,6 +27,12 @@ ImageWidget::~ImageWidget()
     delete ui;
 }
 
+void ImageWidget::updateImage(QByteArray data)
+{
+    m_image = Common::creatImage(data);
+    update();
+}
+
 void ImageWidget::paintEvent(QPaintEvent *event)
 {
 

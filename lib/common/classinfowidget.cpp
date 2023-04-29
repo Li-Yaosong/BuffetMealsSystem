@@ -1,4 +1,4 @@
-#include "classinfowidget.h"
+﻿#include "classinfowidget.h"
 #include "ui_classinfowidget.h"
 #include <QFileDialog>
 #include "stylesheet.h"
@@ -18,7 +18,7 @@ ClassInfoWidget::~ClassInfoWidget()
     delete ui;
 }
 
-QMap<QString, QByteArray> ClassInfoWidget::info()
+Class ClassInfoWidget::info()
 {
     return m_info;
 }
@@ -40,13 +40,13 @@ void ClassInfoWidget::textChanged()
     if(!ui->lineEdit_name->text().isEmpty()
             && image.open(QIODevice::ReadOnly))
     {
-        m_info.insert("class_name",ui->lineEdit_name->text().toUtf8());
-        m_info.insert("image",image.readAll());
+        m_info.name = ui->lineEdit_name->text();
+        m_info.image = image.readAll();
         emit infoChanged(m_info);
     }
     else
     {
-        emit infoChanged(QMap<QString, QByteArray>());
+        emit infoChanged(Class());
     }
 }
 

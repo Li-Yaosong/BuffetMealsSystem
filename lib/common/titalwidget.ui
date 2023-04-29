@@ -48,6 +48,7 @@
     <widget class="QLabel" name="label_tital">
      <property name="font">
       <font>
+       <family>幼圆</family>
        <bold>true</bold>
       </font>
      </property>

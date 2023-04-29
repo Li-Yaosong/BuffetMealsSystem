@@ -4,41 +4,49 @@
 ConnectService::ConnectService()
 {
     QRemoteObjectNode *repNode=new QRemoteObjectNode();
-    repNode->connectToNode(QUrl("tcp://192.168.1.12:9000"));
+    repNode->connectToNode(QUrl("local:9000"));
     m_rep = repNode->acquire<ServiceReplica>();
     m_rep->waitForSource(500);
 }
 
-QMap<QString, QList<QMap<QString, QVariant>>> ConnectService::getData()
+ConnectService *ConnectService::service()
 {
-    QRemoteObjectPendingReply<QByteArray> data = m_rep->getAllDishes();
+    return new ConnectService();
+}
+
+QMap<QString, QList<Dish>> ConnectService::getData()
+{
+    QRemoteObjectPendingReply<QMap<QString, QList<Dish>>> data = m_rep->getAllDishes();
 
     data.waitForFinished();
-    QByteArray byte = data.returnValue();
-    QDataStream Data(byte);
-    QMap<QString, QList<QMap<QString, QVariant>>> re;
-    Data >> re;
-    return re;
+    return data.returnValue();
 }
 
-QMap<QString, QVariant> ConnectService::getClass()
+QMap<QString, QVariant>  ConnectService::getClass()
 {
-    QRemoteObjectPendingReply<QByteArray> data = m_rep->getAllClass();
-
+    QRemoteObjectPendingReply<QMap<QString, QVariant>> data = m_rep->getAllClass();
     data.waitForFinished();
-    QByteArray byte = data.returnValue();
-    QDataStream Data(byte);
-    QMap<QString, QVariant> re;
-    Data >> re;
-    return re;
+    return data.returnValue();
 }
 
-void ConnectService::addDishes(QMap<QString, QByteArray> map)
+QList<Order> ConnectService::getOrder()
 {
-    m_rep->addDishes(map);
+    QRemoteObjectPendingReply<QList<Order>> data = m_rep->getOrder();
+    data.waitForFinished();
+    return data.returnValue();
 }
 
-void ConnectService::addClass(QMap<QString, QByteArray> map)
+void ConnectService::addDishes(const Dish & dishInfo)
+{
+    m_rep->addDishes(dishInfo);
+}
+
+void ConnectService::modifiDishe(const Dish &dishInfo, const QString &old)
+{
+    m_rep->modifiDishe(dishInfo,old);
+}
+
+void ConnectService::addClass(Class map)
 {
     m_rep->addClass(map);
 }
@@ -48,7 +56,18 @@ void ConnectService::addOrder(QMap<QString, QByteArray> map)
     m_rep->addOrder(map);
 }
 
+void ConnectService::updateOrder(int num, int state)
+{
+    m_rep->updateOrder(num, state);
+}
+
 void ConnectService::delDishes(QStringList delList)
 {
     m_rep->delDishes(delList);
+}
+
+QStringList ConnectService::classes()
+{
+
+    return getClass().keys();
 }

@@ -2,9 +2,9 @@
 #define STYLESHEET_H
 
 #include <QByteArray>
-#include "libbms_global.h"
+//#include "libbms_global.h"
 
-class LIBBMS_EXPORT StyleSheet
+class StyleSheet
 {
 public:
     static QByteArray style();

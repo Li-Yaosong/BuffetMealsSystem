@@ -2,18 +2,24 @@
 #define CONNECTSERVICE_H
 #include "rep_service_replica.h"
 #include <QObject>
-#include "libbms_global.h"
-class LIBBMS_EXPORT ConnectService
+//#include "libbms_global.h"
+class ConnectService
 {
 public:
-    ConnectService();
-    QMap<QString, QList<QMap<QString, QVariant> > > getData();
+
+    static ConnectService *service();
+    QMap<QString, QList<Dish>> getData();
     QMap<QString, QVariant> getClass();
-    void addDishes(QMap<QString, QByteArray> map);
-    void addClass(QMap<QString, QByteArray> map);
+    QList<Order> getOrder();
+    void addDishes(const Dish &dishInfo);
+    void modifiDishe(const Dish &dishInfo, const QString &old);
+    void addClass(Class map);
     void addOrder(QMap<QString, QByteArray> map);
+    void updateOrder(int num, int state);
     void delDishes(QStringList delList);
+    QStringList classes();
 private:
+    ConnectService();
     ServiceReplica *m_rep;
 };
 

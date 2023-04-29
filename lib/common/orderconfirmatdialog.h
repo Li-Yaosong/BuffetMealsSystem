@@ -14,6 +14,7 @@ class OrderConfirmatDialog : public QDialog
 public:
     explicit OrderConfirmatDialog(QMap<QString, int> map, QWidget *parent = nullptr);
     ~OrderConfirmatDialog();
+    void setButtonText(QString ok = QStringLiteral("确定"), QString cancel = QStringLiteral("取消"));
 
 private:
     Ui::OrderConfirmatDialog *ui;

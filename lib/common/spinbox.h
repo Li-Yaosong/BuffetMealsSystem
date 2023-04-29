@@ -3,13 +3,13 @@
 
 #include <QWidget>
 #include <QSpinBox>
-#include "libbms_global.h"
+//#include "libbms_global.h"
 
 namespace Ui {
 class SpinBox;
 }
 class SpinBoxP;
-class LIBBMS_EXPORT SpinBox : public QWidget
+class SpinBox : public QWidget
 {
     Q_OBJECT
 

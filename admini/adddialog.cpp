@@ -64,9 +64,21 @@ void AddDialog::addWidget(QWidget *widget)
     ui->verticalLayout->insertWidget(1,widget);
 }
 
-void AddDialog::setOkButtonState(QMap<QString, QByteArray> info)
+void AddDialog::dishInfoChanged(Dish dishInfo)
 {
-    if(info.empty())
+    if(dishInfo.name.isEmpty())
+    {
+        p->button(AddDialogP::Button::Ok)->setEnabled(false);
+    }
+    else
+    {
+        p->button(AddDialogP::Button::Ok)->setEnabled(true);
+    }
+}
+
+void AddDialog::classInfoChanged(Class classInfo)
+{
+    if(classInfo.name.isEmpty())
     {
         p->button(AddDialogP::Button::Ok)->setEnabled(false);
     }

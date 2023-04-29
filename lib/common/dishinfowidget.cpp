@@ -2,15 +2,20 @@
 #include "ui_dishinfowidget.h"
 #include <QFileDialog>
 #include "stylesheet.h"
-DishInfoWidget::DishInfoWidget(QStringList list, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::DishInfoWidget)
+#include "common.h"
+using namespace Common;
+DishInfoWidget::DishInfoWidget(Dish dishInfo, QWidget *parent)
+    :QWidget(parent),
+    ui(new Ui::DishInfoWidget),
+    m_info(dishInfo)
 {
     ui->setupUi(this);
     connect(ui->lineEdit_name, &QLineEdit::textChanged, this, &DishInfoWidget::textChanged);
     connect(ui->doubleSpinBox_price, &QDoubleSpinBox::textChanged, this, &DishInfoWidget::textChanged);
+    connect(ui->spinBox_storage, &QSpinBox::textChanged, this, &DishInfoWidget::textChanged);
     connect(ui->lineEdit_path, &QLineEdit::textChanged, this, &DishInfoWidget::textChanged);
-    ui->comboBox_class->addItems(list);
+    ui->comboBox_class->addItems(Service->classes());
+    init();
     initStyle();
 }
 
@@ -19,7 +24,7 @@ DishInfoWidget::~DishInfoWidget()
     delete ui;
 }
 
-QMap<QString, QByteArray> DishInfoWidget::info()
+Dish DishInfoWidget::info()
 {
     return m_info;
 }
@@ -38,19 +43,21 @@ void DishInfoWidget::on_pushButton_browse_clicked()
 void DishInfoWidget::textChanged()
 {
     QFile image = QFile(ui->lineEdit_path->text());
-    if(!ui->lineEdit_name->text().isEmpty()
-            && image.open(QIODevice::ReadOnly))
+    if(!ui->lineEdit_name->text().isEmpty())
     {
-
-        m_info.insert("name",ui->lineEdit_name->text().toUtf8());
-        m_info.insert("price",QString::number(ui->doubleSpinBox_price->value()).toUtf8());
-        m_info.insert("image",image.readAll());
-        m_info.insert("class",ui->comboBox_class->currentText().toUtf8());
+        m_info.name = ui->lineEdit_name->text();
+        m_info.price = ui->doubleSpinBox_price->value();
+        m_info.className = ui->comboBox_class->currentText();
+        m_info.storage = ui->spinBox_storage->value();
+        if(image.open(QIODevice::ReadOnly))
+        {
+            m_info.image = image.readAll();
+        }
         emit infoChanged(m_info);
     }
     else
     {
-        emit infoChanged(QMap<QString, QByteArray>());
+        emit infoChanged(Dish());
     }
 }
 
@@ -64,5 +71,17 @@ void DishInfoWidget::initStyle()
     ui->label_storage->setStyleSheet(StyleSheet::labelStyle(1));
     ui->comboBox_class->setStyleSheet(StyleSheet::comboBoxStyle());
     this->setStyleSheet(StyleSheet::lineEditStyle());
+}
+
+void DishInfoWidget::init()
+{
+    QString name = m_info.name;
+    double price = m_info.price;
+    QString className = m_info.className;
+    int  storage = m_info.storage;
+    ui->lineEdit_name->setText(name);
+    ui->comboBox_class->setCurrentText(className);
+    ui->doubleSpinBox_price->setValue(price);
+    ui->spinBox_storage->setValue(storage);
 }
 

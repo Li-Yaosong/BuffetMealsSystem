@@ -31,7 +31,6 @@ private slots:
 private:
     void updateClassList();
     Ui::ClientInterface *ui;
-    ConnectService *m_service;
     QList<CDishWidget *> m_dishWidgetList;
     //座位号
     int m_seat;

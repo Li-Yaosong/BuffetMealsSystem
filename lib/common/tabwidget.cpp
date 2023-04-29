@@ -1,6 +1,7 @@
 ﻿#include "tabwidget.h"
 #include "qtabbar.h"
 #include "ui_tabwidget.h"
+#include <QPushButton>
 class TabWidgetP
 {
 public:

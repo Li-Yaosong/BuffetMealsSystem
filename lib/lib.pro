@@ -25,6 +25,6 @@ REPC_REPLICA = $$PWD/service.rep
 
 install_headers.files = $$HEADERS
 
-include(../conan/conan.pri)
+#include(../conan/conan.pri)
 
 

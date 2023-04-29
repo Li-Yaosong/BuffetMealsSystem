@@ -1,22 +1,24 @@
 ﻿#ifndef CLASSINFOWIDGET_H
 #define CLASSINFOWIDGET_H
-#include "libbms_global.h"
+//#include "libbms_global.h"
 #include <QWidget>
 #include <QMap>
+
+#include "global.h"
 namespace Ui {
 class ClassInfoWidget;
 }
 
-class LIBBMS_EXPORT ClassInfoWidget : public QWidget
+class ClassInfoWidget : public QWidget
 {
     Q_OBJECT
 
 public:
     explicit ClassInfoWidget(QWidget *parent = nullptr);
     ~ClassInfoWidget();
-    QMap<QString, QByteArray> info();
+    Class info();
 signals:
-    void infoChanged(QMap<QString, QByteArray>);
+    void infoChanged(Class);
 
 private slots:
     void on_pushButton_browse_clicked();
@@ -25,7 +27,7 @@ private slots:
 private:
     void initStyle();
     Ui::ClassInfoWidget *ui;
-    QMap<QString, QByteArray> m_info;
+    Class m_info;
 };
 
 #endif // CLASSINFOWIDGET_H

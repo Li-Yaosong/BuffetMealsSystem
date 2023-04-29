@@ -2,13 +2,13 @@
 #define TITALWIDGET_H
 
 #include <QWidget>
-#include "libbms_global.h"
+//#include "libbms_global.h"
 
 namespace Ui {
 class TitalWidget;
 }
 
-class LIBBMS_EXPORT TitalWidget : public QWidget
+class TitalWidget : public QWidget
 {
     Q_OBJECT
 

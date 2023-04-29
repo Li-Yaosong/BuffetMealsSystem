@@ -15,7 +15,6 @@ ClientInterface::ClientInterface(QWidget *parent) :
 {
     ui->setupUi(this);
     resize(1620, 1000);
-    m_service = new ConnectService();
     TitalWidget *tital = new TitalWidget(this, QString::fromLocal8Bit("餐厅点餐系统客户端"));
     ui->verticalLayout->insertWidget(0, tital);
     connect(ui->pushButton_allClean, &QPushButton::clicked, this, &ClientInterface::allclean);
@@ -32,19 +31,19 @@ ClientInterface::~ClientInterface()
 void ClientInterface::updateDishesList()
 {
     m_allDishList->clear();
-    QMap<QString, QList<QMap<QString, QVariant>>> data= m_service->getData();
-    for(const QList<QMap<QString, QVariant>> &list : data.values())
+    QMap<QString, QList<Dish>> data= Service->getData();
+    for(const QList<Dish> &list : data.values())
     {
-        for(const QMap<QString, QVariant> &map : list)
+        for(const Dish &dishInfo : list)
         {
-            if(map.value("storage").toString() == "yes")
+            if(dishInfo.storage >= 0)
             {
-                CDishWidget *dish = new CDishWidget(this, Common::mapToDish(map));
-                dish->createBind(m_dishWidgetMap.value(map.value("name").toString()));
+                CDishWidget *dish = new CDishWidget(this, dishInfo);
+                dish->createBind(m_dishWidgetMap.value(dishInfo.name));
                 //连接全部清除按钮
                 connect(this, &ClientInterface::allclean, dish, &CDishWidget::reSetNumber);
                 connect(dish, &CDishWidget::dataChange, this, &ClientInterface::addDishes);
-                m_allDishList->addDishWidget(dish);
+                m_allDishList->addWidget(dish);
                 m_dishWidgetList.append(dish);
             }
         }
@@ -89,8 +88,8 @@ void ClientInterface::updateClassList()
     m_classButtonList.clear();
     ui->horizontalLayout->insertWidget(1,m_classTab);
     m_classTab->addTab(ui->pushButton_allDish,m_allDishList, "all");
-    QMap<QString, QVariant> classData= m_service->getClass();
-    QMap<QString, QList<QMap<QString, QVariant>>> data= m_service->getData();
+    QMap<QString, QVariant> classData= Service->getClass();
+    QMap<QString, QList<Dish>> data= Service->getData();
     m_classList.clear();
     m_classList = classData.keys();
     for(const QString &key : qAsConst(m_classList))
@@ -99,15 +98,15 @@ void ClientInterface::updateClassList()
         m_classButtonList.append(classButton);
         ui->verticalLayout_2->insertWidget(ui->verticalLayout_2->count()-1,classButton);
         ListWidget *list = new ListWidget(0);
-        for(const QMap<QString, QVariant> &dishMap : data.value(key))
+        for(const Dish &dishInfo : data.value(key))
         {
-            if(dishMap.value("storage").toString() == "yes")
+            if(dishInfo.storage >= 0)
             {
-                CDishWidget *dish = new CDishWidget(this, Common::mapToDish(dishMap));
+                CDishWidget *dish = new CDishWidget(this, dishInfo);
                 connect(this, &ClientInterface::allclean, dish, &CDishWidget::reSetNumber);
                 connect(dish, &CDishWidget::dataChange, this, &ClientInterface::addDishes);
-                list->addDishWidget(dish);
-                m_dishWidgetMap.insert(dishMap.value("name").toString(),dish);
+                list->addWidget(dish);
+                m_dishWidgetMap.insert(dishInfo.name,dish);
             }
         }
         m_classTab->addTab(classButton,list,key);
@@ -117,8 +116,6 @@ void ClientInterface::updateClassList()
 
 void ClientInterface::on_pushButton_placeOrder_clicked()
 {
-
-
     if(!m_orderMap.empty())
     {
         OrderConfirmatDialog *dialog = new OrderConfirmatDialog(m_orderMap);

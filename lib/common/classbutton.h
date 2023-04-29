@@ -1,6 +1,6 @@
 ﻿#ifndef CLASSBUTTON_H
 #define CLASSBUTTON_H
-#include "libbms_global.h"
+//#include "libbms_global.h"
 #include "qicon.h"
 #include <QWidget>
 
@@ -8,7 +8,7 @@ namespace Ui {
 class ClassButton;
 }
 class QPushButton;
-class LIBBMS_EXPORT ClassButton : public QWidget
+class ClassButton : public QWidget
 {
     Q_OBJECT
 

@@ -3,7 +3,7 @@
 #include "common.h"
 #include "imagewidget.h"
 #include "stylesheet.h"
-CDishWidget::CDishWidget(QWidget *parent, Common::Dish dishIfon) :
+CDishWidget::CDishWidget(QWidget *parent, Dish dishIfon) :
     QWidget(parent),
     ui(new Ui::CDishWidget),
     m_dishInfo(dishIfon)

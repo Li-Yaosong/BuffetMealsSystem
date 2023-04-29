@@ -3,29 +3,30 @@
 
 #include <QWidget>
 #include <QMap>
-#include "libbms_global.h"
+//#include "libbms_global.h"
+#include "global.h"
+
 namespace Ui {
 class DishInfoWidget;
 }
 
-class LIBBMS_EXPORT DishInfoWidget : public QWidget
+class  DishInfoWidget : public QWidget
 {
     Q_OBJECT
-
 public:
-    explicit DishInfoWidget(QStringList list = {}, QWidget *parent = nullptr);
+    explicit DishInfoWidget(Dish dishInfo = Dish(), QWidget *parent = nullptr);
     ~DishInfoWidget();
-    QMap<QString, QByteArray> info();
+    Dish info();
 signals:
-    void infoChanged(QMap<QString, QByteArray>);
-
+    void infoChanged(Dish);
 private slots:
     void on_pushButton_browse_clicked();
     void textChanged();
 private:
     void initStyle();
+    void init();
     Ui::DishInfoWidget *ui;
-    QMap<QString, QByteArray> m_info;
+    Dish m_info;
 };
 
 #endif // DISHINFOWIDGET_H

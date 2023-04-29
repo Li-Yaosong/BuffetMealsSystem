@@ -2,7 +2,7 @@
 #define LISTWIDGET_H
 
 #include <QWidget>
-#include "libbms_global.h"
+//#include "libbms_global.h"
 
 namespace Ui {
 class ListWidget;
@@ -10,7 +10,7 @@ class ListWidget;
 
 class DishWidget;
 class ListWidgetP;
-class LIBBMS_EXPORT ListWidget : public QWidget
+class ListWidget : public QWidget
 {
     Q_OBJECT
 
@@ -18,7 +18,7 @@ public:
     explicit ListWidget(int head = true, QWidget *parent = nullptr);
     ~ListWidget();
 
-    void addDishWidget(QWidget *widgit);
+    void addWidget(QWidget *widgit);
 
     void clear();
     void showTopCheckBox();

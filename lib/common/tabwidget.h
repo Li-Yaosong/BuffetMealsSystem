@@ -2,15 +2,14 @@
 #define TABWIDGET_H
 
 #include "listwidget.h"
-#include "qpushbutton.h"
 #include <QWidget>
-#include "libbms_global.h"
 
 namespace Ui {
 class TabWidget;
 }
 class TabWidgetP;
-class LIBBMS_EXPORT TabWidget : public QWidget
+class QPushButton;
+class TabWidget : public QWidget
 {
     Q_OBJECT
 

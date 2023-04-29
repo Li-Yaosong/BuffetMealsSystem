@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>DishesEdict</class>
  <widget class="QWidget" name="DishesEdict">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -70,9 +73,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="pushButton_finished">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="text">
          <string>完成</string>

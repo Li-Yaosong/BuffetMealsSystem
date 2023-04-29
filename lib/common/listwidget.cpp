@@ -54,7 +54,7 @@ ListWidget::~ListWidget()
     delete ui;
 }
 
-void ListWidget::addDishWidget(QWidget *widgit)
+void ListWidget::addWidget(QWidget *widgit)
 {
     switch (p->m_head) {
     case 0:
