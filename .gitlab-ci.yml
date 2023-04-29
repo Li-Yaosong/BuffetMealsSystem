@@ -1,7 +1,20 @@
 stages:
 - build
-Qt5.15.2-msvc2019-64bit:
+- publish
+Qt5.15.2-msvc2019-64bit-build:
   stage: build
+  script:
+    - mkdir build
+    - cd build
+    - qmake ../BuffetMealsSystem.pro -spec win32-msvc "CONFIG+=qtquickcompiler"
+    - jom qmake_all
+    - cd lib
+    - jom
+    
+Qt5.15.2-msvc2019-64bit-publish:
+  stage: publish
+  needs:
+    - Qt5.15.2-msvc2019-64bit-build
   script:
     - mkdir build
     - cd build
@@ -10,15 +23,31 @@ Qt5.15.2-msvc2019-64bit:
     - cd lib
     - jom install
     - jom conanupload
-    
-# Qt5.15.5-linux-gcc9.3.0-arm-64bit:
-#   tags:
-#     - linux_arm64
-#   stage: build
-#   script:
-#     - mkdir 5.15.5_build
-#     - cd 5.15.5_build
-#     - /home/lys/Qt/5.15.5/bin/qmake ../BuffetMealsSystem.pro
-#     - make qmake_all
-#     - make -j4
+  
+Qt5.15.5-linux-gcc9.3.0-arm-64bit-build:
+  tags:
+    - linux_arm64
+  stage: build
+  script:
+    - mkdir 5.15.5_build
+    - cd 5.15.5_build
+    - /home/lys/Qt/5.15.5/bin/qmake ../BuffetMealsSystem.pro
+    - make qmake_all
+    - cd lib
+    - make -j4
+
+Qt5.15.5-linux-gcc9.3.0-arm-64bit-publish:
+  tags:
+    - linux_arm64
+  stage: publish
+  needs:
+    - Qt5.15.5-linux-gcc9.3.0-arm-64bit-build
+  script:
+    - mkdir 5.15.5_build
+    - cd 5.15.5_build
+    - /home/lys/Qt/5.15.5/bin/qmake ../BuffetMealsSystem.pro
+    - make qmake_all
+    - cd lib
+    - make install -j4
+    - make conanupload
 
