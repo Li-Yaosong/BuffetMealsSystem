@@ -25,7 +25,7 @@ Class ClassInfoWidget::info()
 
 void ClassInfoWidget::on_pushButton_browse_clicked()
 {
-    QString m_imagePath = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Images (*.jpg)"));
+    QString m_imagePath = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Images (*.jpg *.png)"));
 
     ui->lineEdit_path->setText(m_imagePath);
     if(ui->lineEdit_name->text().isEmpty())

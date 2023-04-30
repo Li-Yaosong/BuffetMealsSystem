@@ -16,6 +16,11 @@ public:
     {
         return m_dishWidgetList;
     }
+    void clear()
+    {
+        m_count = 0;
+        m_dishWidgetList.clear();
+    }
     int m_head;
     int m_count = 0;
 
@@ -59,25 +64,26 @@ void ListWidget::addWidget(QWidget *widgit)
     switch (p->m_head) {
     case 0:
         ui->gridLayout->addWidget(widgit,p->m_count/4,p->m_count%4);
-        p->m_count++;
         break;
     default:
         ui->verticalLayout->insertWidget(ui->verticalLayout->count()- 1,widgit);
         break;
     }
+    p->m_count++;
     p->saveDishWidget(widgit);
 }
 
 void ListWidget::clear()
 {
-    if(!p->dishList().isEmpty())
+    if(p->m_count != 0)
     {
-        for(QWidget *widgit : p->dishList())
+        QList<QWidget *> list = p->dishList();
+        for(QWidget *widgit : list)
         {
             ui->verticalLayout->removeWidget(widgit);
             widgit->deleteLater();
         }
-        p->dishList().clear();
+        p->clear();
     }
 }
 

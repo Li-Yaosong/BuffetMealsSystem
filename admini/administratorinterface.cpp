@@ -21,6 +21,7 @@ AdministratorInterface::AdministratorInterface(QWidget *parent) :
     m_orderTab(new TabWidget),
     m_newOrderList(new ListWidget(2)),
     m_finishOrderList(new ListWidget(2)),
+    m_settledOrderList(new ListWidget(2)),
     m_queryOrder(new ListWidget(2)),
     m_report(new ReportWidget)
 {
@@ -29,6 +30,7 @@ AdministratorInterface::AdministratorInterface(QWidget *parent) :
     ui->horizontalLayout_1->insertWidget(1, m_orderTab);
     m_orderTab->addTab(ui->pushButton_noFinished, m_newOrderList, "No finished");
     m_orderTab->addTab(ui->pushButton_finished, m_finishOrderList, "finished");
+    m_orderTab->addTab(ui->pushButton_settled, m_settledOrderList, "Settled");
     updateOrderList();
 //    ui->checkBox->hide();
     initStyle();
@@ -55,7 +57,6 @@ AdministratorInterface::AdministratorInterface(QWidget *parent) :
     });
     GetNewOrder *newOrder = new GetNewOrder;
     connect(newOrder, &GetNewOrder::hasNewOrder, this, &AdministratorInterface::hasNewOrder);
-    Service->rep()->initReport();
 }
 
 AdministratorInterface::~AdministratorInterface()
@@ -96,7 +97,6 @@ void AdministratorInterface::updateClassList()
     m_classButtonList.clear();
     ui->horizontalLayout_5->insertWidget(2,m_classTab);
     m_classTab->addTab(ui->pushButton_allDish,m_allDishList, "all");
-    QMap<QString, QVariant> classData= Service->getClass();
     QMap<QString, QList<Dish>> data= Service->getData();
     m_classList.clear();
     m_classList = Service->classes();
@@ -123,6 +123,7 @@ void AdministratorInterface::updateOrderList()
 {
     m_newOrderList->clear();
     m_finishOrderList->clear();
+    m_settledOrderList->clear();
     m_queryOrder->clear();
     QList<Order> orderList = Service->getOrder();
     for(const Order &order : orderList)
@@ -132,13 +133,17 @@ void AdministratorInterface::updateOrderList()
         OrderList *orderWidget2 = new OrderList(order);
         connect(orderWidget2, &OrderList::updateOrder, this ,&AdministratorInterface::updateOrderList);
         m_queryOrder->addWidget(orderWidget2);
-        if(order.state)
+        if(order.state == 0)
+        {
+            m_newOrderList->addWidget(orderWidget1);
+        }
+        else if(order.state == 1)
         {
             m_finishOrderList->addWidget(orderWidget1);
         }
         else
         {
-            m_newOrderList->addWidget(orderWidget1);
+            m_settledOrderList->addWidget(orderWidget1);
         }
     }
 }
@@ -204,8 +209,7 @@ void AdministratorInterface::hasNewOrder(QByteArray order)
     orderMap.insert("dishes", orderByte);
     orderMap.insert("state", QString::number(0).toUtf8());
     Service->rep()->addOrder(orderMap);
-
-    QStringList list = dishesMap.keys();
+    updateOrderList();
 }
 
 void AdministratorInterface::on_pushButton_orderManage_clicked()
@@ -237,7 +241,7 @@ void AdministratorInterface::initStyle()
     ui->pushButton_dishManage->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_history->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_test->setStyleSheet(StyleSheet::buttonStyle());
-    ui->pushButton_4->setStyleSheet(StyleSheet::buttonStyle());
+    ui->pushButton_modClass->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_addDishes->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_addClass->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_delClass->setStyleSheet(StyleSheet::buttonStyle());

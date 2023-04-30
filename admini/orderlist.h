@@ -22,7 +22,10 @@ private slots:
 private:
     Ui::OrderList *ui;
     QMap<QString, int> m_dishes;
-    int m_num;
+    QString m_date = "";
+    double m_total = 0;
+    int m_state = 0;
+    int m_num = 0;
 };
 
 #endif // ORDERLIST_H

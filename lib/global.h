@@ -39,6 +39,10 @@ struct Class
 {
     QString name;
     QByteArray image;
+    operator QVariant() const
+    {
+    return QVariant::fromValue(*this);
+    }
     inline friend QDataStream& operator<<(QDataStream& out, const Class& c)
     {
     out << c.name
@@ -47,7 +51,7 @@ struct Class
     }
     inline friend  QDataStream& operator>>(QDataStream& in, Class & c)
     {
-    in>>c.name;
+    in>>c.name >> c.image;
     return in;
     }
 };
@@ -114,6 +118,18 @@ struct Report
         c.orderCount = orderCount.toInt();
         return in;
     }
+//    Report& operator=(const Report& other)
+//    {
+//        if (this != &other)
+//        {
+//            date = other.date;
+//            turnover = other.turnover;
+//            cost = other.cost;
+//            profit = other.profit;
+//            orderCount = other.orderCount;
+//        }
+//        return *this;
+//    }
 };
 class Global {
 
@@ -125,6 +141,51 @@ public:
         query.prepare(queryT);
         query.bindValue(":date", QDate::currentDate().toString("yyyy-MM-dd"));
         return (query.exec() && query.next());
+    }
+    static double currentDayCost()
+    {
+        double cost = 0;
+        QSqlQuery query;
+        QString queryT = QString("SELECT * FROM `daily_cost` WHERE date = :date");
+        query.prepare(queryT);
+        query.bindValue(":date", QDate::currentDate().toString("yyyy-MM-dd"));
+        if(query.exec() && query.next())
+        {
+            cost = query.value(0).toDouble();
+        }
+        return cost;
+    }
+    static bool initReport()
+    {
+        QSqlQuery query;
+        QString queryT = QString("insert into `%6`(%1,%2,%3,%4,%5) values(:%1,:%2,:%3,:%4,:%5)")
+                .arg("date", "turnover", "cost", "profit", "orderCount", "daily_report");
+        query.prepare(queryT);
+        double cost = Global::currentDayCost();
+        query.bindValue(":date", QDate::currentDate().toString("yyyy-MM-dd"));
+        query.bindValue(":turnover", 0);
+        query.bindValue(":cost", cost);
+        query.bindValue(":profit", 0 - cost);
+        query.bindValue(":orderCount", 0);
+        return query.exec();
+    }
+    static Report dayReport(const QString &date)
+    {
+        Report report;
+        QSqlQuery query;
+        QString queryT = QString("SELECT * FROM `daily_report` WHERE date = :date");
+        query.prepare(queryT);
+        query.bindValue(":date", date);
+        query.exec();
+        while (query.next())
+        {
+            report.date = query.value(0).toString();
+            report.turnover = query.value(1).toDouble();
+            report.cost = query.value(2).toDouble();
+            report.profit = query.value(3).toDouble();
+            report.orderCount = query.value(4).toInt();
+        }
+        return report;
     }
 };
 

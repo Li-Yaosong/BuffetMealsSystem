@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>479</width>
-    <height>369</height>
+    <width>451</width>
+    <height>265</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -97,7 +97,7 @@
       <enum>QTabWidget::South</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -183,7 +183,30 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="pushButton_settled">
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(255,255,255);
+    background-color: rgb(20,196,188);
+    border: none;border-radius:8px;
+    }
+QPushButton:disabled {
+  background-color: rgb(170,170,170);
+}
+QPushButton:hover{
+    background-color: rgb(22,218,208);
+    }//hover
+
+QPushButton:pressed{
+    background-color: rgb(17,171,164);
+    }//pressedb
+
+QGroupBox{
+    background-color: rgb(170, 170, 255);
+}
+</string>
+            </property>
             <property name="text">
              <string>已结算订单</string>
             </property>
@@ -236,6 +259,13 @@ QGroupBox{
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="pushButton_modClass">
+            <property name="text">
+             <string>修改类别</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="pushButton_delClass">
             <property name="text">
              <string>删除类别</string>
@@ -256,13 +286,6 @@ QGroupBox{
             </property>
             <property name="text">
              <string>完成</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_4">
-            <property name="text">
-             <string>test</string>
             </property>
            </widget>
           </item>
@@ -299,7 +322,7 @@ QGroupBox{
             <x>0</x>
             <y>0</y>
             <width>148</width>
-            <height>291</height>
+            <height>176</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -499,8 +522,8 @@ QPushButton:pressed{
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>461</width>
-            <height>197</height>
+            <width>427</width>
+            <height>70</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3"/>

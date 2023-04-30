@@ -22,7 +22,7 @@ Service::Service(QObject *parent)
     db.setHostName("127.0.0.1");
     db.setUserName("root");
     db.setPassword("123456");
-    db.setDatabaseName("ordering_system");
+    db.setDatabaseName("bms");
 
     if(db.open())
     {
@@ -38,10 +38,10 @@ Service::Service(QObject *parent)
          */
         m_console->appendDebug(tr("Database connection failure!"));
     }
-//    for(const QString &name : QSqlDatabase::drivers())
-//    {
-//        m_console->appendDebug(name);
-//    }
+    for(const QString &name : QSqlDatabase::drivers())
+    {
+        m_console->appendDebug(name);
+    }
 }
 
 Service::~Service()
@@ -52,7 +52,7 @@ Service::~Service()
 void Service::addClass(const Class &classInfo)
 {
     QSqlQuery query;
-    query.prepare("insert into menu_classification(class_name,image) values(:class_name,:image)");
+    query.prepare("insert into `menu_classification`(class_name,image) values(:class_name,:image)");
     query.bindValue(":class_name", classInfo.name);
     query.bindValue(":image", classInfo.image);
     if(!query.exec())
@@ -130,6 +130,27 @@ void Service::modifiDishe(const Dish &dishInfo, const QString &old)
 {
     delDishes({old});
     addDishes(dishInfo);
+}
+
+void Service::modifiClass(const QString &newClass, const QString &old)
+{
+    QSqlQuery query;
+    QString update = "update `menu_classification` SET `class_name` = :class_name WHERE `class_name` = :old";
+    query.prepare(update);
+    query.bindValue(":class_name", newClass);
+    query.bindValue(":old", old);
+    if(!query.exec())
+    {
+        m_console->appendDebug("update class error");
+        qDebug() << "update class error";
+        m_console->appendDebug(query.lastError().text().toLocal8Bit().data());
+        qDebug() << query.lastError().text().toLocal8Bit().data();
+    }
+    else
+    {
+        m_console->appendDebug("update class ok");
+        qDebug() << "update class ok";
+    }
 }
 
 void Service::delDishes(const QStringList &delList)
@@ -235,7 +256,7 @@ QMap<QString, QVariant> Service::getAllClass()
 {
     QMap<QString, QVariant> map;
     QSqlQuery query;
-    QString select = "select * menu_classification";
+    QString select = "select * from menu_classification";
     query.exec(select);
     while( query.next() )
     {
@@ -282,6 +303,7 @@ void Service::setDailyCost(const QString date, const double cost)
         qDebug() << "insert error";
         m_console->appendDebug(query.lastError().text().toLocal8Bit().data());
         qDebug() << query.lastError().text().toLocal8Bit().data();
+        initReport();
     }
     else
     {
@@ -292,25 +314,65 @@ void Service::setDailyCost(const QString date, const double cost)
 
 void Service::initReport()
 {
-    if(Global::queryCurrentDayData("daily_cost"))
+    if(Global::queryCurrentDayData("daily_report"))
     {
-        if(Global::queryCurrentDayData("daily_report"))
-        {
-            m_console->appendDebug(QStringLiteral("今日报表已初始化"));
-            qDebug() << QStringLiteral("今日报表已初始化");
-        }
-        else
-        {
-            m_console->appendDebug(QStringLiteral("今日报表已初始化成功！"));
-            qDebug() << QStringLiteral("今日报表已初始化成功！");
-        }
+        m_console->appendDebug(QStringLiteral("今日报表已初始化"));
+        qDebug() << QStringLiteral("今日报表已初始化");
     }
     else
     {
+        if(Global::initReport())
+        {
+            m_console->appendDebug(QStringLiteral("今日报表已初始化成功！"));
+            qDebug() << QStringLiteral("今日报表已初始化成功！");
+            QList<Order> orderList = getOrder();
+            for(const Order &order : orderList)
+            {
+                if(order.state == 2)
+                {
+                    updateReport(order.time, order.total);
+                }
+            }
+
+        }
+        else
+        {
+            m_console->appendDebug(QStringLiteral("今日报表初始化失败！"));
+            qDebug() << QStringLiteral("今日报表初始化失败！");
+        }
+    }
+}
+
+void Service::updateReport(const QString &date, const double total)
+{
+    Report oldReport = Global::dayReport(date);
+    qDebug()<<date;
+    if(oldReport.date.isEmpty())
+    {
         m_console->appendDebug(QStringLiteral("今日成本未设置，报表今日报表未初始化"));
         qDebug() << QStringLiteral("今日成本未设置，报表今日报表未初始化");
+        return;
     }
+    QSqlQuery query;
+    QString update = "UPDATE `daily_report` SET `%1` = :%1, `%2` = :%2, `%3` = :%3 WHERE `%4` = :%4";
+    query.prepare(update.arg("turnover", "profit","orderCount","date"));
+    query.bindValue(":turnover", oldReport.turnover + total);
+    query.bindValue(":profit", oldReport.turnover + total - oldReport.cost);
+    query.bindValue(":orderCount", oldReport.orderCount + 1);
+    query.bindValue(":date", oldReport.date);
 
+    if(!query.exec())
+    {
+        m_console->appendDebug("update error");
+        qDebug() << "update error";
+        m_console->appendDebug(query.lastError().text().toLocal8Bit().data());
+        qDebug() << query.lastError().text().toLocal8Bit().data();
+    }
+    else
+    {
+        m_console->appendDebug("update report ok");
+        qDebug() << "update order ok";
+    }
 }
 
 

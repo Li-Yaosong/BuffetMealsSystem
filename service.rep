@@ -26,4 +26,7 @@ class Service
 
     SLOT(void initReport())
 
+    SLOT(void modifiClass(const QString &newClass, const QString &old))
+
+    SLOT(void updateReport(const QString &date, const double total))
 };

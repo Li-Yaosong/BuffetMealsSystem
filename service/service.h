@@ -57,6 +57,13 @@ public:
      */
     void modifiDishe(const Dish &dishInfo, const QString &old);
     /*!
+     * \brief modifiClass
+     * 修改类名
+     * \param newClass
+     * \param old
+     */
+    void modifiClass(const QString &newClass, const QString &old);
+    /*!
      * \brief delDishes
      * 删除菜品
      * \param delList 菜品名列表
@@ -99,6 +106,11 @@ public:
      * 初始化当天，当月报表
      */
     void initReport();
+    /*!
+     * \brief updateReport
+     * 有订单结算后更新报表
+     */
+    void updateReport(const QString &date, const double total);
 private:
     Console *m_console;
 };

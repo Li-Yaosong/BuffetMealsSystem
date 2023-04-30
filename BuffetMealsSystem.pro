@@ -6,6 +6,5 @@ conandeploy.CONFIG += recursive
 QMAKE_EXTRA_TARGETS += conandeploy
 
 SUBDIRS += \
-    lib \
     admini \
     client

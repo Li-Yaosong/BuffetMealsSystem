@@ -54,6 +54,7 @@ private:
     TabWidget *m_orderTab;
     ListWidget *m_newOrderList;
     ListWidget *m_finishOrderList;
+    ListWidget *m_settledOrderList;
     ListWidget *m_queryOrder;
     QStringList m_classList;
     QList<QPushButton *> m_classButtonList;
