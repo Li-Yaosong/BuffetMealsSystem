@@ -11,5 +11,11 @@
         <file>image/max_in.png</file>
         <file>image/min.png</file>
         <file>image/min_in.png</file>
+        <file>image/all.png</file>
+        <file>image/refresh.png</file>
+        <file>image/add.png</file>
+        <file>image/delete.png</file>
+        <file>image/reduce.png</file>
+        <file>image/placeorder.png</file>
     </qresource>
 </RCC>

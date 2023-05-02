@@ -22,6 +22,14 @@ class Service
 
     SLOT(QMap<QString, QList<Dish>> getAllDishes())
 
+    SLOT(QList<Report> getDailyReport())
+
+    SLOT(QList<Report> getDailyReport(const QString &date))
+
+    SLOT(QList<Report> getMonthReport())
+
+    SLOT(QList<Report> getMonthReport(const QString &date))
+
     SLOT(void setDailyCost(const QString date, const double cost))
 
     SLOT(void initReport())
@@ -29,4 +37,6 @@ class Service
     SLOT(void modifiClass(const QString &newClass, const QString &old))
 
     SLOT(void updateReport(const QString &date, const double total))
+
+    SLOT(void organizeData())
 };

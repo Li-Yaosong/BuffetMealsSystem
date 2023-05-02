@@ -16,6 +16,7 @@ public:
     ~OrderList();
 signals:
     void updateOrder();
+    void updateReport();
 private slots:
     void on_see_pushButton_clicked();
 

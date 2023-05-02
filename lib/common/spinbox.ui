@@ -31,6 +31,19 @@
      <property name="text">
       <string/>
      </property>
+     <property name="icon">
+      <iconset resource="image.qrc">
+       <normaloff>:/image/reduce.png</normaloff>:/image/reduce.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>30</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item>
@@ -50,10 +63,25 @@
      <property name="text">
       <string/>
      </property>
+     <property name="icon">
+      <iconset resource="image.qrc">
+       <normaloff>:/image/add.png</normaloff>:/image/add.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>30</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="image.qrc"/>
+ </resources>
  <connections/>
 </ui>

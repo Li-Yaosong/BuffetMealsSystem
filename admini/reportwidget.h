@@ -2,7 +2,7 @@
 #define REPORTWIDGET_H
 
 #include <QWidget>
-
+#include "global.h"
 namespace Ui {
 class ReportWidget;
 }
@@ -15,6 +15,7 @@ public:
     explicit ReportWidget(QWidget *parent = nullptr);
     ~ReportWidget();
     void addRowReport();
+    void initReport(QList<Report> list);
 
 private:
     Ui::ReportWidget *ui;

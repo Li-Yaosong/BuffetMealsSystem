@@ -52,6 +52,7 @@
      <property name="font">
       <font>
        <pointsize>12</pointsize>
+       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -101,6 +102,15 @@
    <item>
     <widget class="QWidget" name="widget" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
       <property name="bottomMargin">
        <number>0</number>
       </property>
@@ -114,6 +124,9 @@
         </property>
         <property name="font">
          <font>
+          <family>微软雅黑 Light</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
@@ -126,6 +139,9 @@
        <widget class="QLabel" name="label_price">
         <property name="font">
          <font>
+          <family>微软雅黑 Light</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
@@ -143,7 +159,16 @@
    <item>
     <widget class="QWidget" name="widget_2" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
       <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
        <number>0</number>
       </property>
       <item>
@@ -156,6 +181,9 @@
         </property>
         <property name="font">
          <font>
+          <family>微软雅黑 Light</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
@@ -166,19 +194,53 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_clean">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>60</width>
+          <width>80</width>
           <height>16777215</height>
          </size>
         </property>
         <property name="font">
          <font>
-          <bold>true</bold>
+          <family>微软雅黑 Light</family>
+          <pointsize>12</pointsize>
+          <weight>1</weight>
+          <italic>false</italic>
+          <bold>false</bold>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
+    font: 10 12pt '微软雅黑 Light';
+    color: rgb(255,255,255);
+	
+	background-color: rgb(255, 170, 127);
+    border: none;border-radius:8px;
+    }
+QPushButton:disabled {
+  background-color: rgb(170,170,170);
+
+}
+QPushButton:hover{
+	background-color: rgb(255, 222, 165);
+    }//hover
+
+QPushButton:pressed{
+    background-color: rgb(255, 170, 127);
+    }//pressedb</string>
         </property>
         <property name="text">
          <string>清空</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../lib/common/image.qrc">
+          <normaloff>:/image/delete.png</normaloff>:/image/delete.png</iconset>
         </property>
        </widget>
       </item>
@@ -187,6 +249,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../lib/common/image.qrc"/>
+ </resources>
  <connections/>
 </ui>

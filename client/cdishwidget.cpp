@@ -11,14 +11,14 @@ CDishWidget::CDishWidget(QWidget *parent, Dish dishIfon) :
     ui->setupUi(this);
     ui->label_name->setText(m_dishInfo.name);
     ui->label_price->setText(QStringLiteral("￥ ")+QString::number(m_dishInfo.price));
-    m_image = new ImageWidget(ui->widget_image,m_dishInfo.image, "",200);
+    m_image = new ImageWidget(ui->widget_image,m_dishInfo.image, "",300);
     m_spinBox = new SpinBox();
     ui->horizontalLayout_4->insertWidget(1, m_image);
     ui->horizontalLayout_2->insertWidget(1,m_spinBox);
     connect(ui->pushButton_clean, &QPushButton::clicked, this, &CDishWidget::reSetNumber);
     connect(m_spinBox,static_cast<void (SpinBox::*)(int num)>(&SpinBox::valueChange),
             this, &CDishWidget::valueChange);
-    this->setStyleSheet(StyleSheet::style());
+//    this->setStyleSheet(StyleSheet::style());
 }
 
 CDishWidget::~CDishWidget()

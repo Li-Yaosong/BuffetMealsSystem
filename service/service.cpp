@@ -267,7 +267,7 @@ QMap<QString, QVariant> Service::getAllClass()
 
 QMap<QString, QList<Dish> > Service::getAllDishes()
 {
-    QMultiMap <QString, Dish>Allmap;
+    QMultiMap <QString, Dish> allmap;
     QSqlQuery query;
     query.exec("select * from menu");
 
@@ -279,14 +279,91 @@ QMap<QString, QList<Dish> > Service::getAllDishes()
         dish.price = query.value(2).toDouble();
         dish.image = query.value(3).toByteArray();
         dish.storage = query.value(4).toInt();
-        Allmap.insert(dish.className,dish);
+        allmap.insert(dish.className,dish);
     }
     QMap<QString, QList<Dish>> reMap;
-    for(const QString &key : Allmap.keys())
+    QStringList keys = allmap.keys();
+    for(const QString &key : qAsConst(keys))
     {
-        reMap.insert(key, Allmap.values(key));
+        reMap.insert(key, allmap.values(key));
     }
     return reMap;
+}
+
+QList<Report> Service::getDailyReport()
+{
+    QList<Report> list;
+    QSqlQuery query;
+    QString select = "select * from `daily_report`";
+    query.exec(select);
+    while( query.next() )
+    {
+        Report report;
+        report.date = query.value(0).toString();
+        report.turnover = query.value(1).toDouble();
+        report.cost = query.value(2).toDouble();
+        report.profit = query.value(3).toDouble();
+        report.orderCount = query.value(4).toInt();
+        list.append(report);
+    }
+    return list;
+}
+
+QList<Report> Service::getDailyReport(const QString &date)
+{
+    QList<Report> list;
+    QSqlQuery query;
+    QString select = "select * from `daily_report` where date = \"%1\"";
+    query.exec(select.arg(date));
+    while( query.next() )
+    {
+        Report report;
+        report.date = query.value(0).toString();
+        report.turnover = query.value(1).toDouble();
+        report.cost = query.value(2).toDouble();
+        report.profit = query.value(3).toDouble();
+        report.orderCount = query.value(4).toInt();
+        list.append(report);
+    }
+    return list;
+}
+
+QList<Report> Service::getMonthReport()
+{
+    QList<Report> list;
+    QSqlQuery query;
+    QString select = "select * from `monthly_report`";
+    query.exec(select);
+    while( query.next() )
+    {
+        Report report;
+        report.date = query.value(0).toString();
+        report.turnover = query.value(1).toDouble();
+        report.cost = query.value(2).toDouble();
+        report.profit = query.value(3).toDouble();
+        report.orderCount = query.value(4).toInt();
+        list.append(report);
+    }
+    return list;
+}
+
+QList<Report> Service::getMonthReport(const QString &date)
+{
+    QList<Report> list;
+    QSqlQuery query;
+    QString select = "select * from `monthly_report` where date = \"%1\"";
+    query.exec(select.arg(date));
+    while( query.next() )
+    {
+        Report report;
+        report.date = query.value(0).toString();
+        report.turnover = query.value(1).toDouble();
+        report.cost = query.value(2).toDouble();
+        report.profit = query.value(3).toDouble();
+        report.orderCount = query.value(4).toInt();
+        list.append(report);
+    }
+    return list;
 }
 
 void Service::setDailyCost(const QString date, const double cost)
@@ -309,6 +386,78 @@ void Service::setDailyCost(const QString date, const double cost)
     {
         m_console->appendDebug("insert daily_cost ok");
         qDebug() << "insert daily_cost ok";
+    }
+    QString month = QDateTime::fromString(date, "yyyy-MM-dd").toString("yyyy-MM");
+    if(!Global::hasMonthCost(month))
+    {
+        setMonthlyCost(month, cost);
+    }
+    else
+    {
+        double currentMonthCost = Global::monthCost(month);
+        updateMonthlyCost(month, currentMonthCost + cost);
+    }
+}
+
+QList<QPair<QString, double>> Service::dailyCost()
+{
+    QList<QPair<QString, double>> list;
+    QSqlQuery query;
+    QString select = "select * from `daily_cost`";
+    query.exec(select);
+    while( query.next() )
+    {
+        QPair<QString, double> cost;
+        cost.first = query.value(0).toString();
+        cost.second = query.value(1).toDouble();
+        list.append(cost);
+    }
+    return list;
+}
+
+void Service::setMonthlyCost(const QString date, const double cost)
+{
+    QSqlQuery query;
+    query.prepare("insert into `monthly_cost`(date,cost) values(:date,:cost)");
+
+    query.bindValue(":date", date);
+    query.bindValue(":cost", cost);
+
+    if(!query.exec())
+    {
+        m_console->appendDebug("insert error");
+        qDebug() << "insert error";
+        m_console->appendDebug(query.lastError().text().toLocal8Bit().data());
+        qDebug() << query.lastError().text().toLocal8Bit().data();
+        initReport();
+    }
+    else
+    {
+        m_console->appendDebug("insert monthly_cost ok");
+        qDebug() << "insert monthly_cost ok";
+    }
+}
+
+void Service::updateMonthlyCost(const QString date, const double cost)
+{
+    QSqlQuery query;
+    query.prepare("update `monthly_cost` set `cost` = :cost where `date` = :date");
+
+    query.bindValue(":date", date);
+    query.bindValue(":cost", cost);
+
+    if(!query.exec())
+    {
+        m_console->appendDebug("insert error");
+        qDebug() << "insert error";
+        m_console->appendDebug(query.lastError().text().toLocal8Bit().data());
+        qDebug() << query.lastError().text().toLocal8Bit().data();
+        initReport();
+    }
+    else
+    {
+        m_console->appendDebug("update monthly_cost ok");
+        qDebug() << "update monthly_cost ok";
     }
 }
 
@@ -370,8 +519,185 @@ void Service::updateReport(const QString &date, const double total)
     }
     else
     {
+        m_console->appendDebug("update daily report ok");
+        qDebug() << "update daily report ok";
+    }
+    updateMonthReport(QDateTime::fromString(date, "yyyy-MM-dd").toString("yyyy-MM"), total);
+}
+
+void Service::updateMonthReport(const QString &date, const double total)
+{
+    Report oldReport = Global::monthReport(date);
+    qDebug()<<date;
+    if(oldReport.date.isEmpty())
+    {
+        m_console->appendDebug(QStringLiteral("本月成本未设置，本月报表未初始化"));
+        qDebug() << QStringLiteral("本月成本未设置，本月报表未初始化");
+        return;
+    }
+    QSqlQuery query;
+    QString update = "UPDATE `monthly_report` SET `%1` = :%1, `%2` = :%2, `%3` = :%3 WHERE `%4` = :%4";
+    query.prepare(update.arg("turnover", "profit","orderCount","date"));
+    query.bindValue(":turnover", oldReport.turnover + total);
+    query.bindValue(":profit", oldReport.turnover + total - oldReport.cost);
+    query.bindValue(":orderCount", oldReport.orderCount + 1);
+    query.bindValue(":date", oldReport.date);
+
+    if(!query.exec())
+    {
+        m_console->appendDebug("update error");
+        qDebug() << "update error";
+        m_console->appendDebug(query.lastError().text().toLocal8Bit().data());
+        qDebug() << query.lastError().text().toLocal8Bit().data();
+    }
+    else
+    {
+        m_console->appendDebug("update monthly report ok");
+        qDebug() << "update monthly report ok";
+    }
+}
+
+void Service::updateReportWithoutNew(const QString &date, const double total, const int orderCount, const QString &tab)
+{
+    QSqlQuery query;
+    QString update = "UPDATE `%6` SET `%1` = :%1, `%2` = :%2, `%3` = :%3, `%4` = :%4 WHERE `%5` = :%5";
+    query.prepare(update.arg("turnover", "cost", "profit","orderCount","date",tab));
+    query.bindValue(":turnover", total);
+    double cost = 0;
+    if(tab == "daily_report")
+    {
+        if(Global::hasDayCost(date))
+        {
+            cost = Global::dayCost(date);
+        }
+    }
+    else
+    {
+        if(Global::hasMonthCost(date))
+        {
+            cost = Global::monthCost(date);
+        }
+    }
+    query.bindValue(":cost",cost);
+    query.bindValue(":profit", total - cost);
+    query.bindValue(":orderCount", orderCount);
+    query.bindValue(":date", date);
+
+    if(!query.exec())
+    {
+        m_console->appendDebug("update error");
+        qDebug() << "update error";
+        m_console->appendDebug(query.lastError().text().toLocal8Bit().data());
+        qDebug() << query.lastError().text().toLocal8Bit().data();
+    }
+    else
+    {
         m_console->appendDebug("update report ok");
         qDebug() << "update order ok";
+    }
+}
+
+double Service::calculateTotal(QList<double> doubleList)
+{
+    double allTotal = 0;
+    for(const double total : qAsConst(doubleList))
+    {
+        allTotal += total;
+    }
+    return allTotal;
+}
+
+void Service::organizeData()
+{
+    //组织每月成本
+    organizeMouthCost();
+    //组织报表
+    QList<Order> allOrderList = getOrder();
+    organizeDailyReport(allOrderList);
+    //组织每月报表
+    QList<Report> allDayReport = getDailyReport();
+    organizeMouthReport(allDayReport);
+}
+
+void Service::organizeMouthCost()
+{
+    QList<QPair<QString, double>> alldailyCost = dailyCost();
+    QMultiMap<QString, double> monthDailyCost;
+    for(const QPair<QString, double> &cost : qAsConst(alldailyCost))
+    {
+        QString month = QDateTime::fromString(cost.first, "yyyy-MM-dd").toString("yyyy-MM");
+        monthDailyCost.insert(month, cost.second);
+    }
+    QStringList monthList = monthDailyCost.keys();
+    for(const QString &month : qAsConst(monthList))
+    {
+        double allCost = calculateTotal(monthDailyCost.values(month));
+
+        if(!Global::hasMonthCost(month))
+        {
+            setMonthlyCost(month, allCost);
+        }
+        else
+        {
+            updateMonthlyCost(month, allCost);
+        }
+    }
+}
+
+void Service::organizeDailyReport(const QList<Order> &allOrder)
+{
+    //组织每日报表
+    QMultiMap<QString, double> dailyIncome;
+    for(const Order &order : qAsConst(allOrder))
+    {
+        if(order.state == 2)
+        {
+            QString day = QDateTime::fromString(order.time,"yyyy-MM-ddThh:mm:ss.zzz").toString("yyyy-MM-dd");
+            dailyIncome.insert(day,order.total);
+        }
+        QStringList dayList = dailyIncome.keys();
+        for(const QString &day : qAsConst(dayList))
+        {
+            double allTotal = calculateTotal(dailyIncome.values(day));
+
+            if(!Global::hasdayReport(day))
+            {
+                Global::initReport(day);
+                updateReportWithoutNew(day, allTotal, dailyIncome.values(day).count());
+            }
+            else
+            {
+                updateReportWithoutNew(day, allTotal,dailyIncome.values(day).count());
+            }
+        }
+    }
+}
+
+void Service::organizeMouthReport(const QList<Report> &allDayReport)
+{
+    QMultiMap<QString, double> monthlyIncome;
+    QMultiMap<QString, double> monthlyOrder;
+    for(const Report &report : qAsConst(allDayReport))
+    {
+        QString month = QDateTime::fromString(report.date,"yyyy-MM-dd").toString("yyyy-MM");
+        monthlyIncome.insert(month,report.turnover);
+        monthlyOrder.insert(month, double(report.orderCount));
+        QStringList monthList = monthlyIncome.keys();
+        for(const QString &m : qAsConst(monthList))
+        {
+            double allTotal = calculateTotal(monthlyIncome.values(m));
+            int allOrder = int(calculateTotal(monthlyOrder.values(m)));
+            if(!Global::hasMonthReport(m))
+            {
+                Global::initReport(m,"monthly_report");
+                updateReportWithoutNew(m, allTotal,allOrder,"monthly_report");
+
+            }
+            else
+            {
+                updateReportWithoutNew(m, allTotal, allOrder,"monthly_report");
+            }
+        }
     }
 }
 

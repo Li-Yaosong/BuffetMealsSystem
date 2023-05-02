@@ -6,6 +6,7 @@
 #include <QMetaType>
 #include <QSqlQuery>
 #include <QDate>
+#include <QDebug>
 struct Dish
 {
     QString name;
@@ -155,14 +156,77 @@ public:
         }
         return cost;
     }
-    static bool initReport()
+    static double dayCost(const QString &date)
+    {
+        double cost = 0;
+        QSqlQuery query;
+        QString queryT = QString("SELECT * FROM `daily_cost` WHERE date = :date");
+        query.prepare(queryT);
+        query.bindValue(":date", date);
+        if(query.exec() && query.next())
+        {
+            cost = query.value(1).toDouble();
+        }
+        return cost;
+    }
+    static bool hasDayCost(const QString &date)
+    {
+        QSqlQuery query;
+        QString queryT = QString("SELECT * FROM `daily_cost` WHERE date = :date");
+        query.prepare(queryT);
+        query.bindValue(":date", date);
+        return(query.exec() && query.next());
+    }
+    static bool queryCurrentMonthData(const QString table)
+    {
+        QSqlQuery query;
+        QString queryT = QString("SELECT * FROM `%1` WHERE date = :date").arg(table);
+        query.prepare(queryT);
+        query.bindValue(":date", QDate::currentDate().toString("yyyy-MM"));
+        return (query.exec() && query.next());
+    }
+    static double currentMonthCost()
+    {
+        double cost = 0;
+        QSqlQuery query;
+        QString queryT = QString("SELECT * FROM `monthly_cost` WHERE date = :date");
+        query.prepare(queryT);
+        query.bindValue(":date", QDate::currentDate().toString("yyyy-MM"));
+        if(query.exec() && query.next())
+        {
+            cost = query.value(0).toDouble();
+        }
+        return cost;
+    }
+    static double monthCost(const QString &date)
+    {
+        double cost = 0;
+        QSqlQuery query;
+        QString queryT = QString("SELECT * FROM `monthly_cost` WHERE date = :date");
+        query.prepare(queryT);
+        query.bindValue(":date", date);
+        if(query.exec() && query.next())
+        {
+            cost = query.value(1).toDouble();
+        }
+        return cost;
+    }
+    static bool hasMonthCost(const QString &date)
+    {
+        QSqlQuery query;
+        QString queryT = QString("SELECT * FROM `monthly_cost` WHERE date = :date");
+        query.prepare(queryT);
+        query.bindValue(":date", date);
+        return(query.exec() && query.next());
+    }
+    static bool initReport(const QString &date = QDate::currentDate().toString("yyyy-MM-dd"), const QString &tab = "daily_report")
     {
         QSqlQuery query;
         QString queryT = QString("insert into `%6`(%1,%2,%3,%4,%5) values(:%1,:%2,:%3,:%4,:%5)")
-                .arg("date", "turnover", "cost", "profit", "orderCount", "daily_report");
+                .arg("date", "turnover", "cost", "profit", "orderCount", tab);
         query.prepare(queryT);
-        double cost = Global::currentDayCost();
-        query.bindValue(":date", QDate::currentDate().toString("yyyy-MM-dd"));
+        double cost = Global::dayCost(date);
+        query.bindValue(":date", date);
         query.bindValue(":turnover", 0);
         query.bindValue(":cost", cost);
         query.bindValue(":profit", 0 - cost);
@@ -186,6 +250,40 @@ public:
             report.orderCount = query.value(4).toInt();
         }
         return report;
+    }
+    static bool hasdayReport(const QString &date)
+    {
+        QSqlQuery query;
+        QString queryT = QString("SELECT * FROM `daily_report` WHERE date = :date");
+        query.prepare(queryT);
+        query.bindValue(":date", date);
+        return(query.exec() && query.next());
+    }
+    static Report monthReport(const QString &date)
+    {
+        Report report;
+        QSqlQuery query;
+        QString queryT = QString("SELECT * FROM `monthly_report` WHERE date = :date");
+        query.prepare(queryT);
+        query.bindValue(":date", date);
+        query.exec();
+        while (query.next())
+        {
+            report.date = query.value(0).toString();
+            report.turnover = query.value(1).toDouble();
+            report.cost = query.value(2).toDouble();
+            report.profit = query.value(3).toDouble();
+            report.orderCount = query.value(4).toInt();
+        }
+        return report;
+    }
+    static bool hasMonthReport(const QString &date)
+    {
+        QSqlQuery query;
+        QString queryT = QString("SELECT * FROM `monthly_report` WHERE date = :date");
+        query.prepare(queryT);
+        query.bindValue(":date", date);
+        return(query.exec() && query.next());
     }
 };
 

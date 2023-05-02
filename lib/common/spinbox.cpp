@@ -1,5 +1,6 @@
 ﻿#include "spinbox.h"
 #include "ui_spinbox.h"
+#include "stylesheet.h"
 class SpinBoxP
 {
 public:
@@ -10,11 +11,13 @@ public:
         {
             m_dSpinBox = new QDoubleSpinBox();
             m_dSpinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
+            m_dSpinBox->setAlignment(Qt::AlignCenter);
         }
         else
         {
             m_spinBox = new QSpinBox();
             m_spinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
+            m_spinBox->setAlignment(Qt::AlignCenter);
         }
     }
     QSpinBox *spinBox()
@@ -87,6 +90,7 @@ SpinBox::SpinBox(QWidget *parent, bool doubleSpin) :
         connect(p->spinBox(),static_cast<void (QSpinBox::*)(int num)>(&QSpinBox::valueChanged),
                 this, static_cast<void (SpinBox::*)(int num)>(&SpinBox::valueChange));
     }
+    this->setStyleSheet(StyleSheet::spinBoxStyle());
 }
 
 SpinBox::~SpinBox()

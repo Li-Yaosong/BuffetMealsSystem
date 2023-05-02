@@ -26,6 +26,8 @@ QByteArray StyleSheet::buttonStyle(int style)
         return  readQss(":/qss/button3.qss");
     case 4:
         return  readQss(":/qss/button4.qss");
+    case 5:
+        return  readQss(":/qss/button5.qss");
     default:
         return  readQss(":/button1.qss");
     }
@@ -65,4 +67,14 @@ QByteArray StyleSheet::widgetStyle(int style)
 QByteArray StyleSheet::comboBoxStyle()
 {
     return  readQss(":/qss/combobox.qss");
+}
+
+QByteArray StyleSheet::spinBoxStyle()
+{
+    return  readQss(":/qss/spinbox1.qss");
+}
+
+QByteArray StyleSheet::scrollBarStyle()
+{
+    return  readQss(":/qss/scrollbar.qss");
 }

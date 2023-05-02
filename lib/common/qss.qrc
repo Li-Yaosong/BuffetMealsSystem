@@ -13,5 +13,8 @@
         <file>qss/label3.qss</file>
         <file>qss/widget.qss</file>
         <file>qss/combobox.qss</file>
+        <file>qss/spinbox1.qss</file>
+        <file>qss/button5.qss</file>
+        <file>qss/scrollbar.qss</file>
     </qresource>
 </RCC>

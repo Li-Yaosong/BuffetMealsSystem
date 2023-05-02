@@ -94,6 +94,10 @@ public:
      * \return 全部菜单
      */
     QMap<QString, QList<Dish>> getAllDishes();
+    QList<Report> getDailyReport();
+    QList<Report> getDailyReport(const QString &date);
+    QList<Report> getMonthReport();
+    QList<Report> getMonthReport(const QString &date);
     /*!
      * \brief setDailyCost
      * 设置当天成本
@@ -101,6 +105,9 @@ public:
      * \param cost 成本
      */
     void setDailyCost(const QString date, const double cost);
+    QList<QPair<QString, double> > dailyCost();
+    void setMonthlyCost(const QString date, const double cost);
+    void updateMonthlyCost(const QString date, const double cost);
     /*!
      * \brief initReport
      * 初始化当天，当月报表
@@ -111,6 +118,13 @@ public:
      * 有订单结算后更新报表
      */
     void updateReport(const QString &date, const double total);
+    void updateMonthReport(const QString &date, const double total);
+    void updateReportWithoutNew(const QString &date, const double total, const int orderCount, const QString &tab = "daily_report");
+    double calculateTotal(QList<double> doubleList);
+    void organizeData();
+    void organizeMouthCost();
+    void organizeDailyReport(const QList<Order> &allOrder);
+    void organizeMouthReport(const QList<Report> &allDayReport);
 private:
     Console *m_console;
 };

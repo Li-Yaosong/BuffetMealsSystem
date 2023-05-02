@@ -12,6 +12,8 @@ public:
     QMap<QString, QList<Dish>> getData();
     QMap<QString, QVariant> getClass();
     QList<Order> getOrder();
+    QList<Report> getDailyReport(const QString &date = "");
+    QList<Report> getMonthlyReport(const QString &date = "");
     QStringList classes();
 private:
     ConnectService();

@@ -9,7 +9,7 @@ TitalWidget::TitalWidget(QWidget *parent, QString tital, bool maxButton)
 {
     ui->setupUi(this);
     ui->label_tital->setText(tital);
-    ui->label_tital->setStyleSheet("font: 25 14pt '微软雅黑 Light';");
+    ui->label_tital->setStyleSheet(StyleSheet::labelStyle(1));
     m_parent->setStyleSheet("background-color: rgb(108, 155, 255);");
     m_parent->setWindowFlags(Qt::FramelessWindowHint);
     if(!maxButton)

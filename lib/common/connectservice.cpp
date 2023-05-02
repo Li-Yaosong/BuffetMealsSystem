@@ -46,6 +46,38 @@ QList<Order> ConnectService::getOrder()
     return data.returnValue();
 }
 
+QList<Report> ConnectService::getDailyReport(const QString &date)
+{
+    QRemoteObjectPendingReply<QList<Report>> data;
+    if(date.isEmpty())
+    {
+        data = m_rep->getDailyReport();
+    }
+    else
+    {
+        data = m_rep->getDailyReport(date);
+    }
+
+    data.waitForFinished();
+    return data.returnValue();
+}
+
+QList<Report> ConnectService::getMonthlyReport(const QString &date)
+{
+    QRemoteObjectPendingReply<QList<Report>> data;
+    if(date.isEmpty())
+    {
+        data = m_rep->getMonthReport();
+    }
+    else
+    {
+        data = m_rep->getMonthReport(date);
+    }
+
+    data.waitForFinished();
+    return data.returnValue();
+}
+
 QStringList ConnectService::classes()
 {
 

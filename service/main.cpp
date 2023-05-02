@@ -33,9 +33,10 @@ int main(int argc, char *argv[])
     qDebug()<<localip();
     QRemoteObjectHost *srcNode = new QRemoteObjectHost(QUrl("local:9000"));
     srcNode->enableRemoting(service);
-    Report report = Global::dayReport("2023-04-30");
+    service->organizeData();
+//    Report report = Global::dayReport("2023-04-30");
 
-    qDebug()<<report.date;
+//    qDebug()<<report.date;
     int ret = a.exec();
     return ret;
 }

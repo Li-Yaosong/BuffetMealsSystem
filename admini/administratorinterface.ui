@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>451</width>
-    <height>265</height>
+    <height>272</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,7 +66,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_test">
+       <widget class="QPushButton" name="pushButton_report">
         <property name="text">
          <string>报表</string>
         </property>
@@ -97,7 +97,7 @@
       <enum>QTabWidget::South</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -322,7 +322,7 @@ QGroupBox{
             <x>0</x>
             <y>0</y>
             <width>148</width>
-            <height>176</height>
+            <height>179</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -523,7 +523,7 @@ QPushButton:pressed{
             <x>0</x>
             <y>0</y>
             <width>427</width>
-            <height>70</height>
+            <height>69</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3"/>
@@ -584,8 +584,8 @@ QPushButton:pressed{
       <attribute name="title">
        <string>报表</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
         <widget class="QWidget" name="widget" native="true">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(85, 170, 127);
@@ -623,7 +623,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox_2">
+           <widget class="QComboBox" name="comboBox_query">
             <property name="styleSheet">
              <string notr="true">QComboBox{
   color:#1e222b;
@@ -684,13 +684,26 @@ QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
             </property>
             <item>
              <property name="text">
+              <string>全部</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
               <string>按日查看</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>按月查看</string>
              </property>
             </item>
            </widget>
           </item>
           <item>
            <widget class="QDateEdit" name="dateEdit">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="styleSheet">
              <string notr="true">QDateEdit{
   color:#1e222b;
@@ -775,13 +788,16 @@ QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
             <property name="currentSection">
              <enum>QDateTimeEdit::YearSection</enum>
             </property>
+            <property name="displayFormat">
+             <string>yyyy-MM-dd</string>
+            </property>
             <property name="calendarPopup">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="pushButton_queryR">
             <property name="styleSheet">
              <string notr="true">QPushButton{
     font: 25 14pt '微软雅黑 Light';
@@ -812,97 +828,6 @@ QGroupBox{
            </widget>
           </item>
          </layout>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QTableWidget" name="tableWidget">
-         <property name="font">
-          <font>
-           <kerning>true</kerning>
-          </font>
-         </property>
-         <property name="acceptDrops">
-          <bool>false</bool>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Sunken</enum>
-         </property>
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
-         <property name="sizeAdjustPolicy">
-          <enum>QAbstractScrollArea::AdjustIgnored</enum>
-         </property>
-         <property name="dragEnabled">
-          <bool>false</bool>
-         </property>
-         <property name="alternatingRowColors">
-          <bool>true</bool>
-         </property>
-         <property name="textElideMode">
-          <enum>Qt::ElideRight</enum>
-         </property>
-         <property name="verticalScrollMode">
-          <enum>QAbstractItemView::ScrollPerItem</enum>
-         </property>
-         <property name="gridStyle">
-          <enum>Qt::SolidLine</enum>
-         </property>
-         <property name="sortingEnabled">
-          <bool>true</bool>
-         </property>
-         <attribute name="horizontalHeaderCascadingSectionResizes">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="horizontalHeaderStretchLastSection">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="verticalHeaderCascadingSectionResizes">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="verticalHeaderStretchLastSection">
-          <bool>false</bool>
-         </attribute>
-         <column>
-          <property name="text">
-           <string>日期</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>营业额</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>成本</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>利润</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>订单数量</string>
-          </property>
-         </column>
         </widget>
        </item>
       </layout>

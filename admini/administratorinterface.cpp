@@ -31,11 +31,13 @@ AdministratorInterface::AdministratorInterface(QWidget *parent) :
     m_orderTab->addTab(ui->pushButton_noFinished, m_newOrderList, "No finished");
     m_orderTab->addTab(ui->pushButton_finished, m_finishOrderList, "finished");
     m_orderTab->addTab(ui->pushButton_settled, m_settledOrderList, "Settled");
+    connectComBox();
     updateOrderList();
 //    ui->checkBox->hide();
     initStyle();
     TitalWidget *tital = new TitalWidget(this, QString::fromLocal8Bit("餐厅点餐系统服务端"));
     ui->verticalLayout->insertWidget(0,tital);
+    ui->verticalLayout_2->insertWidget(1, m_report);
     ui->verticalLayout_3->insertWidget(0, m_queryOrder);
     updateClassList();
     ui->tabWidget->tabBar()->hide();
@@ -57,11 +59,37 @@ AdministratorInterface::AdministratorInterface(QWidget *parent) :
     });
     GetNewOrder *newOrder = new GetNewOrder;
     connect(newOrder, &GetNewOrder::hasNewOrder, this, &AdministratorInterface::hasNewOrder);
+    updateReport();
 }
 
 AdministratorInterface::~AdministratorInterface()
 {
     delete ui;
+}
+
+void AdministratorInterface::connectComBox()
+{
+    ui->dateEdit->setDateTime(QDateTime::currentDateTime());
+    connect(ui->comboBox_query, QOverload<int>::of(&QComboBox::currentIndexChanged),[=](int index){
+        m_reportMode = index;
+        ui->dateEdit->setDateTime(QDateTime::currentDateTime());
+        if(index == 0)
+        {
+            ui->dateEdit->setEnabled(false);
+            ui->dateEdit->setDisplayFormat("");
+        }
+        else if(index == 1)
+        {
+            ui->dateEdit->setEnabled(true);
+            ui->dateEdit->setDisplayFormat("yyyy-MM-dd");
+        }
+        else
+        {
+            ui->dateEdit->setEnabled(true);
+            ui->dateEdit->setDisplayFormat("yyyy-MM");
+        }
+    });
+
 }
 
 void AdministratorInterface::updateDishesList()
@@ -130,8 +158,10 @@ void AdministratorInterface::updateOrderList()
     {
         OrderList *orderWidget1 = new OrderList(order);
         connect(orderWidget1, &OrderList::updateOrder, this ,&AdministratorInterface::updateOrderList);
+        connect(orderWidget1, &OrderList::updateReport, this ,&AdministratorInterface::updateReport);
         OrderList *orderWidget2 = new OrderList(order);
         connect(orderWidget2, &OrderList::updateOrder, this ,&AdministratorInterface::updateOrderList);
+        connect(orderWidget2, &OrderList::updateReport, this ,&AdministratorInterface::updateReport);
         m_queryOrder->addWidget(orderWidget2);
         if(order.state == 0)
         {
@@ -146,6 +176,12 @@ void AdministratorInterface::updateOrderList()
             m_settledOrderList->addWidget(orderWidget1);
         }
     }
+}
+
+void AdministratorInterface::updateReport()
+{
+    QList<Report> reportList = Service->getDailyReport();
+    m_report->initReport(reportList);
 }
 
 void AdministratorInterface::on_pushButton_addDishes_clicked()
@@ -229,8 +265,7 @@ void AdministratorInterface::on_pushButton_history_clicked()
     ui->tabWidget->setCurrentIndex(2);
 }
 
-
-void AdministratorInterface::on_pushButton_test_clicked()
+void AdministratorInterface::on_pushButton_report_clicked()
 {
     ui->tabWidget->setCurrentIndex(3);
 }
@@ -240,7 +275,7 @@ void AdministratorInterface::initStyle()
     ui->pushButton_orderManage->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_dishManage->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_history->setStyleSheet(StyleSheet::buttonStyle());
-    ui->pushButton_test->setStyleSheet(StyleSheet::buttonStyle());
+    ui->pushButton_report->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_modClass->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_addDishes->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_addClass->setStyleSheet(StyleSheet::buttonStyle());
@@ -267,3 +302,20 @@ void AdministratorInterface::on_pushButton_clicked()
     }
 }
 
+void AdministratorInterface::on_pushButton_queryR_clicked()
+{
+    QList<Report> reportList;
+    if(m_reportMode == 0)
+    {
+        reportList = Service->getDailyReport();
+    }
+    else if(m_reportMode == 1)
+    {
+        reportList = Service->getDailyReport(ui->dateEdit->date().toString("yyyy-MM-dd"));
+    }
+    else
+    {
+        reportList = Service->getMonthlyReport(ui->dateEdit->date().toString("yyyy-MM"));
+    }
+    m_report->initReport(reportList);
+}

@@ -56,6 +56,7 @@ void OrderList::on_see_pushButton_clicked()
             ConnectService::service()->rep()->updateOrder(m_num, 2);
 
             ConnectService::service()->rep()->updateReport(m_date, m_total);
+            emit updateReport();
         }
         emit updateOrder();
     }

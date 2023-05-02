@@ -13,6 +13,8 @@ public:
     static QByteArray labelStyle(int style = 0);
     static QByteArray widgetStyle(int style = 0);
     static QByteArray comboBoxStyle();
+    static QByteArray spinBoxStyle();
+    static QByteArray scrollBarStyle();
 };
 
 #endif // STYLESHEET_H

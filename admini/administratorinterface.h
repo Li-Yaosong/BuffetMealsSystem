@@ -20,9 +20,11 @@ class AdministratorInterface : public QWidget
 public:
     explicit AdministratorInterface(QWidget *parent = nullptr);
     ~AdministratorInterface();
+    void connectComBox();
     void updateDishesList();
     void updateClassList();
     void updateOrderList();
+    void updateReport();
 private slots:
     void on_pushButton_addDishes_clicked();
 
@@ -38,11 +40,15 @@ private slots:
 
     void on_pushButton_history_clicked();
 
-    void on_pushButton_test_clicked();
+    void on_pushButton_report_clicked();
 
     void on_pushButton_query_clicked();
 
     void on_pushButton_clicked();
+
+    void on_pushButton_queryR_clicked();
+
+
 
 private:
     void initStyle();
@@ -62,6 +68,7 @@ private:
     QMap<QString, double> m_priceMap;
     //报表
     ReportWidget *m_report;
+    int m_reportMode = 0;
 };
 
 #endif // ADMINISTRATORINTERFACE_H

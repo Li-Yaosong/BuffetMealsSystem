@@ -1,5 +1,7 @@
 ﻿#include "listwidget.h"
 #include "ui_listwidget.h"
+#include "stylesheet.h"
+#include <QScrollBar>
 class ListWidgetP
 {
 public:
@@ -52,6 +54,7 @@ ListWidget::ListWidget(int head, QWidget *parent) :
     default:
         break;
     }
+    ui->scrollArea_grid->verticalScrollBar()->setStyleSheet(StyleSheet::scrollBarStyle());
 }
 
 ListWidget::~ListWidget()

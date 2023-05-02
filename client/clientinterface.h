@@ -12,6 +12,7 @@ class CDishWidget;
 class PlaceOrder;
 class ListWidget;
 class TabWidget;
+class ClassButton;
 class ClientInterface : public QWidget
 {
     Q_OBJECT
@@ -25,11 +26,16 @@ signals:
 
 private slots:
     void addDishes(QPair<QString, int> dish);
-    void placeOrder();
+
     void on_pushButton_placeOrder_clicked();
+
+    void on_pushButton_setSeatNum_clicked();
+
+    void on_pushButton_refresh_clicked();
 
 private:
     void updateClassList();
+    void initStyle();
     Ui::ClientInterface *ui;
     QList<CDishWidget *> m_dishWidgetList;
     //座位号
@@ -40,8 +46,9 @@ private:
     ListWidget *m_allDishList;
     TabWidget *m_classTab;
     QStringList m_classList;
-    QList<QPushButton *> m_classButtonList;
+    QList<ClassButton *> m_classButtonList;
     QMap<QString, CDishWidget *> m_dishWidgetMap;
+    ClassButton *m_allClassButton;
 };
 
 #endif // CLIENTINTERFACE_H

@@ -38,3 +38,17 @@ create table `daily_report`(
 primary key(`date`)
 )ENGINE=innodb default charset=gb2312;
 
+create table `monthly_report`(
+`date` VARCHAR(255) NOT NULL,
+`turnover` DOUBLE NOT NULL,
+`cost` DOUBLE NOT NULL,
+`profit` DOUBLE NOT NULL,
+`orderCount` INT NOT NULL,
+primary key(`date`)
+)ENGINE=innodb default charset=gb2312;
+
+create table `monthly_cost`(
+`date` VARCHAR(255) NOT NULL,
+`cost` DOUBLE NOT NULL,
+primary key(`date`)
+)ENGINE=innodb default charset=gb2312;
