@@ -14,6 +14,7 @@ DishInfoWidget::DishInfoWidget(Dish dishInfo, QWidget *parent)
     connect(ui->doubleSpinBox_price, &QDoubleSpinBox::textChanged, this, &DishInfoWidget::textChanged);
     connect(ui->spinBox_storage, &QSpinBox::textChanged, this, &DishInfoWidget::textChanged);
     connect(ui->lineEdit_path, &QLineEdit::textChanged, this, &DishInfoWidget::textChanged);
+    connect(ui->comboBox_class, &QComboBox::currentTextChanged, this, &DishInfoWidget::textChanged);
     ui->comboBox_class->addItems(Service->classes());
     init();
     initStyle();
@@ -64,13 +65,13 @@ void DishInfoWidget::textChanged()
 void DishInfoWidget::initStyle()
 {
     ui->pushButton_browse->setStyleSheet(StyleSheet::buttonStyle());
-    ui->label_name->setStyleSheet(StyleSheet::labelStyle(1));
     ui->label_price->setStyleSheet(StyleSheet::labelStyle(1));
+    ui->label_name->setStyleSheet(StyleSheet::labelStyle(1));
     ui->label_image->setStyleSheet(StyleSheet::labelStyle(1));
     ui->label_class->setStyleSheet(StyleSheet::labelStyle(1));
     ui->label_storage->setStyleSheet(StyleSheet::labelStyle(1));
-    ui->comboBox_class->setStyleSheet(StyleSheet::comboBoxStyle());
-    this->setStyleSheet(StyleSheet::lineEditStyle());
+//    ui->comboBox_class->setStyleSheet(StyleSheet::comboBoxStyle());
+//    this->setStyleSheet(StyleSheet::lineEditStyle());
 }
 
 void DishInfoWidget::init()

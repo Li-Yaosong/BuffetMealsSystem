@@ -21,11 +21,12 @@ public:
     void setStorage(const int &storage);
     void showCheckBox();
     void hideCheckBox();
-private slots:
-    void on_pushButton_clicked();
+
 signals:
     void checkBoxStateChanged(QString name, bool del);
-
+    void edictFinished();
+private slots:
+    void on_pushButton_clicked();
 private:
     Ui::DishWidget *ui;
     DishesEdict *m_imageW;

@@ -16,6 +16,7 @@ public:
     ~SetCostDialog();
     QPair<QString, double> getInfo();
 
+
 private:
     Ui::SetCostDialog *ui;
 };

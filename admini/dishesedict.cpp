@@ -6,6 +6,7 @@
 #include "titalwidget.h"
 #include "dishinfowidget.h"
 #include "common.h"
+#include "stylesheet.h"
 DishesEdict::DishesEdict(Dish dishInfo, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::DishesEdict),
@@ -21,7 +22,10 @@ DishesEdict::DishesEdict(Dish dishInfo, QWidget *parent) :
     ui->horizontalLayout->insertWidget(1, m_infoWidget);
     connect(m_infoWidget, &DishInfoWidget::infoChanged, this, &DishesEdict::dishInfoChanged);
     ui->pushButton_finished->setEnabled(false);
+    m_infoWidget->setEnabled(false);
     resize(700,400);
+    ui->pushButton_finished->setStyleSheet(StyleSheet::buttonStyle(1));
+    ui->pushButton->setStyleSheet(StyleSheet::buttonStyle(1));
 }
 
 DishesEdict::~DishesEdict()
@@ -53,6 +57,7 @@ void DishesEdict::dishInfoChanged(Dish dishInfo)
 void DishesEdict::on_pushButton_finished_clicked()
 {
     Service->rep()->modifiDishe(m_dishInfo, old);
+    this->hide();
     emit edictFinished(m_dishInfo);
 }
 
@@ -60,6 +65,7 @@ void DishesEdict::on_pushButton_finished_clicked()
 void DishesEdict::on_pushButton_clicked()
 {
     ui->pushButton_finished->setEnabled(true);
+    m_infoWidget->setEnabled(true);
     ui->pushButton->setEnabled(false);
 }
 

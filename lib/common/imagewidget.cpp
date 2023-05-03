@@ -35,7 +35,7 @@ void ImageWidget::updateImage(QByteArray data)
 
 void ImageWidget::paintEvent(QPaintEvent *event)
 {
-
+    Q_UNUSED(event)
     //绘制样式
     QStyleOption opt;
     opt.initFrom(this);

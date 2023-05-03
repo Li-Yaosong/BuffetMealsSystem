@@ -322,7 +322,7 @@ QGroupBox{
             <x>0</x>
             <y>0</y>
             <width>148</width>
-            <height>179</height>
+            <height>183</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -509,7 +509,7 @@ QPushButton:pressed{
          </layout>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="2" column="0">
         <widget class="QScrollArea" name="scrollArea_2">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -523,59 +523,11 @@ QPushButton:pressed{
             <x>0</x>
             <y>0</y>
             <width>427</width>
-            <height>69</height>
+            <height>109</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3"/>
          </widget>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QWidget" name="widget_2" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>订单编号</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>座位号</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_7">
-            <property name="text">
-             <string>时间</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>金额</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>状态</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>操作</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </widget>
        </item>
       </layout>

@@ -102,6 +102,9 @@ void AdministratorInterface::updateDishesList()
         {
             m_priceMap.insert(dishInfo.name, dishInfo.price);
             DishWidget *dish = new DishWidget(this, dishInfo);
+            connect(dish, &DishWidget::edictFinished, this, [this](){
+                updateClassList();
+            });
             m_allDishList->addWidget(dish);
             m_dishWidgetList.append(dish);
             connect(ui->pushButton_batchDel,&QPushButton::clicked,dish,&DishWidget::showCheckBox);
@@ -284,7 +287,7 @@ void AdministratorInterface::initStyle()
     ui->pushButton_finish->setStyleSheet(StyleSheet::buttonStyle());
     ui->lineEdit->setStyleSheet(StyleSheet::lineEditStyle());
     ui->pushButton_query->setStyleSheet(StyleSheet::buttonStyle());
-//    ui->widget_head2->setStyleSheet(StyleSheet::labelStyle());
+    ui->scrollArea_4->setStyleSheet(StyleSheet::buttonStyle());
 }
 #include "orderlist.h"
 void AdministratorInterface::on_pushButton_query_clicked()

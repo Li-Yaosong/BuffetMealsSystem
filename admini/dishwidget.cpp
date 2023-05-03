@@ -76,6 +76,10 @@ void DishWidget::on_pushButton_clicked()
 {
 
     m_imageW = new DishesEdict(m_dishInfo);
+    connect(m_imageW, &DishesEdict::edictFinished, this, [this](){
+        emit edictFinished();
+        m_imageW->deleteLater();
+    });
     m_imageW->show();
 }
 

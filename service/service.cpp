@@ -574,6 +574,7 @@ void Service::updateReport(const QString &date, const double total)
         qDebug() << "update daily report ok";
     }
     updateMonthReport(QDateTime::fromString(date, "yyyy-MM-dd").toString("yyyy-MM"), total);
+    organizeData();
 }
 
 void Service::updateMonthReport(const QString &date, const double total)

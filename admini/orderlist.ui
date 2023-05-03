@@ -13,11 +13,21 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QLabel{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(31,31,31);
+}
+</string>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QLabel" name="number_label">
      <property name="text">
       <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -26,10 +36,33 @@
      <property name="text">
       <string/>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
    </item>
    <item>
     <widget class="QDateTimeEdit" name="dateTimeEdit">
+     <property name="styleSheet">
+      <string notr="true">QDateTimeEdit{
+  color:#1e222b;
+  padding: 1px 15px 1px 3px;
+  border:2px solid rgba(228,228,228,1);
+  border-radius:8;
+  font-family: Microsoft YaHei;
+  font-size: 20px;
+}
+QDateTimeEdit::drop-down {			/*下拉按钮*/
+      subcontrol-origin: padding;
+      subcontrol-position: top right;
+      width: 20px;
+      border:none;
+}
+</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
      <property name="readOnly">
       <bool>true</bool>
      </property>
@@ -46,6 +79,9 @@
      <property name="text">
       <string/>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
    </item>
    <item>
@@ -53,10 +89,36 @@
      <property name="text">
       <string/>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
    </item>
    <item>
     <widget class="QPushButton" name="see_pushButton">
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(255,255,255);
+    background-color: rgb(20,196,188);
+    border: none;border-radius:8px;
+    }
+QPushButton:disabled {
+  background-color: rgb(170,170,170);
+}
+QPushButton:hover{
+    background-color: rgb(22,218,208);
+    }//hover
+
+QPushButton:pressed{
+    background-color: rgb(17,171,164);
+    }//pressedb
+
+QGroupBox{
+    background-color: rgb(170, 170, 255);
+}
+</string>
+     </property>
      <property name="text">
       <string>查看</string>
      </property>

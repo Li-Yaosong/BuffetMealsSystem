@@ -6,45 +6,185 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>176</width>
-    <height>80</height>
+    <width>205</width>
+    <height>106</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QFormLayout" name="formLayout">
-   <item row="0" column="0">
-    <widget class="QLabel" name="label_date">
-     <property name="text">
-      <string>日期：</string>
-     </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QFormLayout" name="formLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_date">
+        <property name="text">
+         <string>日期：</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDateEdit" name="dateEdit">
+        <property name="styleSheet">
+         <string notr="true">QDateEdit{
+  color:#1e222b;
+  padding: 1px 15px 1px 3px;
+  border:2px solid rgba(228,228,228,1);
+  border-radius:8;
+  font-family: Microsoft YaHei;
+  font-size: 20px;
+}
+QDateEdit::drop-down {			/*下拉按钮*/
+      subcontrol-origin: padding;
+      subcontrol-position: top right;
+      width: 20px;
+      border:none;
+}
+QCalendarWidget {
+	color:#1e222b;
+  	padding: 1px 15px 1px 3px;
+  	border:2px solid rgb(85, 170, 255);
+  	border-radius:8;
+  	font-family: Microsoft YaHei;
+  	font-size: 20px;
+	background-color: rgb(170, 170, 255);
+}
+QComboBox{
+  color:#1e222b;
+  padding: 1px 15px 1px 3px;
+  border:1px solid rgba(228,228,228,1);
+  border-radius:8;
+  font-family: Microsoft YaHei;
+  font-size: 20px;
+}
+QComboBox::drop-down {			/*下拉按钮*/
+      subcontrol-origin: padding;
+      subcontrol-position: top right;
+      width: 20px;
+      border:none;
+}
+
+QComboBox::down-arrow {		/*下拉按钮*/
+      image: url(:/image/combox.png);
+  }
+
+QComboBox QAbstractItemView{	/*列表 */
+	margin-top: 8px;
+	margin-left: 6px;
+	margin-bottom: 6px;
+	margin-right: 6px;
+	background:rgba(255,255,255,1);
+    border:1px solid rgba(228,228,228,1);
+    border-radius:8px;
+	font-size:12px;
+    font-family: Microsoft YaHei;
+    outline: 0px;
+    color:#1e222b;
+    padding-left: 16px;
+    padding-top: 12px;
+	padding-bottom:12px;
+    
+  }
+
+QComboBox QScrollBar::vertical{ /*滑条 主体部分*/
+    width:6px;
+    background:rgb(255,255,255);
+    border:none;
+}
+QComboBox QScrollBar::handle::vertical{ /*滑块主体*/
+    border-radius:3px;
+    background-color: rgba(30, 34, 43, 0.2);
+}
+QComboBox QScrollBar::handle::vertical::hover{
+    background-color: rgba(30, 34, 43, 0.2);
+}
+QComboBox QScrollBar::add-line::vertical{/*上箭头*/
+    border:none;
+}
+QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
+    border:none;
+}
+</string>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_cost">
+        <property name="text">
+         <string>成本：</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_cost">
+        <property name="styleSheet">
+         <string notr="true">  color:#1e222b;
+  padding: 1px 15px 1px 3px;
+  border:1px solid rgba(228,228,228,1);
+  border-radius:8;
+  font-family: Microsoft YaHei;
+  font-size: 20px;</string>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="maximum">
+         <double>9999999999999999404072760505352583023983296100855298230449769143938302256661863838179600254051950569374547392515068357773127490685649548117139715971745147241514401792.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QDateEdit" name="dateEdit"/>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_cost">
-     <property name="text">
-      <string>成本：</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_cost">
-     <property name="maximum">
-      <double>9999999999999999404072760505352583023983296100855298230449769143938302256661863838179600254051950569374547392515068357773127490685649548117139715971745147241514401792.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="2">
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+    font: 25 14pt '微软雅黑 Light';
+    color: rgb(255,255,255);
+    background-color: rgb(20,196,188);
+    border: none;border-radius:8px;
+    }
+QPushButton:disabled {
+  background-color: rgb(170,170,170);
+}
+QPushButton:hover{
+    background-color: rgb(22,218,208);
+    }//hover
+
+QPushButton:pressed{
+    background-color: rgb(17,171,164);
+    }//pressedb
+
+QGroupBox{
+    background-color: rgb(170, 170, 255);
+}
+</string>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="centerButtons">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

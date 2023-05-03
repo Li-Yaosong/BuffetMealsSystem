@@ -89,7 +89,11 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="lineEdit_admi"/>
+             <widget class="QLineEdit" name="lineEdit_admi">
+              <property name="text">
+               <string>root</string>
+              </property>
+             </widget>
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_pass">
@@ -105,7 +109,11 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="lineEdit_pass"/>
+             <widget class="QLineEdit" name="lineEdit_pass">
+              <property name="text">
+               <string>123456</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -181,6 +189,9 @@
           <widget class="QPushButton" name="pushButton_login">
            <property name="text">
             <string>登录</string>
+           </property>
+           <property name="shortcut">
+            <string/>
            </property>
           </widget>
          </item>
