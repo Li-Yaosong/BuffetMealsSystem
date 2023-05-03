@@ -2,6 +2,10 @@
 #include "global.h"
 class Service
 {
+    SLOT(bool registerAccount(const Account &account))
+
+    SLOT(bool accountVerification(const Account &account))
+
     SLOT(void addClass(const Class &classInfo))
 
     SLOT(void delClass(const QStringList &delList))

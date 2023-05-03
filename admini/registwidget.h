@@ -16,6 +16,11 @@ public:
     ~RegistWidget();
 
     void initStyle();
+signals:
+    void backLogin();
+private slots:
+    void on_pushButton_regist_clicked();
+    void textChanged_slot();
 
 private:
     Ui::RegistWidget *ui;

@@ -52,3 +52,9 @@ create table `monthly_cost`(
 `cost` DOUBLE NOT NULL,
 primary key(`date`)
 )ENGINE=innodb default charset=gb2312;
+
+create table `account`(
+`usr` VARCHAR(255) NOT NULL,
+`password` VARCHAR(255) NOT NULL,
+primary key(`usr`)
+)ENGINE=innodb default charset=gb2312;

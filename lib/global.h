@@ -7,6 +7,30 @@
 #include <QSqlQuery>
 #include <QDate>
 #include <QDebug>
+struct Account
+{
+    QString usr;
+    QString password;
+    operator QVariant() const
+    {
+        return QVariant::fromValue(*this);
+    }
+    inline friend QDataStream& operator<<(QDataStream& out, const Account & c)
+    {
+        out << c.usr
+            << c.password;
+        return out;
+    }
+    inline friend  QDataStream& operator>>(QDataStream& in, Account & c)
+    {
+        in>> c.usr >> c.password;
+        return in;
+    }
+    bool operator==(const Account& other) const
+    {
+        return ((usr == other.usr) && (password == other.password));
+    }
+};
 struct Dish
 {
     QString name;
@@ -119,18 +143,6 @@ struct Report
         c.orderCount = orderCount.toInt();
         return in;
     }
-//    Report& operator=(const Report& other)
-//    {
-//        if (this != &other)
-//        {
-//            date = other.date;
-//            turnover = other.turnover;
-//            cost = other.cost;
-//            profit = other.profit;
-//            orderCount = other.orderCount;
-//        }
-//        return *this;
-//    }
 };
 class Global {
 
@@ -287,7 +299,7 @@ public:
     }
 };
 
-
+Q_DECLARE_METATYPE(Account);
 Q_DECLARE_METATYPE(Dish);
 Q_DECLARE_METATYPE(Class);
 Q_DECLARE_METATYPE(Order);

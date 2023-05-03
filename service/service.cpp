@@ -49,6 +49,57 @@ Service::~Service()
     delete m_console;
 }
 
+bool Service::accountVerification(const Account &account)
+{
+    Account request = getAccount(account.usr);
+    qDebug()<<request.usr;
+    qDebug()<<request.password;
+    bool ret = request == account;
+    qDebug()<< ret;
+    return request == account;
+}
+
+bool Service::registerAccount(const Account &account)
+{
+    if(hasUsr(account.usr))
+    {
+        return false;
+    }
+    else
+    {
+        QSqlQuery query;
+        query.prepare("insert into `account`(usr,password) values(:usr,:password)");
+        query.bindValue(":usr", account.usr);
+        query.bindValue(":password", account.password);
+        return query.exec();
+    }
+}
+
+bool Service::hasUsr(const QString &usr)
+{
+    QSqlQuery query;
+    QString queryT = QString("SELECT * FROM `account` WHERE usr = :usr");
+    query.prepare(queryT);
+    query.bindValue(":usr", usr);
+    return(query.exec() && query.next());
+}
+
+Account Service::getAccount(const QString &usr)
+{
+    Account account;
+    QSqlQuery query;
+    QString queryT = QString("SELECT * FROM `account` WHERE usr = :usr");
+    query.prepare(queryT);
+    query.bindValue(":usr", usr);
+    if(query.exec() && query.next())
+    {
+        account.usr = query.value(0).toString();
+        account.password = query.value(1).toString();
+
+    }
+    return account;
+}
+
 void Service::addClass(const Class &classInfo)
 {
     QSqlQuery query;

@@ -31,6 +31,10 @@ class Service : public ServiceSimpleSource
 public:
     Service(QObject* parent = nullptr);
     ~Service();
+    bool accountVerification(const Account &account);
+    bool registerAccount(const Account &account);
+    bool hasUsr(const QString &usr);
+    Account getAccount(const QString &usr);
     /*!
      * \brief addClass
      * 添加类别

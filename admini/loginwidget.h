@@ -6,7 +6,7 @@
 namespace Ui {
 class LogInWidget;
 }
-
+class AdministratorInterface;
 class LogInWidget : public QWidget
 {
     Q_OBJECT
@@ -17,8 +17,15 @@ public:
 
     void initStyle();
 
+private slots:
+    void on_pushButton_login_clicked();
+    void textChanged_slot();
+
+    void on_pushButton_regist_clicked();
+
 private:
     Ui::LogInWidget *ui;
+    AdministratorInterface *m_interface;
 };
 
 #endif // LOGINWIDGET_H

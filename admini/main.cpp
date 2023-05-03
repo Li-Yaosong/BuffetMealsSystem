@@ -8,11 +8,11 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     a.setStyleSheet(StyleSheet::style());
-    AdministratorInterface w;
-//    LogInWidget l;
+//    AdministratorInterface w;
+    LogInWidget l;
 //    RegistWidget r;
 //    r.show();
-//    l.show();
-    w.show();
+    l.show();
+//    w.show();
     return a.exec();
 }

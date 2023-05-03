@@ -24,10 +24,23 @@ ServiceReplica *ConnectService::rep()
     return rep;
 }
 
+bool ConnectService::registerAccount(const Account &account)
+{
+    QRemoteObjectPendingReply<bool> data = m_rep->registerAccount(account);
+    data.waitForFinished();
+    return data.returnValue();
+}
+
+bool ConnectService::accountVerification(const Account &account)
+{
+    QRemoteObjectPendingReply<bool> data = m_rep->accountVerification(account);
+    data.waitForFinished();
+    return data.returnValue();
+}
+
 QMap<QString, QList<Dish>> ConnectService::getData()
 {
     QRemoteObjectPendingReply<QMap<QString, QList<Dish>>> data = m_rep->getAllDishes();
-
     data.waitForFinished();
     return data.returnValue();
 }
