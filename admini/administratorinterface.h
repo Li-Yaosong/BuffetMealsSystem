@@ -50,6 +50,10 @@ private slots:
 
 
 
+    void on_pushButton_r_clicked();
+
+    void on_pushButton_delClass_clicked();
+
 private:
     void initStyle();
     Ui::AdministratorInterface *ui;
@@ -69,6 +73,7 @@ private:
     //报表
     ReportWidget *m_report;
     int m_reportMode = 0;
+    int m_orderMode = 0;
 };
 
 #endif // ADMINISTRATORINTERFACE_H

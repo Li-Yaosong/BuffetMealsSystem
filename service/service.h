@@ -46,7 +46,7 @@ public:
      * 删除类别
      * \param delList 类别名列表
      */
-    void delClass(const QStringList &delList);
+    void delClass(const QString &name);
     /*!
      * \brief addDishes
      * 添加菜品

@@ -8,7 +8,7 @@ class Service
 
     SLOT(void addClass(const Class &classInfo))
 
-    SLOT(void delClass(const QStringList &delList))
+    SLOT(void delClass(const QString &name))
 
     SLOT(void addDishes(const Dish &dishInfo))
 

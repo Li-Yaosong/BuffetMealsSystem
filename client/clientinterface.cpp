@@ -44,7 +44,7 @@ void ClientInterface::updateDishesList()
     {
         for(const Dish &dishInfo : list)
         {
-            if(dishInfo.storage >= 0)
+            if(dishInfo.storage > 0)
             {
                 CDishWidget *dish = new CDishWidget(this, dishInfo);
                 dish->createBind(m_dishWidgetMap.value(dishInfo.name));
@@ -100,7 +100,7 @@ void ClientInterface::updateClassList()
         ListWidget *list = new ListWidget(0);
         for(const Dish &dishInfo : data.value(key))
         {
-            if(dishInfo.storage >= 0)
+            if(dishInfo.storage > 0)
             {
                 CDishWidget *dish = new CDishWidget(this, dishInfo);
                 connect(this, &ClientInterface::allclean, dish, &CDishWidget::reSetNumber);

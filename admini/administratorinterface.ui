@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>451</width>
-    <height>272</height>
+    <width>690</width>
+    <height>298</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -97,7 +97,7 @@
       <enum>QTabWidget::South</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -245,6 +245,13 @@ QGroupBox{
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
+           <widget class="QPushButton" name="pushButton_r">
+            <property name="text">
+             <string>刷新</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="pushButton_addDishes">
             <property name="text">
              <string>添加菜单</string>
@@ -255,13 +262,6 @@ QGroupBox{
            <widget class="QPushButton" name="pushButton_addClass">
             <property name="text">
              <string>新增类别</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_modClass">
-            <property name="text">
-             <string>修改类别</string>
             </property>
            </widget>
           </item>
@@ -322,7 +322,7 @@ QGroupBox{
             <x>0</x>
             <y>0</y>
             <width>148</width>
-            <height>183</height>
+            <height>209</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -443,7 +443,7 @@ QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
             </property>
             <item>
              <property name="text">
-              <string>按编号</string>
+              <string>全部</string>
              </property>
             </item>
             <item>
@@ -451,27 +451,226 @@ QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
               <string>按时间</string>
              </property>
             </item>
+            <item>
+             <property name="text">
+              <string>按编号</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>按状态</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QSpinBox" name="spinBox_num">
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>35</height>
+              <height>50</height>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">QLineEdit{
-    font: 25 14pt '微软雅黑 Light';
-    color: rgb(31,31,31);
-    padding-left:20px;
-    background-color: rgb(255, 255, 255);
-    border:2px solid rgba(228,228,228,1);
-    border-radius:15px;
+             <string notr="true">  	color:#1e222b;
+  	padding: 1px 15px 1px 3px;
+  	border:2px solid rgba(228,228,228,1);
+  	border-radius:8;
+  	font-family: Microsoft YaHei;
+  	font-size: 20px;
+ 	background-color: rgb(255, 255, 255);</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDateEdit" name="dateEdit_order">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QDateEdit{
+  color:#1e222b;
+  padding: 1px 15px 1px 3px;
+  border:2px solid rgba(228,228,228,1);
+  background-color: rgb(255, 255, 255);
+  border-radius:8;
+  font-family: Microsoft YaHei;
+  font-size: 20px;
+}
+QDateEdit::drop-down {			/*下拉按钮*/
+      subcontrol-origin: padding;
+      subcontrol-position: top right;
+      width: 20px;
+      border:none;
+}
+QCalendarWidget {
+	color:#1e222b;
+  	padding: 1px 15px 1px 3px;
+  	border:2px solid rgb(85, 170, 255);
+  	border-radius:8;
+  	font-family: Microsoft YaHei;
+  	font-size: 20px;
+	background-color: rgb(170, 170, 255);
+}
+QComboBox{
+  color:#1e222b;
+  padding: 1px 15px 1px 3px;
+  border:1px solid rgba(228,228,228,1);
+  border-radius:8;
+  font-family: Microsoft YaHei;
+  font-size: 20px;
+}
+QComboBox::drop-down {			/*下拉按钮*/
+      subcontrol-origin: padding;
+      subcontrol-position: top right;
+      width: 20px;
+      border:none;
+}
+
+QComboBox::down-arrow {		/*下拉按钮*/
+      image: url(:/image/combox.png);
+  }
+
+QComboBox QAbstractItemView{	/*列表 */
+	margin-top: 8px;
+	margin-left: 6px;
+	margin-bottom: 6px;
+	margin-right: 6px;
+	background:rgba(255,255,255,1);
+    border:1px solid rgba(228,228,228,1);
+    border-radius:8px;
+	font-size:12px;
+    font-family: Microsoft YaHei;
+    outline: 0px;
+    color:#1e222b;
+    padding-left: 16px;
+    padding-top: 12px;
+	padding-bottom:12px;
+    
+  }
+
+QComboBox QScrollBar::vertical{ /*滑条 主体部分*/
+    width:6px;
+    background:rgb(255,255,255);
+    border:none;
+}
+QComboBox QScrollBar::handle::vertical{ /*滑块主体*/
+    border-radius:3px;
+    background-color: rgba(30, 34, 43, 0.2);
+}
+QComboBox QScrollBar::handle::vertical::hover{
+    background-color: rgba(30, 34, 43, 0.2);
+}
+QComboBox QScrollBar::add-line::vertical{/*上箭头*/
+    border:none;
+}
+QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
+    border:none;
 }
 </string>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="displayFormat">
+             <string>yyyy-MM-dd</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_state">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QComboBox{
+  color:#1e222b;
+  padding: 1px 15px 1px 3px;
+  border:2px solid rgba(228,228,228,1);
+  background-color: rgb(255, 255, 255);
+  border-radius:8;
+  font-family: Microsoft YaHei;
+  font-size: 20px;
+}
+QComboBox::drop-down {			/*下拉按钮*/
+      subcontrol-origin: padding;
+      subcontrol-position: top right;
+      width: 20px;
+      border:none;
+}
+
+QComboBox::down-arrow {		/*下拉按钮*/
+      image: url(:/image/combox.png);
+  }
+
+QComboBox QAbstractItemView{	/*列表 */
+	margin-top: 8px;
+	margin-left: 6px;
+	margin-bottom: 6px;
+	margin-right: 6px;
+	background:rgba(255,255,255,1);
+    border:1px solid rgba(228,228,228,1);
+    border-radius:8px;
+	font-size:12px;
+    font-family: Microsoft YaHei;
+    outline: 0px;
+    color:#1e222b;
+    padding-left: 16px;
+    padding-top: 12px;
+	padding-bottom:12px;
+    
+  }
+
+QComboBox QScrollBar::vertical{ /*滑条 主体部分*/
+    width:6px;
+    background:rgb(255,255,255);
+    border:none;
+}
+QComboBox QScrollBar::handle::vertical{ /*滑块主体*/
+    border-radius:3px;
+    background-color: rgba(30, 34, 43, 0.2);
+}
+QComboBox QScrollBar::handle::vertical::hover{
+    background-color: rgba(30, 34, 43, 0.2);
+}
+QComboBox QScrollBar::add-line::vertical{/*上箭头*/
+    border:none;
+}
+QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
+    border:none;
+}
+</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>未完成</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>已完成</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>已结算</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item>
@@ -479,7 +678,7 @@ QComboBox QScrollBar::sub-line::vertical{/*下箭头*/
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>35</height>
+              <height>50</height>
              </size>
             </property>
             <property name="styleSheet">
@@ -522,8 +721,8 @@ QPushButton:pressed{
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>427</width>
-            <height>109</height>
+            <width>666</width>
+            <height>135</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3"/>

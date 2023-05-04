@@ -33,6 +33,7 @@ SOURCES += \
     orderlist.cpp \
     registwidget.cpp \
     reportwidget.cpp \
+    selectclassdialog.cpp \
     setcostdialog.cpp
 
 HEADERS += \
@@ -46,6 +47,7 @@ HEADERS += \
     orderlist.h \
     registwidget.h \
     reportwidget.h \
+    selectclassdialog.h \
     setcostdialog.h
 
 FORMS += \
@@ -58,6 +60,7 @@ FORMS += \
     orderlist.ui \
     registwidget.ui \
     reportwidget.ui \
+    selectclassdialog.ui \
     setcostdialog.ui
 
 REPC_REPLICA = $$PWD/../service.rep

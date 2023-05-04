@@ -33,7 +33,6 @@ AdministratorInterface::AdministratorInterface(QWidget *parent) :
     m_orderTab->addTab(ui->pushButton_settled, m_settledOrderList, "Settled");
     connectComBox();
     updateOrderList();
-//    ui->checkBox->hide();
     initStyle();
     TitalWidget *tital = new TitalWidget(this, QString::fromLocal8Bit("餐厅点餐系统服务端"));
     ui->verticalLayout->insertWidget(0,tital);
@@ -57,6 +56,7 @@ AdministratorInterface::AdministratorInterface(QWidget *parent) :
         Service->rep()->delDishes(m_delList);
         updateClassList();
     });
+
     GetNewOrder *newOrder = new GetNewOrder;
     connect(newOrder, &GetNewOrder::hasNewOrder, this, &AdministratorInterface::hasNewOrder);
     updateReport();
@@ -70,6 +70,9 @@ AdministratorInterface::~AdministratorInterface()
 void AdministratorInterface::connectComBox()
 {
     ui->dateEdit->setDateTime(QDateTime::currentDateTime());
+    ui->dateEdit_order->show();
+    ui->comboBox_state->hide();
+    ui->spinBox_num->hide();
     connect(ui->comboBox_query, QOverload<int>::of(&QComboBox::currentIndexChanged),[=](int index){
         m_reportMode = index;
         ui->dateEdit->setDateTime(QDateTime::currentDateTime());
@@ -89,7 +92,37 @@ void AdministratorInterface::connectComBox()
             ui->dateEdit->setDisplayFormat("yyyy-MM");
         }
     });
-
+    connect(ui->comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),[=](int index){
+        m_orderMode = index;
+        ui->dateEdit->setDateTime(QDateTime::currentDateTime());
+        if(index == 0)
+        {
+            ui->dateEdit_order->setEnabled(false);
+            ui->comboBox_state->setEnabled(false);
+            ui->spinBox_num->setEnabled(false);
+        }
+        else if(index == 1)
+        {
+            ui->dateEdit_order->show();
+            ui->dateEdit_order->setEnabled(true);
+            ui->comboBox_state->hide();
+            ui->spinBox_num->hide();
+        }
+        else if(index == 2)
+        {
+            ui->dateEdit_order->hide();
+            ui->spinBox_num->show();
+            ui->spinBox_num->setEnabled(true);
+            ui->comboBox_state->hide();
+        }
+        else
+        {
+            ui->dateEdit_order->hide();
+            ui->spinBox_num->hide();
+            ui->comboBox_state->show();
+            ui->comboBox_state->setEnabled(true);
+        }
+    });
 }
 
 void AdministratorInterface::updateDishesList()
@@ -165,6 +198,7 @@ void AdministratorInterface::updateOrderList()
         OrderList *orderWidget2 = new OrderList(order);
         connect(orderWidget2, &OrderList::updateOrder, this ,&AdministratorInterface::updateOrderList);
         connect(orderWidget2, &OrderList::updateReport, this ,&AdministratorInterface::updateReport);
+
         m_queryOrder->addWidget(orderWidget2);
         if(order.state == 0)
         {
@@ -279,20 +313,63 @@ void AdministratorInterface::initStyle()
     ui->pushButton_dishManage->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_history->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_report->setStyleSheet(StyleSheet::buttonStyle());
-    ui->pushButton_modClass->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_addDishes->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_addClass->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_delClass->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_batchDel->setStyleSheet(StyleSheet::buttonStyle());
     ui->pushButton_finish->setStyleSheet(StyleSheet::buttonStyle());
-    ui->lineEdit->setStyleSheet(StyleSheet::lineEditStyle());
     ui->pushButton_query->setStyleSheet(StyleSheet::buttonStyle());
+    ui->pushButton_r->setStyleSheet(StyleSheet::buttonStyle());
     ui->scrollArea_4->setStyleSheet(StyleSheet::buttonStyle());
 }
 #include "orderlist.h"
 void AdministratorInterface::on_pushButton_query_clicked()
 {
+    m_queryOrder->clear();
+    QList<Order> orderList = Service->getOrder();
+    for(const Order &order : orderList)
+    {
 
+        if(m_orderMode == 0)
+        {
+            OrderList *orderWidget = new OrderList(order);
+            connect(orderWidget, &OrderList::updateOrder, this ,&AdministratorInterface::updateOrderList);
+            connect(orderWidget, &OrderList::updateReport, this ,&AdministratorInterface::updateReport);
+            m_queryOrder->addWidget(orderWidget);
+        }
+        else if(m_orderMode == 1)
+        {
+            QString time = QDateTime::fromString(order.time, "yyyy-MM-ddThh:mm:ss.zzz")
+                    .toString("yyyy-MM-dd hh:mm:ss");
+            if(time.startsWith(ui->dateEdit_order->text()))
+            {
+                OrderList *orderWidget = new OrderList(order);
+                connect(orderWidget, &OrderList::updateOrder, this ,&AdministratorInterface::updateOrderList);
+                connect(orderWidget, &OrderList::updateReport, this ,&AdministratorInterface::updateReport);
+                m_queryOrder->addWidget(orderWidget);
+            }
+        }
+        else if(m_orderMode == 2)
+        {
+            if(order.num == ui->spinBox_num->value())
+            {
+                OrderList *orderWidget = new OrderList(order);
+                connect(orderWidget, &OrderList::updateOrder, this ,&AdministratorInterface::updateOrderList);
+                connect(orderWidget, &OrderList::updateReport, this ,&AdministratorInterface::updateReport);
+                m_queryOrder->addWidget(orderWidget);
+            }
+        }
+        else
+        {
+            if(order.state == ui->comboBox_state->currentIndex())
+            {
+                OrderList *orderWidget = new OrderList(order);
+                connect(orderWidget, &OrderList::updateOrder, this ,&AdministratorInterface::updateOrderList);
+                connect(orderWidget, &OrderList::updateReport, this ,&AdministratorInterface::updateReport);
+                m_queryOrder->addWidget(orderWidget);
+            }
+        }
+    }
 }
 
 void AdministratorInterface::on_pushButton_clicked()
@@ -322,3 +399,21 @@ void AdministratorInterface::on_pushButton_queryR_clicked()
     }
     m_report->initReport(reportList);
 }
+
+void AdministratorInterface::on_pushButton_r_clicked()
+{
+    updateClassList();
+}
+
+#include "selectclassdialog.h"
+void AdministratorInterface::on_pushButton_delClass_clicked()
+{
+
+    SelectClassDialog *selectClass = new SelectClassDialog(Service->classes());
+    if(QDialog::Accepted == selectClass->exec())
+    {
+        Service->rep()->delClass(selectClass->className());
+    }
+    updateClassList();
+}
+

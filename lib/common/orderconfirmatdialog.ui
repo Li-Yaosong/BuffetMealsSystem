@@ -26,7 +26,10 @@
    <item>
     <widget class="QTextEdit" name="textEdit">
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true">background-color: rgb(255, 255, 255);
+font: 25 12pt '微软雅黑 Light';
+color: rgb(0,0,0);
+border: none;border-radius:8px;</string>
      </property>
     </widget>
    </item>

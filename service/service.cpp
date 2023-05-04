@@ -119,37 +119,34 @@ void Service::addClass(const Class &classInfo)
     }
 }
 
-void Service::delClass(const QStringList &delList)
+void Service::delClass(const QString &name)
 {
     QSqlQuery query;
-    for(const QString &name : delList)
+    query.prepare(QString("update `menu` set class = '%1' where class='%2'").arg(QStringLiteral("未分类"), name));
+    if(!query.exec())
     {
-        query.prepare(QString("delete from menu where class='%1'").arg(name));
-        if(!query.exec())
-        {
-            m_console->appendDebug("del error");
-            qDebug() << "del error";
-            m_console->appendDebug(query.lastError().text().toLocal8Bit().data());
-            qDebug() << query.lastError().text().toLocal8Bit().data();
-        }
-        else
-        {
-            m_console->appendDebug("del ok");
-            qDebug() << "del ok";
-        }
-        query.prepare(QString("delete from menu_classification where class_name='%1'").arg(name));
-        if(!query.exec())
-        {
-            m_console->appendDebug("del error");
-            qDebug() << "del error";
-            m_console->appendDebug(query.lastError().text().toLocal8Bit().data());
-            qDebug() << query.lastError().text().toLocal8Bit().data();
-        }
-        else
-        {
-            m_console->appendDebug("del class ok");
-            qDebug() << "del class ok";
-        }
+        m_console->appendDebug("del error");
+        qDebug() << "del error";
+        m_console->appendDebug(query.lastError().text().toLocal8Bit().data());
+        qDebug() << query.lastError().text().toLocal8Bit().data();
+    }
+    else
+    {
+        m_console->appendDebug("del ok");
+        qDebug() << "del ok";
+    }
+    query.prepare(QString("delete from `menu_classification` where class_name='%1'").arg(name));
+    if(!query.exec())
+    {
+        m_console->appendDebug("del error");
+        qDebug() << "del error";
+        m_console->appendDebug(query.lastError().text().toLocal8Bit().data());
+        qDebug() << query.lastError().text().toLocal8Bit().data();
+    }
+    else
+    {
+        m_console->appendDebug("del class ok");
+        qDebug() << "del class ok";
     }
 }
 
