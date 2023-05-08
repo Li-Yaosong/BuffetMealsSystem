@@ -385,6 +385,7 @@ void AdministratorInterface::on_pushButton_clicked()
 void AdministratorInterface::on_pushButton_queryR_clicked()
 {
     QList<Report> reportList;
+    Service->rep()->organizeData();
     if(m_reportMode == 0)
     {
         reportList = Service->getDailyReport();

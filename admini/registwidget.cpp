@@ -16,6 +16,7 @@ RegistWidget::RegistWidget(QWidget *parent) :
     connect(ui->lineEdit_admi, &QLineEdit::textChanged, this, &RegistWidget::textChanged_slot);
     connect(ui->lineEdit_pass, &QLineEdit::textChanged, this, &RegistWidget::textChanged_slot);
     connect(ui->lineEdit_confirm, &QLineEdit::textChanged, this, &RegistWidget::textChanged_slot);
+    ui->label_prompt->hide();
 }
 
 RegistWidget::~RegistWidget()

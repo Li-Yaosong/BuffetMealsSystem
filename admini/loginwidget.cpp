@@ -16,7 +16,10 @@ LogInWidget::LogInWidget(QWidget *parent) :
     initStyle();
     connect(ui->lineEdit_admi, &QLineEdit::textChanged, this, &LogInWidget::textChanged_slot);
     connect(ui->lineEdit_pass, &QLineEdit::textChanged, this, &LogInWidget::textChanged_slot);
-    ui->pushButton_login->setEnabled(false);
+    if(ui->lineEdit_admi->text().isEmpty())
+    {
+        ui->pushButton_login->setEnabled(false);
+    }
     ui->label_prompt->hide();
 }
 
